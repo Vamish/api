@@ -192,7 +192,7 @@ block content
                     var keyword = $('#keyword').val();
                     var page = parseInt($('#page').val(), 10);
 
-                    var url = 'library/search/' + keyword;
+                    var url = 'search/' + keyword;
                     if ($.isNumeric(page)) {
                         url += '/page/' + page;
                     } else {
@@ -211,7 +211,7 @@ block content
                 case 'bookid':
                     var bookid = $('#bookid').val();
                     $.ajax({
-                        url: 'library/book/' + bookid,
+                        url: 'book/' + bookid,
                         type: 'get',
                         datatype: 'json',
                         success: function (data) {
@@ -226,7 +226,7 @@ block content
                         $('#top').val(100);
                     }
                     $.ajax({
-                        url: 'library/top/' + top,
+                        url: 'top/' + top,
                         type: 'get',
                         datatype: 'json',
                         success: function (data) {
