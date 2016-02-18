@@ -140,7 +140,7 @@ pageRouter.route('/:page').get(function (req, res) {
                 library.pageTotal = elem_select.children[length_children - 2].attribs.value;
                 library.pageCurrent = (page ? page : 1);
 
-                if (Number(library.pageCurrent) > Number(library.pageTotal)){
+                if (Number(library.pageCurrent) > Number(library.pageTotal)) {
                     library.message = "RANGE_OVERFLOW_AND_RETURN_LAST_PAGE"
                 }
 
@@ -157,7 +157,12 @@ pageRouter.route('/:page').get(function (req, res) {
                     book.name = elem.children[3].children[0].children[0].children[0].data;
 
                     //获取 作者/责任人
-                    book.author = elem.children[5].children[0].data;
+                    var author = elem.children[5].children[0].data;
+                    if (author != undefined) {
+                        book.author = author;
+                    } else {
+                        book.author = ""
+                    }
                     console.log(book.author);
 
                     //获取 出版社
