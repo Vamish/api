@@ -69,7 +69,12 @@ router.route('/:keyword').get(function (req, res) {
                     book.name = elem.children[3].children[0].children[0].children[0].data;
 
                     //获取 作者/责任人
-                    book.author = elem.children[5].children[0].data;
+                    var author = elem.children[5].children[0];
+                    if (author != undefined) {
+                        book.author = author.data;
+                    } else {
+                        book.author = ""
+                    }
 
                     //获取 出版社
                     book.publisher = elem.children[7].children[0].data;
@@ -157,13 +162,12 @@ pageRouter.route('/:page').get(function (req, res) {
                     book.name = elem.children[3].children[0].children[0].children[0].data;
 
                     //获取 作者/责任人
-                    var author = elem.children[5].children[0].data;
+                    var author = elem.children[5].children[0];
                     if (author != undefined) {
-                        book.author = author;
+                        book.author = author.data;
                     } else {
                         book.author = ""
                     }
-                    console.log(book.author);
 
                     //获取 出版社
                     book.publisher = elem.children[7].children[0].data;
