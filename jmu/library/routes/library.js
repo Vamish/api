@@ -46,7 +46,7 @@ router.route('/:keyword').get(function (req, res) {
                 console.log('总共有:' + hasBook + '本书');
 
                 library.status = 'Success';
-                library.total = hasBook;
+                library.booksTotal = hasBook;
 
                 var booksList = [];
 
@@ -129,7 +129,7 @@ pageRouter.route('/:page').get(function (req, res) {
             if (hasBook != '') {
                 console.log('总共有:' + hasBook + '本书');
 
-                library.status = 'Success';
+                library.status = 'success';
                 library.total = hasBook;
 
                 var booksList = [];
@@ -151,7 +151,7 @@ pageRouter.route('/:page').get(function (req, res) {
                     book.No = i + 1;
 
                     //获取 书本ID
-                    book.ID = elem.children[1].children[0].attribs.value;
+                    book.bookid = elem.children[1].children[0].attribs.value;
 
                     //获取 书本名
                     book.name = elem.children[3].children[0].children[0].children[0].data;
@@ -176,7 +176,7 @@ pageRouter.route('/:page').get(function (req, res) {
 
                 library['booksList'] = booksList;
             } else {
-                library.status = 'false';
+                library.status = 'fail';
                 library.message = 'No_Book_Found';
             }
         }

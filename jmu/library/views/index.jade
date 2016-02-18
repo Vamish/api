@@ -1,5 +1,313 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    header.site-header.jumbotron.library-header
+        .container
+            h1 #{title}
+            p #{description}
+            p #{author}
+    .container
+        .col-lg-3.right-nav
+            h2 目录
+            .list-group
+                a(href="#",class='list-group-item active',data-panel='by-keyword') 关键词搜索
+                a(href="#",class='list-group-item',data-panel='by-bookid') 指定图书id搜索
+                a(href="#",class='list-group-item',data-panel='by-top') 热门关键词搜索
+            .list-group
+                a.list-group-item(href="#",data-panel='android') Android版下载
+                a.list-group-item(href="#",data-panel='web') 网页版试用
+        .col-lg-8.col-lg-offset-1.func-intro.active(data-panel='by-keyword')
+            h2  关键词搜索
+                small 使用说明
+            hr
+            h3 测试实例
+            .input-group
+                input.form-control.col-xs-4#keyword(type='text',placeholder='输入搜索的关键词')
+                input.form-control.col-xs-4#page(type='text',placeholder='页码，缺省值：1')
+                span.input-group-btn
+                    btn.btn.btn-default(type='button',onclick='engineStart("keyword")') 搜索!
+            .highlight
+                pre
+                    code#keyword_code
+            h3 调用地址
+            p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/search/{keyword}/page/{page}]
+            br
+            p 其中#[span.code.value keyword]表示#[strong 搜索关键词，不可省略]，
+            p #[span.code.value page]表示#[strong 指定搜索的页码]，可省略，缺省值为 1
+            br
+            h3 返回JSON 说明
+            .hightlight
+                pre.demo
+                    code#demo_json_explain
+            p 上面这段代码为搜索『日本设计』返回的结果（非完整版）。
+            p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，在有返回书本列表的情况下，该值都为#[span.code.value success]，否则为#[span.code.value fail]，
+            p #[span.code.key booksTotal]，字符串型，表示#[strong 搜索到的书本总数]，
+            p #[span.code.key pageTotal]，字符串型，表示#[strong 总共的页数]。#[em 注意，每次搜索最多返回 50 本书的列表]，
+            p #[span.code.key pageCurrent]，字符串型，表示#[strong 当前所在的页码]，
+            p #[span.code.key booksList]，数组，元素为搜索到的图书的JSON 对象，
+            p #[span.code.key No]，Number型，表示#[strong 当前书本信息的序号]，
+            p #[span.code.key bookid]，字符串型，表示#[strong 当前该书本的id号]，可用于查找该书具体信息，
+            p #[span.code.key name],字符串型，表示#[strong 书名]，
+            p #[span.code.key author],字符串型，表示#[strong 作者/负责人]，
+            p #[span.code.key publisher],字符串型，表示#[strong 出版社]，
+            p #[span.code.key callNumber],字符串型，表示#[strong 索书号]，
+            p #[span.code.key total],字符串型，表示#[strong 该书馆藏总数量]，
+            p #[span.code.key available],字符串型，表示#[strong 该书当前可借数]，
+
+            br
+            h4 相关错误
+            .highlight
+                pre.demo
+                    code#demo_no_book_found
+            p 当#[strong 搜索结果为空]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value No_Book_Found]，表示#[strong 没有找到]。
+            br
+            .highlight
+                pre.demo
+                    code#demo_range_overflow
+            p 当#[strong 搜索页数超过总页数]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value RANGE_OVERFLOW_AND_RETURN_LAST_PAGE]，表示#[strong 范围溢出并返回最后一页的数据]。
+        .col-lg-8.col-lg-offset-1.func-intro(data-panel='by-bookid')
+            h2 指定图书id搜索
+                small 使用说明
+            hr
+            h3 测试实例
+            .input-group
+                input.form-control#bookid(type='text',placeholder='如：3885656',value='3885656')
+                span.input-group-btn
+                    btn.btn.btn-default(type='button',onclick='engineStart("bookid")') 搜索!
+            .highlight
+                pre
+                    code#bookid_code
+            h3 调用地址
+            p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/book/{bookid}]
+            br
+            p 其中#[span.code.value bookid]表示#[strong 搜索的书本id，不可省略]，
+            br
+            h3 返回JSON 说明
+            .hightlight
+                pre.demo
+                    code#demo_book_info
+            p 上面这段代码为搜索『3885656』返回的结果（非完整版）。
+            p 其中#[span.code.key infoes]，数组，表示#[strong 馆藏每一本书的具体信息]，该值的length 即为该书的馆藏总数，
+            p #[span.code.key location]，字符串型，表示#[strong 该书的馆藏地]，
+            p #[span.code.key callNumber]，字符串型，表示#[strong 索书号]，
+            p #[span.code.key bookStatus ]，字符串型，表示#[strong 该书当前借阅状态]，
+            p #[span.code.key bookType],字符串型，表示#[strong 该书的借阅类型]，
+        .col-lg-8.col-lg-offset-1.func-intro(data-panel='by-top')
+            h2  热门关键词搜索
+                small 使用说明
+            hr
+            h3 测试实例
+            .input-group
+                input.form-control#top(type='text',placeholder='范围: 1 ~ 100，缺省值: 100')
+                span.input-group-btn
+                    btn.btn.btn-default(type='button',onclick='engineStart("top")') 搜索!
+            .highlight
+                pre
+                    code#top_code
+            h3 调用地址
+            p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}]
+            br
+            p 其中#[span.code.value top]表示#[strong 前top个热门搜索词]，可缺省，缺省值 100
+            br
+            h3 返回值说明
+            .hightlight
+                pre.demo
+                    code#demo_top
+            p 上面这段代码为搜索『2』返回的数组。
+        .col-lg-8.col-lg-offset-1.func-intro(data-panel='android')
+            h2 android 版下载
+            hr
+            .media
+                .media-left.media-middle
+                    a(href="#")
+                        img.media-object(src="/images/toaru.png")
+                .media-body
+                    h4.media-heading ToarunoLibris
+                    p.media-intro ToarunoLibris 是由#[a(href="#") Vango]开发的Android 版集大图书馆APP
+            .media
+                .media-left.media-middle
+                    a(href="#")
+                    img.media-object(src="/images/toaru.png")
+                .media-body
+                    h4.media-heading ToarunoLibris
+                    p.media-intro ToarunoLibris 是由#[a(href="#") Vango]开发的Android 版集大图书馆APP
+            .media
+                .media-left.media-middle
+                    a(href="#")
+                    img.media-object(src="/images/toaru.png")
+                .media-body
+                    h4.media-heading ToarunoLibris
+                    p.media-intro ToarunoLibris 是由#[a(href="#") Vango]开发的Android 版集大图书馆APP
+    script(type='text/javascript').
+        $('a.list-group-item').click(function (e) {
+            e.preventDefault();
+            $('a.list-group-item').removeClass('active');
+            $(this).addClass('active');
+
+            var panelArray = [
+                "div[data-panel=by-keyword]",
+                "div[data-panel=by-bookid]",
+                "div[data-panel=by-top]",
+                "div[data-panel=android]"
+            ];
+
+            var obj = {
+                'by-keyword': 0,
+                'by-bookid': 1,
+                'by-top': 2,
+                'android': 3,
+                'web': 4
+            };
+            $('.func-intro').removeClass('active');
+            $(panelArray[obj[$(this).data('panel')]]).addClass('active');
+        });
+
+        function engineStart(type) {
+            if (!json_formater)
+                var json_formater = {};
+
+            json_formater.json = {
+                replacer: function (match, pIndent, pKey, pVal, pEnd) {
+                    var key = '<span class=json-key>';
+                    var val = '<span class=json-value>';
+                    var str = '<span class=json-string>';
+                    var r = pIndent || '';
+                    if (pKey)
+                        r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+                    if (pVal)
+                        r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+                    return r + (pEnd || '');
+                },
+                prettyPrint: function (obj) {
+                    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+                    return JSON.stringify(obj, null, 3)
+                            .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                            .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                            .replace(jsonLine, json_formater.json.replacer);
+                }
+            };
+
+            switch (type) {
+                case 'keyword':
+                    var keyword = $('#keyword').val();
+                    var page = parseInt($('#page').val(), 10);
+
+                    var url = 'library/search/' + keyword;
+                    if ($.isNumeric(page)) {
+                        url += '/page/' + page;
+                    } else {
+                        $('#page').val(1);
+                        url += '/page/' + 1;
+                    }
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        datatype: 'json',
+                        success: function (data) {
+                            $('#keyword_code').html(json_formater.json.prettyPrint(data));
+                        }
+                    });
+                    break;
+                case 'bookid':
+                    var bookid = $('#bookid').val();
+                    $.ajax({
+                        url: 'library/book/' + bookid,
+                        type: 'get',
+                        datatype: 'json',
+                        success: function (data) {
+                            $('#bookid_code').html(json_formater.json.prettyPrint(data));
+                        }
+                    });
+                    break;
+                case 'top':
+                    var top = $('#top').val();
+                    console.log(top);
+                    if (top.trim() == "") {
+                        $('#top').val(100);
+                    }
+                    $.ajax({
+                        url: 'library/top/' + top,
+                        type: 'get',
+                        datatype: 'json',
+                        success: function (data) {
+                            $('#top_code').html(json_formater.json.prettyPrint(data));
+                        }
+                    });
+                    break;
+            }
+        }
+
+        (function ($) {
+
+            if (!json_formater)
+                var json_formater = {};
+
+            json_formater.json = {
+                replacer: function (match, pIndent, pKey, pVal, pEnd) {
+                    var key = '<span class=json-key>';
+                    var val = '<span class=json-value>';
+                    var str = '<span class=json-string>';
+                    var r = pIndent || '';
+                    if (pKey)
+                        r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+                    if (pVal)
+                        r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+                    return r + (pEnd || '');
+                },
+                prettyPrint: function (obj) {
+                    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+                    return JSON.stringify(obj, null, 3)
+                            .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                            .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                            .replace(jsonLine, json_formater.json.replacer);
+                }
+            };
+
+            var demo_json_explain = {
+                "status": "success",
+                "booksTotal": "13",
+                "pageTotal": "1",
+                "pageCurrent": "1",
+                "booksList": [{
+                    "No": 1,
+                    "bookid": "3485229",
+                    "name": "世界艺术设计简史 [专著]",
+                    "author": "瞿孜文编著",
+                    "publisher": "中南大学出版社",
+                    "callNumber": "J509.1/QZ20",
+                    "total": "1",
+                    "available": "1"
+                }]
+            };
+
+            $('#demo_json_explain').html(json_formater.json.prettyPrint(demo_json_explain));
+
+            var demo_no_book_found = {"status": "fail", "message": "No_Book_Found"};
+            $('#demo_no_book_found').html(json_formater.json.prettyPrint(demo_no_book_found));
+
+            var demo_range_overflow = {
+                "status": "success",
+                "total": "13",
+                "pageTotal": "1",
+                "pageCurrent": "2",
+                "message": "RANGE_OVERFLOW_AND_RETURN_LAST_PAGE",
+                "booksList": [{'...': '//书本信息'}]
+            };
+            $('#demo_range_overflow').html(json_formater.json.prettyPrint(demo_range_overflow));
+
+            var demo_book_info = {
+                "infoes": [{
+                    "location": "嘉庚馆自科书库",
+                    "callNumber": "TP312JA/LG7",
+                    "bookStatus": "2016.03.14 应还",
+                    "bookType": "普通图书"
+                }]
+            };
+            $('#demo_book_info').html(json_formater.json.prettyPrint(demo_book_info));
+
+            var demo_top = ["java(124)", "测试(92)"];
+            $('#demo_top').html(json_formater.json.prettyPrint(demo_top));
+
+
+        })(jQuery);
+

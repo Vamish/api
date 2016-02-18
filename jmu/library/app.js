@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var index = require('./routes/index');
+
 var library = require('./routes/library');
 var book = require('./routes/book');
 var top = require('./routes/top');
@@ -22,6 +24,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/jmu/library',index);
 
 app.use('/jmu/library/search', library);
 app.use('/jmu/library/book', book);
