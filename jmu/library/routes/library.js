@@ -158,6 +158,7 @@ pageRouter.route('/:page').get(function (req, res) {
 
                     //获取 作者/责任人
                     book.author = elem.children[5].children[0].data;
+                    console.log(book.author);
 
                     //获取 出版社
                     book.publisher = elem.children[7].children[0].data;
