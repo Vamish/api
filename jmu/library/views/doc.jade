@@ -3,6 +3,7 @@ extends layout
 block content
     header.site-header.jumbotron.library-header
         .container
+            span#ts
             h1 __API for JMU Library
             p 为每个人提供更可读、高效的图书馆图书资源。返回的所有数据内容皆来自于#[a(href="http://smjslib.jmu.edu.cn",target="_blank") 集大图书馆官网]。
             p 本网站目前由#[a(href="http://weibo.com/u/2025660943") Vango]进行管理维护
@@ -244,7 +245,7 @@ block content
             var m = $('meta[name=theme-color]');
             setInterval(function () {
                 $(m).attr('content', colors[Math.ceil(Math.random() * 5) - 1]);
-                console.log($(m).attr('content'));
+                $('#ts').text($(m).attr('content'));
             }, 5000);
 
 
