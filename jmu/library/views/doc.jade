@@ -241,10 +241,10 @@ block content
         (function ($) {
 
             //改变Chrome Tab 的色值
-            var colors = ["#5E8B30", "#79A74A", "#70A23E", "#5F8D30", "#5F8E2F"];
+            var colors = ["#5E8B30", "#70A23E", "#5F8D30", "#5F8E2F"];
             var m = $('meta[name=theme-color]');
             setInterval(function () {
-                $(m).attr('content', colors[Math.ceil(Math.random() * 5) - 1]);
+                $(m).attr('content', colors[Math.ceil(Math.random() * 4) - 1]);
                 $('#ts').text($(m).attr('content'));
             }, 5000);
 
