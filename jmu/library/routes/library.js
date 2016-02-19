@@ -146,7 +146,7 @@ pageRouter.route('/:page').get(function (req, res) {
                 library.pageCurrent = (page ? page : 1);
 
                 if (Number(library.pageCurrent) > Number(library.pageTotal)) {
-                    library.message = "RANGE_OVERFLOW_AND_RETURN_LAST_PAGE"
+                    library.message = "OUT_OF_RANGE_AND_RETURN_LAST_PAGE"
                 }
 
                 $('tbody tr').each(function (i, elem) {

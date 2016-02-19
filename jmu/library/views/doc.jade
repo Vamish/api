@@ -63,8 +63,8 @@ block content
             br
             .highlight
                 pre.demo
-                    code#demo_range_overflow
-            p 当#[strong 搜索页数超过总页数]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value RANGE_OVERFLOW_AND_RETURN_LAST_PAGE]，表示#[strong 范围溢出并返回最后一页的数据]。
+                    code#demo_out_of_range
+            p 当#[strong 搜索页数超过总页数]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value OUT_OF_RANGE_AND_RETURN_LAST_PAGE]，表示#[strong 超出搜索范围并返回最后一页的数据]。
         #anchor_bookid.col-lg-8.col-lg-offset-1.func-intro(data-panel='by-bookid')
             h2 指定图书id搜索
                 small 使用说明
@@ -293,15 +293,15 @@ block content
             var demo_no_book_found = {"status": "fail", "message": "NO_BOOK_FOUND"};
             $('#demo_no_book_found').html(json_formater.json.prettyPrint(demo_no_book_found));
 
-            var demo_range_overflow = {
+            var demo_out_of_range = {
                 "status": "success",
                 "total": "13",
                 "pageTotal": "1",
                 "pageCurrent": "2",
-                "message": "RANGE_OVERFLOW_AND_RETURN_LAST_PAGE",
-                "booksList": [{'...': '//书本信息'}]
+                "message": "OUT_OF_RANGE_AND_RETURN_LAST_PAGE",
+                "booksList": [{"...": "//书本信息"}]
             };
-            $('#demo_range_overflow').html(json_formater.json.prettyPrint(demo_range_overflow));
+            $('#demo_out_of_range').html(json_formater.json.prettyPrint(demo_out_of_range));
 
             var demo_book_info = {
                 "infoes": [{
