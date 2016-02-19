@@ -10,13 +10,13 @@ block content
         .col-lg-3.right-nav
             h2 目录
             .list-group
-                a(href="#",class='list-group-item active',data-panel='by-keyword') 关键词搜索
-                a(href="#",class='list-group-item',data-panel='by-bookid') 指定图书id搜索
-                a(href="#",class='list-group-item',data-panel='by-top') 热门关键词搜索
+                a(href="#anchor_keyword",class='list-group-item active',data-panel='by-keyword') 关键词搜索
+                a(href="#anchor_bookid",class='list-group-item',data-panel='by-bookid') 指定图书id搜索
+                a(href="#anchor_top",class='list-group-item',data-panel='by-top') 热门关键词搜索
             .list-group
-                a.list-group-item(href="#",data-panel='android') Android版下载
+                a.list-group-item(href="#anchor_android",data-panel='android') Android版下载
                 a.list-group-item(href="#",data-panel='web') 网页版试用
-        .col-lg-8.col-lg-offset-1.func-intro.active(data-panel='by-keyword')
+        #anchor_keyword.col-lg-8.col-lg-offset-1.func-intro.active(data-panel='by-keyword')
             h2  关键词搜索
                 small 使用说明
             hr
@@ -65,7 +65,7 @@ block content
                 pre.demo
                     code#demo_range_overflow
             p 当#[strong 搜索页数超过总页数]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value RANGE_OVERFLOW_AND_RETURN_LAST_PAGE]，表示#[strong 范围溢出并返回最后一页的数据]。
-        .col-lg-8.col-lg-offset-1.func-intro(data-panel='by-bookid')
+        #anchor_bookid.col-lg-8.col-lg-offset-1.func-intro(data-panel='by-bookid')
             h2 指定图书id搜索
                 small 使用说明
             hr
@@ -92,7 +92,7 @@ block content
             p #[span.code.key callNumber]，字符串型，表示#[strong 索书号]，
             p #[span.code.key bookStatus ]，字符串型，表示#[strong 该书当前借阅状态]，
             p #[span.code.key bookType],字符串型，表示#[strong 该书的借阅类型]，
-        .col-lg-8.col-lg-offset-1.func-intro(data-panel='by-top')
+        #anchor_top.col-lg-8.col-lg-offset-1.func-intro(data-panel='by-top')
             h2  热门关键词搜索
                 small 使用说明
             hr
@@ -114,7 +114,7 @@ block content
                 pre.demo
                     code#demo_top
             p 上面这段代码为搜索『2』返回的数组。
-        .col-lg-8.col-lg-offset-1.func-intro(data-panel='android')
+        #anchor_android.col-lg-8.col-lg-offset-1.func-intro(data-panel='android')
             h2 android 版下载
             hr
             .media
@@ -140,7 +140,7 @@ block content
                     p.media-intro ToarunoLibris 是由#[a(href="#") Vango]开发的Android 版集大图书馆APP
     script(type='text/javascript').
         $('a.list-group-item').click(function (e) {
-            e.preventDefault();
+            //e.preventDefault();
             $('a.list-group-item').removeClass('active');
             $(this).addClass('active');
 
