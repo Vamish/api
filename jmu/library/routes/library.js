@@ -187,7 +187,7 @@ pageRouter.route('/:page').get(function (req, res) {
                 library['booksList'] = booksList;
             } else {
                 library.status = 'fail';
-                library.message = 'No_Book_Found';
+                library.message = 'NO_BOOK_FOUND';
             }
         }
 

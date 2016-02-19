@@ -59,7 +59,7 @@ block content
             .highlight
                 pre.demo
                     code#demo_no_book_found
-            p 当#[strong 搜索结果为空]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value No_Book_Found]，表示#[strong 没有找到]。
+            p 当#[strong 搜索结果为空]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value NO_BOOK_FOUND]，表示#[strong 没有找到]。
             br
             .highlight
                 pre.demo
@@ -290,7 +290,7 @@ block content
 
             $('#demo_json_explain').html(json_formater.json.prettyPrint(demo_json_explain));
 
-            var demo_no_book_found = {"status": "fail", "message": "No_Book_Found"};
+            var demo_no_book_found = {"status": "fail", "message": "NO_BOOK_FOUND"};
             $('#demo_no_book_found').html(json_formater.json.prettyPrint(demo_no_book_found));
 
             var demo_range_overflow = {
