@@ -5,7 +5,7 @@ block content
         .container
             h1 __API for JMU Library
             p 为每个人提供更可读、有效的图书馆图书资源。返回的所有数据内容皆来自于#[a(href="http://smjslib.jmu.edu.cn",target="_blank") 集大图书馆官网]。
-            p 本网站目前由#[a(href="http://weibo.com/u/2025660943") Vango]进行维护
+            p 本网站目前由#[a(href="http://weibo.com/u/2025660943") Vango]进行管理维护
     .container
         .col-lg-3.right-nav
             h2 目录
@@ -48,7 +48,7 @@ block content
             p #[span.code.key No]，Number型，表示#[strong 当前书本信息的序号]，
             p #[span.code.key bookid]，字符串型，表示#[strong 当前该书本的id号]，可用于查找该书具体信息，
             p #[span.code.key name],字符串型，表示#[strong 书名]，
-            p #[span.code.key author],字符串型，表示#[strong 作者/负责人]，
+            p #[span.code.key author],字符串型，表示#[strong 作者/负责人]，#[em 注意：该值可能为空，即book.author=""]
             p #[span.code.key publisher],字符串型，表示#[strong 出版社]，
             p #[span.code.key callNumber],字符串型，表示#[strong 索书号]，
             p #[span.code.key total],字符串型，表示#[strong 该书馆藏总数量]，
