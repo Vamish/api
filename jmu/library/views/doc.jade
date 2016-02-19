@@ -32,8 +32,8 @@ block content
             h3 调用地址
             p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/search/{keyword}/page/{page}]
             br
-            p 其中#[span.code.value keyword]表示#[strong 搜索关键词，不可省略]，
-            p #[span.code.value page]表示#[strong 指定搜索的页码]，可省略，缺省值为 1
+            p 其中#[span.code.value {keyword}]表示#[strong 搜索关键词，不可省略]，
+            p #[span.code.value {page}]表示#[strong 指定搜索的页码]，可省略，缺省值为 1
             br
             h3 返回JSON 说明
             .hightlight
@@ -80,7 +80,7 @@ block content
             h3 调用地址
             p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/book/{bookid}]
             br
-            p 其中#[span.code.value bookid]表示#[strong 搜索的书本id，不可省略]，
+            p 其中#[span.code.value {bookid}]表示#[strong 搜索的书本id，不可省略]，
             br
             h3 返回JSON 说明
             .hightlight
@@ -107,7 +107,7 @@ block content
             h3 调用地址
             p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}]
             br
-            p 其中#[span.code.value top]表示#[strong 前top个热门搜索词]，可缺省，缺省值 100
+            p 其中#[span.code.value {top}]表示#[strong 前top个热门搜索词]，可缺省，缺省值 100
             br
             h3 返回值说明
             .hightlight
