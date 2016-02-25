@@ -87,7 +87,8 @@ block content
                 pre.demo
                     code#demo_book_info
             p 上面这段代码为搜索『3885656』返回的结果（截取）。
-            p 其中#[span.code.key infoes]，数组，表示#[strong 馆藏每一本书的具体信息]，该值的length 即为该书的馆藏总数，
+            p 其中#[span.code.key intro]，字符串型，表示#[strong 该书内容简介]，
+            p #[span.code.key infoes]，数组，表示#[strong 馆藏每一本书的具体信息]，该值的length 即为该书的馆藏总数，
             p #[span.code.key location]，字符串型，表示#[strong 该书的馆藏地]，
             p #[span.code.key callNumber]，字符串型，表示#[strong 索书号]，
             p #[span.code.key bookStatus ]，字符串型，表示#[strong 该书当前借阅状态]，
@@ -304,6 +305,7 @@ block content
             $('#demo_out_of_range').html(json_formater.json.prettyPrint(demo_out_of_range));
 
             var demo_book_info = {
+                "intro": "本书全面介绍JavaScript 的基本知识、高级技巧和实例,全书共17章,包括JavaScript 基础知识、HTML 基础、数据类型和变量、表达式与运算符、JavaScript程序核心语法、JavaScript核心对象、JavaScript中的事件、window对象、屏幕和浏览器对象、文档对象、历史对象和地址对象、表单对象和图片对象、Ajax基础、导航菜单特效案例、文字和图片特效案例、按钮链接和页面特效案例、广告代码特效案例等内容。",
                 "infoes": [{
                     "location": "嘉庚馆自科书库",
                     "callNumber": "TP312JA/LG7",

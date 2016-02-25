@@ -43,9 +43,22 @@ router.get('/:bookid', function (req, res, next) {
 
                 infoes.push(info);
             });
+
+            //console.log($('#ctl00_ContentPlaceHolder1_bookcardinfolbl')[0].children);
+            var introTag = $('#ctl00_ContentPlaceHolder1_bookcardinfolbl')[0];
+            for (var i = 0, len = introTag.children.length; i < len; i++) {
+                if (introTag.children[i].type == 'tag'
+                    && introTag.children[i].name == 'br'
+                    && introTag.children[i].next.type == 'tag'
+                    && introTag.children[i].next.name == 'br') {
+                    console.log(introTag.children[i].prev.data);
+                    bookInfo.intro = introTag.children[i].prev.data.trim();
+                }
+            }
+
             bookInfo.infoes = infoes;
 
-            console.log(bookInfo);
+            //console.log(bookInfo);
             _res.send(bookInfo);
         }
     });

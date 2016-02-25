@@ -1,6 +1,6 @@
 {
   "name": "library",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "api of JiMei Unversity's Library",
   "main": "./bin/www",
   "dependencies": {

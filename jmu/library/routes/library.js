@@ -34,6 +34,8 @@ router.route('/:keyword').get(function (req, res) {
 
     options.url = url;
 
+    console.log('搜索开始', '关键词', req.params.keyword, '页码', 1, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
+
     request(options, function (error, res, body) {
         if (!error && res.statusCode == 200) {
             //console.log(body);
@@ -97,6 +99,8 @@ router.route('/:keyword').get(function (req, res) {
                 library.message = 'No_Book_Found';
             }
         }
+        console.log('搜索结束', '关键词', req.params.keyword, '页码', 1, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
+
         _res.status(200)
             .send(library);
     });
@@ -124,6 +128,7 @@ pageRouter.route('/:page').get(function (req, res) {
     options.url = url;
     var library = {};
 
+    console.log('搜索开始','关键词', req.params.keyword, '页码', page, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
 
     request(options, function (error, res, body) {
         if (!error && res.statusCode == 200) {
@@ -191,6 +196,8 @@ pageRouter.route('/:page').get(function (req, res) {
             }
         }
 
+        console.log('搜索结束', '关键词', req.params.keyword, '页码', 1, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
+
         _res.status(200)
             .send(library);
     });
@@ -208,5 +215,21 @@ function completeGB2312(str) {
     }
     return complete;
 }
+
+Date.prototype.Format = function (fmt) { //author: meizz
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+};
 
 module.exports = router;
