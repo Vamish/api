@@ -5,140 +5,152 @@ block content
         .container
             h1 __API for JMU Library
             p 为每个人提供更可读、高效的图书馆图书资源。返回的所有数据内容皆来自于#[a(href="http://smjslib.jmu.edu.cn",target="_blank") 集大图书馆官网]
-            p 本网站目前由#[a(href="http://weibo.com/u/2025660943") Vango]进行管理维护
-    .container
-        .col-lg-3.right-nav
-            h2 目录
-            .list-group
-                a(href="#anchor_keyword",class='list-group-item active',data-panel='by-keyword') 关键词搜索
-                a(href="#anchor_bookid",class='list-group-item',data-panel='by-bookid') 指定图书id搜索
-                a(href="#anchor_top",class='list-group-item',data-panel='by-top') 热门关键词搜索
-            .list-group
-                a.list-group-item(href="#anchor_android",data-panel='android') Android版下载
-                a.list-group-item(href="#",data-panel='web') 网页版试用
-        #anchor_keyword.col-lg-8.col-lg-offset-1.func-intro.active(data-panel='by-keyword')
-            h2  关键词搜索
-                small 使用说明
-            hr
-            h3 测试实例
-            .input-group
-                input.form-control.col-xs-4#keyword(type='text',placeholder='输入搜索的关键词')
-                input.form-control.col-xs-4#page(type='text',placeholder='页码，缺省值：1')
-                span.input-group-btn
-                    btn.btn.btn-default(type='button',onclick='engineStart("keyword")') 搜索!
-            .highlight
-                pre
-                    code#keyword_code
-            h3 调用地址
-            p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/search/{keyword}/page/{page}]
-            br
-            p 其中#[span.code.value {keyword}]表示#[strong 搜索关键词，不可省略]，
-            p #[span.code.value {page}]表示#[strong 指定搜索的页码]，可省略，缺省值为 1
-            br
-            h3 返回JSON 说明
-            .hightlight
-                pre.demo
-                    code#demo_json_explain
-            p 上面这段代码为搜索『日本设计』返回的结果（截取）。
-            p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，在有返回书本列表的情况下，该值都为#[span.code.value success]，否则为#[span.code.value fail]，
-            p #[span.code.key booksTotal]，字符串型，表示#[strong 搜索到的书本总数]，
-            p #[span.code.key pageTotal]，字符串型，表示#[strong 总共的页数]。#[em 注意，每次搜索最多返回 50 本书的列表]，
-            p #[span.code.key pageCurrent]，字符串型，表示#[strong 当前所在的页码]，
-            p #[span.code.key booksList]，数组，元素为搜索到的图书的JSON 对象，
-            p #[span.code.key No]，Number型，表示#[strong 当前书本信息的序号]，
-            p #[span.code.key bookid]，字符串型，表示#[strong 当前该书本的id号]，可用于查找该书具体信息，
-            p #[span.code.key name],字符串型，表示#[strong 书名]，
-            p #[span.code.key author],字符串型，表示#[strong 作者/负责人]，#[em 注意：该值可能为空，即book.author=""]
-            p #[span.code.key publisher],字符串型，表示#[strong 出版社]，
-            p #[span.code.key callNumber],字符串型，表示#[strong 索书号]，
-            p #[span.code.key total],字符串型，表示#[strong 该书馆藏总数量]，
-            p #[span.code.key available],字符串型，表示#[strong 该书当前可借数]，
+            p 本网站目前由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]进行管理维护
 
-            br
-            h4 相关错误
-            .highlight
-                pre.demo
-                    code#demo_no_book_found
-            p 当#[strong 搜索结果为空]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value NO_BOOK_FOUND]，表示#[strong 没有找到]。
-            br
-            .highlight
-                pre.demo
-                    code#demo_out_of_range
-            p 当#[strong 搜索页数超过总页数]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为 #[span.code.value OUT_OF_RANGE_AND_RETURN_LAST_PAGE]，表示#[strong 超出搜索范围并返回最后一页的数据]。
-        #anchor_bookid.col-lg-8.col-lg-offset-1.func-intro(data-panel='by-bookid')
-            h2 指定图书id搜索
-                small 使用说明
-            hr
-            h3 测试实例
-            .input-group
-                input.form-control#bookid(type='text',placeholder='如：3885656',value='3885656')
-                span.input-group-btn
-                    btn.btn.btn-default(type='button',onclick='engineStart("bookid")') 搜索!
-            .highlight
-                pre
-                    code#bookid_code
-            h3 调用地址
-            p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/book/{bookid}]
-            br
-            p 其中#[span.code.value {bookid}]表示#[strong 搜索的书本id，不可省略]，
-            br
-            h3 返回JSON 说明
-            .hightlight
-                pre.demo
-                    code#demo_book_info
-            p 上面这段代码为搜索『3885656』返回的结果（截取）。
-            p 其中#[span.code.key intro]，字符串型，表示#[strong 该书内容简介]，
-            p #[span.code.key infoes]，数组，表示#[strong 馆藏每一本书的具体信息]，该值的length 即为该书的馆藏总数，
-            p #[span.code.key location]，字符串型，表示#[strong 该书的馆藏地]，
-            p #[span.code.key callNumber]，字符串型，表示#[strong 索书号]，
-            p #[span.code.key bookStatus ]，字符串型，表示#[strong 该书当前借阅状态]，
-            p #[span.code.key bookType],字符串型，表示#[strong 该书的借阅类型]，
-        #anchor_top.col-lg-8.col-lg-offset-1.func-intro(data-panel='by-top')
-            h2  热门关键词搜索
-                small 使用说明
-            hr
-            h3 测试实例
-            .input-group
-                input.form-control#top(type='text',placeholder='范围: 1 ~ 100，缺省值: 100')
-                span.input-group-btn
-                    btn.btn.btn-default(type='button',onclick='engineStart("top")') 搜索!
-            .highlight
-                pre
-                    code#top_code
-            h3 调用地址
-            p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}]
-            br
-            p 其中#[span.code.value {top}]表示#[strong 前top个热门搜索词]，可缺省，缺省值 100
-            br
-            h3 返回值说明
-            .hightlight
-                pre.demo
-                    code#demo_top
-            p 上面这段代码为搜索『2』返回的数组。
-        #anchor_android.col-lg-8.col-lg-offset-1.func-intro(data-panel='android')
-            h2 android 版下载
-            hr
-            .media
-                .media-left.media-middle
-                    a(href="#")
-                        img.media-object(src="/images/toaru.png")
-                .media-body
-                    h4.media-heading ToarunoLibris
-                    p.media-intro ToarunoLibris 是由#[a(href="#") Vango]开发的Android 版集大图书馆APP
-            .media
-                .media-left.media-middle
-                    a(href="#")
-                    img.media-object(src="/images/toaru.png")
-                .media-body
-                    h4.media-heading ToarunoLibris
-                    p.media-intro ToarunoLibris 是由#[a(href="#") Vango]开发的Android 版集大图书馆APP
-            .media
-                .media-left.media-middle
-                    a(href="#")
-                    img.media-object(src="/images/toaru.png")
-                .media-body
-                    h4.media-heading ToarunoLibris
-                    p.media-intro ToarunoLibris 是由#[a(href="#") Vango]开发的Android 版集大图书馆APP
+    .container-fluid
+        .col-md-8.col-md-offset-2
+            .col-md-3.right-nav
+                h2 目录
+                .list-group
+                    a(href="#anchor_keyword",class='list-group-item active',data-panel='by-keyword') #[i.fa.fa-bank] 关键词搜索
+                    a(href="#anchor_bookid",class='list-group-item',data-panel='by-bookid') #[i.fa.fa-bookmark] 指定图书id搜索
+                    a(href="#anchor_top",class='list-group-item',data-panel='by-top') #[i.fa.fa-fire] 热门关键词搜索
+                .list-group
+                    a.list-group-item(href="#anchor_android",data-panel='android') #[i.fa.fa-android] Android版下载
+                    a.list-group-item(href="#anchor_web",data-panel='web') #[i.fa.fa-chrome] 网页版试用
+                .list-group
+                    a.list-group-item(href='#anchor_present',data-panel='present') #[i.fa.fa-bullhorn] 展示说明
+            #anchor_keyword.col-md-9.func-intro.active(data-panel='by-keyword')
+                h2  关键词搜索
+                    small 使用说明
+                hr
+                h3 测试实例
+                .input-group
+                    input.form-control.col-xs-4#keyword(type='text',placeholder='输入搜索的关键词')
+                    input.form-control.col-xs-4#page(type='text',placeholder='页码，缺省值：1')
+                    span.input-group-btn
+                        btn.btn.btn-default(type='button',onclick='engineStart("keyword")') 搜索!
+                .highlight
+                    pre
+                        code#keyword_code
+                h3 调用地址
+                p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/search/{keyword}/page/{page}]
+                br
+                p 其中#[span.code.value {keyword}]表示#[strong 搜索关键词，不可省略]，
+                p #[span.code.value {page}]表示#[strong 指定搜索的页码]，可省略，缺省值为 1
+                br
+                h3 返回JSON 说明
+                .hightlight
+                    pre.demo
+                        code#demo_json_explain
+                p 上面这段代码为搜索『日本设计』返回的结果（截取）。
+                p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，在有返回书本列表的情况下，该值都为#[span.code.value success]，否则为#[span.code.value fail]，
+                p #[span.code.key booksTotal]，字符串型，表示#[strong 搜索到的书本总数]，
+                p #[span.code.key pageTotal]，字符串型，表示#[strong 总共的页数]。#[em 注意，每次搜索最多返回 50 本书的列表]，
+                p #[span.code.key pageCurrent]，字符串型，表示#[strong 当前所在的页码]，
+                p #[span.code.key booksList]，数组，元素为搜索到的图书的JSON 对象，
+                p #[span.code.key No]，Number型，表示#[strong 当前书本信息的序号]，
+                p #[span.code.key bookid]，字符串型，表示#[strong 当前该书本的id号]，可用于查找该书具体信息，
+                p #[span.code.key name],字符串型，表示#[strong 书名]，
+                p #[span.code.key author],字符串型，表示#[strong 作者/负责人]，#[em 注意：该值可能为空，即book.author=""]
+                p #[span.code.key publisher],字符串型，表示#[strong 出版社]，
+                p #[span.code.key callNumber],字符串型，表示#[strong 索书号]，
+                p #[span.code.key total],字符串型，表示#[strong 该书馆藏总数量]，
+                p #[span.code.key available],字符串型，表示#[strong 该书当前可借数]，
+
+                br
+                h4 相关错误
+                .highlight
+                    pre.demo
+                        code#demo_no_book_found
+                p 当#[strong 搜索结果为空]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value NO_BOOK_FOUND]，表示#[strong 没有找到]。
+                br
+                .highlight
+                    pre.demo
+                        code#demo_out_of_range
+                p 当#[strong 搜索页数超过总页数]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为 #[span.code.value OUT_OF_RANGE_AND_RETURN_LAST_PAGE]，表示#[strong 超出搜索范围并返回最后一页的数据]。
+            #anchor_bookid.col-md-9.func-intro(data-panel='by-bookid')
+                h2 指定图书id搜索
+                    small 使用说明
+                hr
+                h3 测试实例
+                .input-group
+                    input.form-control#bookid(type='text',placeholder='如：3885656',value='3885656')
+                    span.input-group-btn
+                        btn.btn.btn-default(type='button',onclick='engineStart("bookid")') 搜索!
+                .highlight
+                    pre
+                        code#bookid_code
+                h3 调用地址
+                p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/book/{bookid}]
+                br
+                p 其中#[span.code.value {bookid}]表示#[strong 搜索的书本id，不可省略]，
+                br
+                h3 返回JSON 说明
+                .hightlight
+                    pre.demo
+                        code#demo_book_info
+                p 上面这段代码为搜索『3885656』返回的结果（截取）。
+                p 其中#[span.code.key intro]，字符串型，表示#[strong 该书内容简介]，
+                p #[span.code.key infoes]，数组，表示#[strong 馆藏每一本书的具体信息]，该值的length 即为该书的馆藏总数，
+                p #[span.code.key location]，字符串型，表示#[strong 该书的馆藏地]，
+                p #[span.code.key callNumber]，字符串型，表示#[strong 索书号]，
+                p #[span.code.key bookStatus ]，字符串型，表示#[strong 该书当前借阅状态]，
+                p #[span.code.key bookType],字符串型，表示#[strong 该书的借阅类型]，
+            #anchor_top.col-md-9.func-intro(data-panel='by-top')
+                h2  热门关键词搜索
+                    small 使用说明
+                hr
+                h3 测试实例
+                .input-group
+                    input.form-control#top(type='text',placeholder='范围: 1 ~ 100，缺省值: 100')
+                    span.input-group-btn
+                        btn.btn.btn-default(type='button',onclick='engineStart("top")') 搜索!
+                .highlight
+                    pre
+                        code#top_code
+                h3 调用地址
+                p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}]
+                br
+                p 其中#[span.code.value {top}]表示#[strong 前top个热门搜索词]，可缺省，缺省值 100
+                br
+                h3 返回值说明
+                .hightlight
+                    pre.demo
+                        code#demo_top
+                p 上面这段代码为搜索『2』返回的数组。
+            #anchor_android.col-md-9.func-intro(data-panel='android')
+                h2 android 版下载
+                hr
+                .media
+                    .media-left.media-middle
+                        a(href="http://toaru.diviniti.cn/Libris/")
+                            img.media-object(src="/images/toaru.png")
+                    .media-body
+                        h4.media-heading ToarunoLibris
+                        p.media-intro ToarunoLibris 是由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]开发的Android 版集大图书馆APP(点击icon下载)
+                .media
+                    p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+            #anchor_web.col-md-9.func-intro(data-panel='web')
+                h2  网页版试用
+                hr
+                .media
+                    h4.media-heading 暂无展示
+                .media
+                    p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+            #anchor_present.col-md-9.func-intro(data-panel='present')
+                h2 网站说明
+                hr
+                p 如果您使用了本网站的资源并制作了先关的软件/网站，可以邮件#[a(href="mailto:toarunodiviniti@163.com?Subject=作品提交&body='SoftwareName': '软件名称',<br>'Author': '//作者署名',<br>'Platform': '//适用平台 Android / iOS / Web',<br>'Description': '//作品简介',<br>'DownloadLink': '//作品链接',<br>'SoftwareIcon': '//作品logo 正方形'<br>") 联系我] 或者 #[a(href="http://weibo.com/u/2025660943") 私信我]，您的作品将会在这个网站展示。
+                p 请在邮件或私信中发送大概发送包括如下字段的数据：
+                .highlight
+                    pre.demo
+                        code#upload_your_work
+                p 如果您对于此API的内容有更好的意见也请联系我。
+                br
+                p 本网站为开源网站，由Node.js Express框架搭建，
+                p 相关源代码可以通过Github找到。本站Repository： #[a(href="https://github.com/Vamish/api",target="_blank") #[i.fa.fa-github]Github]
+
     script(type='text/javascript').
         $('a.list-group-item').click(function (e) {
             //e.preventDefault();
@@ -149,7 +161,9 @@ block content
                 "div[data-panel=by-keyword]",
                 "div[data-panel=by-bookid]",
                 "div[data-panel=by-top]",
-                "div[data-panel=android]"
+                "div[data-panel=android]",
+                "div[data-panel=web]",
+                "div[data-panel=present]"
             ];
 
             var obj = {
@@ -157,7 +171,8 @@ block content
                 'by-bookid': 1,
                 'by-top': 2,
                 'android': 3,
-                'web': 4
+                'web': 4,
+                'present': 5
             };
             $('.func-intro').removeClass('active');
             $(panelArray[obj[$(this).data('panel')]]).addClass('active');
@@ -318,6 +333,18 @@ block content
             var demo_top = ["java(124)", "测试(92)"];
             $('#demo_top').html(json_formater.json.prettyPrint(demo_top));
 
+            var upload_your_work = {
+                "SoftwareName": "//软件名称",
+                "Author": "//作者署名",
+                "Platform": "//适用平台 Android / iOS / Web",
+                "Description": "//作品简介",
+                "DownloadLink": "//作品链接",
+                "SoftwareIcon": "//作品logo 正方形"
+            };
+            $('#upload_your_work').html(json_formater.json.prettyPrint(upload_your_work));
 
         })(jQuery);
 
+    script(type='text/javascript').
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1258052592'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258052592%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
