@@ -18,6 +18,7 @@ block content
                     a(href="#anchor_top",class='list-group-item',data-panel='by-top') #[i.fa.fa-fire] 热门关键词搜索
                 .list-group
                     a.list-group-item(href="#anchor_android",data-panel='android') #[i.fa.fa-android] Android版下载
+                    a.list-group-item(href="#anchor_ios",data-panel='ios') #[i.fa.fa-apple] iOS版下载
                     a.list-group-item(href="#anchor_web",data-panel='web') #[i.fa.fa-chrome] 网页版试用
                 .list-group
                     a.list-group-item(href='#anchor_present',data-panel='present') #[i.fa.fa-bullhorn] 网站说明
@@ -135,6 +136,14 @@ block content
                         p.media-intro ToarunoLibris 是由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]开发的Android 版集大图书馆APP(点击icon下载)
                 .media
                     p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+            #anchor_ios.col-md-9.func-intro(data-panel='ios')
+                h2 iOS版下载
+                hr
+                .media
+                    h4.media-heading 暂无展示
+                .media
+                    p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+
             #anchor_web.col-md-9.func-intro(data-panel='web')
                 h2  网页版试用
                 hr
@@ -183,6 +192,7 @@ block content
                 "div[data-panel=by-bookid]",
                 "div[data-panel=by-top]",
                 "div[data-panel=android]",
+                "div[data-panel=ios]",
                 "div[data-panel=web]",
                 "div[data-panel=present]",
                 "div[data-panel=version]"
@@ -193,9 +203,10 @@ block content
                 'by-bookid': 1,
                 'by-top': 2,
                 'android': 3,
-                'web': 4,
-                'present': 5,
-                'version': 6
+                'ios': 4,
+                'web': 5,
+                'present': 6,
+                'version': 7
             };
             $('.func-intro').removeClass('active');
             $(panelArray[obj[$(this).data('panel')]]).addClass('active');
