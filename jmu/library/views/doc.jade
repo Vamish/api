@@ -6,7 +6,7 @@ block content
             h1 _API for JMU Library
             p 为每个人提供更可读、高效的图书馆图书资源。返回的所有数据内容皆来自于#[a(href="http://smjslib.jmu.edu.cn",target="_blank") 集大图书馆官网]
             p 本网站目前由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]进行管理维护
-            p 当前版本：v 1.2
+            p 当前版本：v 1.2.1
 
     .container-fluid
         .col-md-8.col-md-offset-2
@@ -94,12 +94,19 @@ block content
                     pre.demo
                         code#demo_book_info
                 p 上面这段代码为搜索『3885656』返回的结果（截取）。
-                p 其中#[span.code.key intro]，字符串型，表示#[strong 该书内容简介]，
+                p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，成功时返回#[span.code.value success]，失败时返回#[span.code.value fail]，
+                p #[span.code.key intro]，字符串型，表示#[strong 该书内容简介]，
                 p #[span.code.key infoes]，数组，表示#[strong 馆藏每一本书的具体信息]，该值的length 即为该书的馆藏总数，
                 p #[span.code.key location]，字符串型，表示#[strong 该书的馆藏地]，
                 p #[span.code.key callNumber]，字符串型，表示#[strong 索书号]，
                 p #[span.code.key bookStatus ]，字符串型，表示#[strong 该书当前借阅状态]，
                 p #[span.code.key bookType],字符串型，表示#[strong 该书的借阅类型]，
+                br
+                h4 相关错误
+                .hightlight
+                    pre.demo
+                        code#demo_book_info_error
+                p 当#[strong 找不到相关搜索结果]时，返回上面的JSON，其中#[span.code.key message]的返回值为#[span.code.value NOT_DETAIL_FOUND]，表示#[strong 没有找到]。
             #anchor_top.col-md-9.func-intro(data-panel='by-top')
                 h2  热门关键词搜索
                     small 使用说明
@@ -166,9 +173,11 @@ block content
             #anchor_version.col-md-9.func-intro(data-panel='version')
                 h2 版本更新说明
                 hr
-                p 当前版本：V 1.2
+                p 当前版本：V 1.2.1
                 p 更新内容：
                     ul
+                        li 修复了『找不到相关书本id』是的BUG。
+                        li 更新了『按id搜索』的返回JSON与相关错误JSON。
                         li 更新了热门搜索词的返回结果。拆分了关键词与搜索频率。
                 hr
                 p 历史版本：V 1.1
@@ -364,6 +373,7 @@ block content
             $('#demo_out_of_range').html(json_formater.json.prettyPrint(demo_out_of_range));
 
             var demo_book_info = {
+                "status": "success",
                 "intro": "本书全面介绍JavaScript 的基本知识、高级技巧和实例......",
                 "infoes": [{
                     "location": "嘉庚馆自科书库",
@@ -373,6 +383,11 @@ block content
                 }]
             };
             $('#demo_book_info').html(json_formater.json.prettyPrint(demo_book_info));
+            var demo_book_info_error = {
+                "status": "fail",
+                "message": "NO_DETAIL_FOUND"
+            };
+            $('#demo_book_info_error').html(json_formater.json.prettyPrint(demo_book_info_error));
 
             var demo_top = [{"name": "java", "frequency": "169"}, {"name": "国富论", "frequency": "147"}];
             $('#demo_top').html(json_formater.json.prettyPrint(demo_top));

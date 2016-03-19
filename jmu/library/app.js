@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/jmu/library/doc',doc);
+app.use('/jmu/library/doc', doc);
 
 app.use('/jmu/library/search', library);
 app.use('/jmu/library/book', book);

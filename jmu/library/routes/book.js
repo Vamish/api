@@ -46,17 +46,23 @@ router.get('/:bookid', function (req, res, next) {
 
             //console.log($('#ctl00_ContentPlaceHolder1_bookcardinfolbl')[0].children);
             var introTag = $('#ctl00_ContentPlaceHolder1_bookcardinfolbl')[0];
-            for (var i = 0, len = introTag.children.length; i < len; i++) {
-                if (introTag.children[i].type == 'tag'
-                    && introTag.children[i].name == 'br'
-                    && introTag.children[i].next.type == 'tag'
-                    && introTag.children[i].next.name == 'br') {
-                    console.log(introTag.children[i].prev.data);
-                    bookInfo.intro = introTag.children[i].prev.data.trim();
+            if (introTag != undefined) {
+                bookInfo.status = "success";
+                for (var i = 0, len = introTag.children.length; i < len; i++) {
+                    if (introTag.children[i].type == 'tag'
+                        && introTag.children[i].name == 'br'
+                        && introTag.children[i].next.type == 'tag'
+                        && introTag.children[i].next.name == 'br') {
+                        console.log(introTag.children[i].prev.data);
+                        bookInfo.intro = introTag.children[i].prev.data.trim();
+                    }
                 }
-            }
 
-            bookInfo.infoes = infoes;
+                bookInfo.infoes = infoes;
+            } else {
+                bookInfo.status = "fail";
+                bookInfo.message = "NO_DETAIL_FOUND";
+            }
 
             //console.log(bookInfo);
             _res.send(bookInfo);
