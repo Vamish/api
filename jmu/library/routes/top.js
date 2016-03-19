@@ -24,7 +24,11 @@ router.get('/', function (req, res, next) {
             var topSearch = [];
             $('#top100Inner td').each(function (i, elem) {
                 if (elem.name === 'td') {
-                    topSearch.push(elem.children[1].children[0].data.trim());
+                    var raw = elem.children[1].children[0].data.trim();
+                    var top = {};
+                    top.name = raw.split('(')[0];
+                    top.frequency = raw.split('(')[1].split(')')[0];
+                    topSearch.push(top);
                 }
             });
 
@@ -55,7 +59,11 @@ router.get('/:range', function (req, res, next) {
             var topSearch = [];
             $('#top100Inner td').each(function (i, elem) {
                 if (elem.name === 'td') {
-                    topSearch.push(elem.children[1].children[0].data.trim());
+                    var raw = elem.children[1].children[0].data.trim();
+                    var top = {};
+                    top.name = raw.split('(')[0];
+                    top.frequency = raw.split('(')[1].split(')')[0];
+                    topSearch.push(top);
                 }
             });
 

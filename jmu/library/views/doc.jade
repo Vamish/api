@@ -3,11 +3,12 @@ extends layout
 block content
     header.site-header.jumbotron.library-header
         .container
-            h1 __API for JMU Library
+            h1 _API for JMU Library
             p 为每个人提供更可读、高效的图书馆图书资源。返回的所有数据内容皆来自于#[a(href="http://smjslib.jmu.edu.cn",target="_blank") 集大图书馆官网]
             p 本网站目前由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]进行管理维护
+            p 当前版本：v 1.2
 
-    .container-fluid
+    .container-fluid.row
         .col-md-8.col-md-offset-2
             .col-md-3.right-nav
                 h2 目录
@@ -19,7 +20,8 @@ block content
                     a.list-group-item(href="#anchor_android",data-panel='android') #[i.fa.fa-android] Android版下载
                     a.list-group-item(href="#anchor_web",data-panel='web') #[i.fa.fa-chrome] 网页版试用
                 .list-group
-                    a.list-group-item(href='#anchor_present',data-panel='present') #[i.fa.fa-bullhorn] 展示说明
+                    a.list-group-item(href='#anchor_present',data-panel='present') #[i.fa.fa-bullhorn] 网站说明
+                    a.list-group-item(href='#anchor_version',data-panel='version') #[i.fa.fa-rocket] 版本更新说明
             #anchor_keyword.col-md-9.func-intro.active(data-panel='by-keyword')
                 h2  关键词搜索
                     small 使用说明
@@ -119,6 +121,8 @@ block content
                     pre.demo
                         code#demo_top
                 p 上面这段代码为搜索『2』返回的数组。
+                p 其中#[span.code.key name]，字符串型，表示#[strong 热门关键词]
+                p #[span.code.key frequency]，字符串型，表示#[strong 该关键词被搜索次数]
             #anchor_android.col-md-9.func-intro(data-panel='android')
                 h2 android 版下载
                 hr
@@ -146,10 +150,27 @@ block content
                 .highlight
                     pre.demo
                         code#upload_your_work
-                p 如果您对于此API的内容有更好的意见也请联系我。
+                p 如果您对于此API的内容有更好的意见也请联系我，如还需提供那些新的字段/对当前字段还需进行二次拆分等。
                 br
                 p 本网站为开源网站，由Node.js Express框架搭建，
                 p 相关源代码可以通过Github找到。本站Repository： #[a(href="https://github.com/Vamish/api",target="_blank") #[i.fa.fa-github]Github]
+            #anchor_version.col-md-9.func-intro(data-panel='version')
+                h2 版本更新说明
+                hr
+                p 当前版本：V 1.2
+                p 更新内容：
+                    ul
+                        li 更新了热门搜索词的返回结果。拆分了关键词与搜索频率。
+                hr
+                p 历史版本：V 1.1
+                p 更新内容：
+                    ul
+                        li 添加了指定图书id搜索的书本简介#[span.code.key intro]字段。
+                hr
+                p 历史版本：V 1.0
+                p 更新内容：
+                    ul
+                        li 初版提交，实现关键词查询、图书id查询和热门搜索查询。
 
     script(type='text/javascript').
         $('a.list-group-item').click(function (e) {
@@ -163,7 +184,8 @@ block content
                 "div[data-panel=by-top]",
                 "div[data-panel=android]",
                 "div[data-panel=web]",
-                "div[data-panel=present]"
+                "div[data-panel=present]",
+                "div[data-panel=version]"
             ];
 
             var obj = {
@@ -172,7 +194,8 @@ block content
                 'by-top': 2,
                 'android': 3,
                 'web': 4,
-                'present': 5
+                'present': 5,
+                'version': 6
             };
             $('.func-intro').removeClass('active');
             $(panelArray[obj[$(this).data('panel')]]).addClass('active');
@@ -205,7 +228,8 @@ block content
 
             switch (type) {
                 case 'keyword':
-                    var keyword = $('#keyword').val();
+                    var rawValue = $('#keyword').val();
+                    var keyword = (rawValue.trim() != "") ? rawValue : prompt("请输入搜索的关键词", "Javascript");
                     var page = parseInt($('#page').val(), 10);
 
                     var url = 'search/' + keyword;
@@ -219,6 +243,9 @@ block content
                         url: url,
                         type: 'get',
                         datatype: 'json',
+                        beforeSend: function () {
+                            $('#keyword_code').html('加载中...');
+                        },
                         success: function (data) {
                             $('#keyword_code').html(json_formater.json.prettyPrint(data));
                         }
@@ -230,6 +257,9 @@ block content
                         url: 'book/' + bookid,
                         type: 'get',
                         datatype: 'json',
+                        beforeSend: function () {
+                            $('#bookid_code').html('加载中...');
+                        },
                         success: function (data) {
                             $('#bookid_code').html(json_formater.json.prettyPrint(data));
                         }
@@ -245,6 +275,9 @@ block content
                         url: 'top/' + top,
                         type: 'get',
                         datatype: 'json',
+                        beforeSend: function () {
+                            $('#top_code').html('加载中...');
+                        },
                         success: function (data) {
                             $('#top_code').html(json_formater.json.prettyPrint(data));
                         }
@@ -330,7 +363,7 @@ block content
             };
             $('#demo_book_info').html(json_formater.json.prettyPrint(demo_book_info));
 
-            var demo_top = ["java(124)", "测试(92)"];
+            var demo_top = [{"name": "java", "frequency": "169"}, {"name": "国富论", "frequency": "147"}];
             $('#demo_top').html(json_formater.json.prettyPrint(demo_top));
 
             var upload_your_work = {
