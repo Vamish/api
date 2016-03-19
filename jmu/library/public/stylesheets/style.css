@@ -67,6 +67,7 @@
 
 .func-intro {
     display: none;
+    padding-bottom: 60px;
 }
 
 .func-intro.active {
