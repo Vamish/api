@@ -140,7 +140,7 @@ pageRouter.route('/:page').get(function (req, res) {
                 console.log('总共有:' + hasBook + '本书');
 
                 library.status = 'success';
-                library.total = hasBook;
+                library.booksTotal = hasBook;
 
                 var booksList = [];
 
