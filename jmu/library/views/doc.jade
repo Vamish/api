@@ -6,7 +6,7 @@ block content
             h1 _API for JMU Library
             p 为每个人提供更可读、高效的图书馆图书资源。返回的所有数据内容皆来自于#[a(href="http://smjslib.jmu.edu.cn",target="_blank") 集大图书馆官网]
             p 本网站目前由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]进行管理维护
-            p 当前版本：v 1.2.1
+            p 当前版本：v 1.3.0
 
     .container-fluid
         .col-md-8.col-md-offset-2
@@ -16,6 +16,9 @@ block content
                     a(href="#anchor_keyword",class='list-group-item active',data-panel='by-keyword') #[i.fa.fa-bank] 关键词搜索
                     a(href="#anchor_bookid",class='list-group-item',data-panel='by-bookid') #[i.fa.fa-bookmark] 指定图书id搜索
                     a(href="#anchor_top",class='list-group-item',data-panel='by-top') #[i.fa.fa-fire] 热门关键词搜索
+                    a(href='#anchor_login',class='list-group-item',data-panel='login') #[i.fa.fa-sign-in] 用户登录
+                    a(href='#anchor_borrowed',class='list-group-item',data-panel='borrowed') #[i.fa.fa-book] 查询当前借阅
+                    a(href='#anchor_expired',class='list-group-item',data-panel='expired') #[i.fa.fa-arrow-circle-o-left] 查询催还图书(制作中)
                 .list-group
                     a.list-group-item(href="#anchor_android",data-panel='android') #[i.fa.fa-android] Android版下载
                     a.list-group-item(href="#anchor_ios",data-panel='ios') #[i.fa.fa-apple] iOS版下载
@@ -48,7 +51,7 @@ block content
                         code#demo_json_explain
                 p 上面这段代码为搜索『日本设计』返回的结果（截取）。
                 p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，在有返回书本列表的情况下，该值都为#[span.code.value success]，否则为#[span.code.value fail]，
-                p #[span.code.key booksTotal]，字符串型，表示#[strong 搜索到的书本总数]，
+                p #[span.code.key booksTotal]，整型，表示#[strong 搜索到的书本总数]，
                 p #[span.code.key pageTotal]，字符串型，表示#[strong 总共的页数]。#[em 注意，每次搜索最多返回 50 本书的列表]，
                 p #[span.code.key pageCurrent]，字符串型，表示#[strong 当前所在的页码]，
                 p #[span.code.key booksList]，数组，元素为搜索到的图书的JSON 对象，
@@ -131,6 +134,81 @@ block content
                 p 上面这段代码为搜索『2』返回的数组。
                 p 其中#[span.code.key name]，字符串型，表示#[strong 热门关键词]
                 p #[span.code.key frequency]，字符串型，表示#[strong 该关键词被搜索次数]
+            #anchor_login.col-md-9.func-intro(data-panel='login')
+                h2 用户登录
+                    small 使用说明
+                hr
+                h3 测试实例
+                .input-group
+                    input.form-control.col-xs-4#username(type='text',placeholder='输入你的学号')
+                    input.form-control.col-xs-4#password(type='text',placeholder='输入你的密码')
+                    span.input-group-btn
+                        btn.btn.btn-default(type='button',onclick='engineStart("login")') 搜索!
+                .highlight
+                    pre
+                        code#login_code
+                h3 调用地址
+                p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/login]
+                br
+                h3 返回值说明
+                .hightlight
+                    pre.demo
+                        code#demo_login
+                p 上面这段代码为登录成功的返回值。
+                p 其中#[span.code.key status]，字符串型，表示#[strong 登录状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
+                p #[span.code.key cookie]，字符串型，表示#[strong 登录成功的返回cookie]。#[strong 该值需要保存，后续浏览借阅情况与催还图书的时候需要使用]
+                br
+                h4 相关错误
+                .hightlight
+                    pre.demo
+                        code#demo_login_error_1
+                p 当#[strong 用户名或密码输入有误]时，返回上面的JSON，其中#[span.code.key message]的返回值为#[span.code.value NAME_OR_PWD_ERROR]，表示#[strong 输入有误]。
+                .hightlight
+                    pre.demo
+                        code#demo_login_error_2
+                p 当#[strong 访问超时]时，返回上面的JSON。
+                br
+            #anchor_borrowed.col-md-9.func-intro(data-panel='borrowed')
+                h2 查询当前借阅
+                    small 使用说明
+                hr
+                h3 测试实例
+                .input-group
+                    input.form-control.col-xs-4#cookie(type='text',placeholder='输入获取的cookie,可在上一步获取')
+                    span.input-group-btn
+                        btn.btn.btn-default(type='button',onclick='engineStart("borrowed")') 搜索!
+                .highlight
+                    pre
+                        code#borrowed_code
+                br
+                h3 返回值说明
+                .hightlight
+                    pre.demo
+                        code#demo_borrowed
+                p 上面这段代码为查询成功的返回值。
+                p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
+                p #[span.code.key booksTotal]，整型，表示#[strong 当前共借阅的书本总数]。
+                p #[span.code.key booksList]，数组，表示#[strong 返回的书本列表]。
+                p #[span.code.key No]，整型，表示#[strong 当前书本的序号]。
+                p #[span.code.key bookid]，字符串型，表示#[strong 当前书本的id]。
+                p #[span.code.key name]，字符串型，表示#[strong 当前书本的书名]。
+                p #[span.code.key author]，字符串型，表示#[strong 当前书本的作者]。
+                p #[span.code.key expireDate]，对象，表示#[strong 当前书本的超期时间]。其中包括#[span.code.key rawValue]未处理数据，#[span.code.key year]年 #[span.code.key month]月 #[span.code.key date]日。
+                p #[span.code.key renewable]，布尔型，表示#[strong 当前书本是否可续期]。#[span.code.value false]为不可借阅。#[em 续期功能可能会在后期加入]
+                p #[span.code.key type]，字符串型，表示#[strong 当前书本的类型]。
+                p #[span.code.key accessNo]，字符串型，表示#[strong 当前书本的登录号]。
+                p #[span.code.key borrowedDate]，对象，表示#[strong 当前书本的借阅时间]。其中包括#[span.code.key rawValue]未处理数据，#[span.code.key year]年 #[span.code.key month]月 #[span.code.key date]日。
+                br
+                h4 相关错误
+                .hightlight
+                    pre.demo
+                        code#demo_borrowed_1
+                p 当#[strong 没有cookie传入]时，返回上面的JSON。
+                .hightlight
+                    pre.demo
+                        code#demo_borrowed_2
+                p 当#[strong 连接失败]时，返回上面的JSON。
+                br
             #anchor_android.col-md-9.func-intro(data-panel='android')
                 h2 android 版下载
                 hr
@@ -173,7 +251,14 @@ block content
             #anchor_version.col-md-9.func-intro(data-panel='version')
                 h2 版本更新说明
                 hr
-                p 当前版本：V 1.2.1
+                p 当前版本：V 1.3.0
+                p 更新内容：
+                    ul
+                        li 新增登录、查询当前借阅功能。
+                        li 修改#[span.code.key booksTotal]字段类型为#[strong 整型]。
+                        li 修改#[span.code.key pageTotal]字段为#[span.code.key pagesTotal]。
+                hr
+                p 历史版本：V 1.2.1
                 p 更新内容：
                     ul
                         li 统一『按关键词搜索』是返回书本总数的字段为#[span.code.key booksTotal]。
@@ -181,12 +266,12 @@ block content
                         li 更新了『按id搜索』的返回结果JSON与相关错误JSON，添加搜索结果状态#[span.code.key status]字段。
                         li 更新了热门搜索词的返回结果。拆分了关键词与搜索频率。
                 hr
-                p 历史版本：V 1.1
+                p 历史版本：V 1.1.0
                 p 更新内容：
                     ul
                         li 添加了指定图书id搜索的书本简介#[span.code.key intro]字段。
                 hr
-                p 历史版本：V 1.0
+                p 历史版本：V 1.0.0
                 p 更新内容：
                     ul
                         li 初版提交，实现关键词查询、图书id查询和热门搜索查询。
@@ -205,7 +290,9 @@ block content
                 "div[data-panel=ios]",
                 "div[data-panel=web]",
                 "div[data-panel=present]",
-                "div[data-panel=version]"
+                "div[data-panel=version]",
+                "div[data-panel=login]",
+                "div[data-panel=borrowed]"
             ];
 
             var obj = {
@@ -216,7 +303,9 @@ block content
                 'ios': 4,
                 'web': 5,
                 'present': 6,
-                'version': 7
+                'version': 7,
+                'login': 8,
+                'borrowed': 9
             };
             $('.func-intro').removeClass('active');
             $(panelArray[obj[$(this).data('panel')]]).addClass('active');
@@ -304,6 +393,42 @@ block content
                         }
                     });
                     break;
+                case 'login':
+                    var username = $('#username').val();
+                    var password = $('#password').val();
+                    var user = {
+                        user: username,
+                        pwd: password
+                    };
+                    $.ajax({
+                        url: 'login',
+                        type: 'post',
+                        data: user,
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('#login_code').html('加载中...');
+                        },
+                        success: function (data) {
+                            $('#login_code').html(json_formater.json.prettyPrint(data));
+                        }
+                    });
+                    break;
+                case 'borrowed':
+                    $.ajax({
+                        url: 'borrowed',
+                        type: 'post',
+                        data: {
+                            cookie: $('#cookie').val()
+                        },
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('#borrowed_code').html('加载中...');
+                        },
+                        success: function (data) {
+                            $('#borrowed_code').html(json_formater.json.prettyPrint(data));
+                        }
+                    });
+                    break;
             }
         }
 
@@ -343,8 +468,8 @@ block content
 
             var demo_json_explain = {
                 "status": "success",
-                "booksTotal": "13",
-                "pageTotal": "1",
+                "booksTotal": 13,
+                "pagesTotal": "1",
                 "pageCurrent": "1",
                 "booksList": [{
                     "No": 1,
@@ -365,8 +490,8 @@ block content
 
             var demo_out_of_range = {
                 "status": "success",
-                "total": "13",
-                "pageTotal": "1",
+                "booksTotal": 13,
+                "pagesTotal": "1",
                 "pageCurrent": "2",
                 "message": "OUT_OF_RANGE_AND_RETURN_LAST_PAGE",
                 "booksList": [{"...": "//书本信息"}]
@@ -393,6 +518,24 @@ block content
             var demo_top = [{"name": "java", "frequency": "169"}, {"name": "国富论", "frequency": "147"}];
             $('#demo_top').html(json_formater.json.prettyPrint(demo_top));
 
+            var demo_login = {
+                "status": "success",
+                "cookie": "AQIC5wM2LY4SfcyzKdx4qQD*************SKU4%3d%40AAJTSQACMDI%3d%23"
+            };
+            $('#demo_login').html(json_formater.json.prettyPrint(demo_login));
+
+            var demo_login_error_1 = {
+                "status": "fail",
+                "message": "NAME_OR_PWD_ERROR"
+            };
+            $('#demo_login_error_1').html(json_formater.json.prettyPrint(demo_login_error_1));
+
+            var demo_login_error_2 = {
+                "status": "fail",
+                "message": "TIME_OUT_ERROR"
+            };
+            $('#demo_login_error_2').html(json_formater.json.prettyPrint(demo_login_error_2));
+
             var upload_your_work = {
                 "SoftwareName": "//软件名称",
                 "Author": "//作者署名",
@@ -403,6 +546,44 @@ block content
             };
             $('#upload_your_work').html(json_formater.json.prettyPrint(upload_your_work));
 
+            var demo_borrowed = {
+                "status": "success",
+                "booksTotal": 20,
+                "booksList": [{
+                    "No": 1,
+                    "bookid": "3500632",
+                    "name": "响应式 Web 设计 [专著]：HTML 5 和 CSS 3 实践指南＝HTML5 and CSS3 responsive web design cookbook",
+                    "author": "(美)[B. 拉格罗]Benjamin LaGrone著；黄博文,饶勋荣译",
+                    "expireDate": {
+                        "rawValue": "2016-04-14",
+                        "year": "2016",
+                        "month": "04",
+                        "date": "14"
+                    },
+                    "renewable": false,
+                    "type": "普通图书",
+                    "accessNo": "B1734094",
+                    "borrowedDate": {
+                        "rawValue": "2016-01-17",
+                        "year": "2016",
+                        "month": "01",
+                        "date": "17"
+                    }
+                }, {"...": "..."}]
+            };
+            $('#demo_borrowed').html(json_formater.json.prettyPrint(demo_borrowed));
+
+            var demo_borrowed_1 = {
+                "status": "fail",
+                "message": "NO_COOKIE_ERROR"
+            };
+            $('#demo_borrowed_1').html(json_formater.json.prettyPrint(demo_borrowed_1));
+
+            var demo_borrowed_2 = {
+                "status": 'fail',
+                "message": 'CONNECTION_ERROR'
+            };
+            $('#demo_borrowed_2').html(json_formater.json.prettyPrint(demo_borrowed_2));
         })(jQuery);
 
     script(type='text/javascript').

@@ -10,6 +10,8 @@ var doc = require('./routes/doc');
 var library = require('./routes/library');
 var book = require('./routes/book');
 var top = require('./routes/top');
+var login = require('./routes/login');
+var borrowed = require('./routes/borrowed');
 
 var app = express();
 
@@ -30,6 +32,8 @@ app.use('/jmu/library/doc', doc);
 app.use('/jmu/library/search', library);
 app.use('/jmu/library/book', book);
 app.use('/jmu/library/top', top);
+app.use('/jmu/library/login', login);
+app.use('/jmu/library/borrowed', borrowed);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

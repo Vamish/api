@@ -6,7 +6,7 @@
     transition: all 300ms;
 }
 
-.fa{
+.fa {
     width: 20px;
     text-align: center;
 }
@@ -74,7 +74,7 @@
     display: block;
 }
 
-#keyword, #page {
+#keyword, #page, #username, #password {
     width: 50%;
 }
 

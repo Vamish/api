@@ -48,14 +48,14 @@ router.route('/:keyword').get(function (req, res) {
                 console.log('总共有:' + hasBook + '本书');
 
                 library.status = 'Success';
-                library.booksTotal = hasBook;
+                library.booksTotal = Number(hasBook);
 
                 var booksList = [];
 
                 //获取 总页数
                 var elem_select = $('#ctl00_ContentPlaceHolder1_gotoddlfl1')['0'];
                 var length_children = elem_select.children.length;
-                library.pageTotal = elem_select.children[length_children - 2].attribs.value;
+                library.pagesTotal = elem_select.children[length_children - 2].attribs.value;
                 library.pageCurrent = 1;
 
                 $('tbody tr').each(function (i, elem) {
@@ -128,7 +128,7 @@ pageRouter.route('/:page').get(function (req, res) {
     options.url = url;
     var library = {};
 
-    console.log('搜索开始','关键词', req.params.keyword, '页码', page, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
+    console.log('搜索开始', '关键词', req.params.keyword, '页码', page, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
 
     request(options, function (error, res, body) {
         if (!error && res.statusCode == 200) {
@@ -140,14 +140,14 @@ pageRouter.route('/:page').get(function (req, res) {
                 console.log('总共有:' + hasBook + '本书');
 
                 library.status = 'success';
-                library.booksTotal = hasBook;
+                library.booksTotal = Number(hasBook);
 
                 var booksList = [];
 
                 //获取 总页数
                 var elem_select = $('#ctl00_ContentPlaceHolder1_gotoddlfl1')['0'];
                 var length_children = elem_select.children.length;
-                library.pageTotal = elem_select.children[length_children - 2].attribs.value;
+                library.pagesTotal = elem_select.children[length_children - 2].attribs.value;
                 library.pageCurrent = (page ? page : 1);
 
                 if (Number(library.pageCurrent) > Number(library.pageTotal)) {
