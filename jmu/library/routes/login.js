@@ -7,7 +7,7 @@ router.post('/', function (req, res, next) {
     var _res = res;
 
     var user = req.body;
-    console.log(user);
+    console.log('用户登录', user);
 
     var loginUrl = "http://libinfo.jmu.edu.cn/cuser/";
     var loginOptions = {
@@ -32,7 +32,6 @@ router.post('/', function (req, res, next) {
         if (!error && res.statusCode == 200) {
             try {
                 var loginCookie = res.headers['set-cookie'].toString().split(';')[0].split('=')[1];
-                console.log(loginCookie);
 
                 result.status = 'success';
                 result.cookie = loginCookie;

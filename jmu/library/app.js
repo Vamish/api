@@ -12,6 +12,8 @@ var book = require('./routes/book');
 var top = require('./routes/top');
 var login = require('./routes/login');
 var borrowed = require('./routes/borrowed');
+var expired = require('./routes/expired');
+var userinfo = require('./routes/user/info');
 
 var app = express();
 
@@ -34,6 +36,8 @@ app.use('/jmu/library/book', book);
 app.use('/jmu/library/top', top);
 app.use('/jmu/library/login', login);
 app.use('/jmu/library/borrowed', borrowed);
+app.use('/jmu/library/expired', expired);
+app.use('/jmu/library/user/info', userinfo);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -32,65 +32,97 @@ router.post('/', function (req, res, next) {
         request(options, function (err, res, body) {
 
             if (!err) {
-                console.log(res.statusCode);
                 var $ = cherrio.load(body);
-                var tr = $('#borrowedcontent tbody tr');
 
-                var borrowedData = {}
-                borrowedData.status = 'success';
+                var expireBooks = {};
+                expireBooks.status = 'success';
 
-                var booksList = [];
-                var total = 0;
-                $(tr).each(function (i, elem) {
-                    total++;
-                    var book = {};
+                $('.tb').each(function (i, elem) {
+                    switch (i) {
+                        case 0:
+                            // 超期未还图书
+                            var expiredBooksList = [];
+                            var expiredTotal = 0;
+                            $(elem).find('tbody tr').each(function (i, elem) {
+                                expiredTotal++;
+                                var expiredBook = {};
+                                //获取 未还书顺序
+                                expiredBook.No = i + 1;
 
-                    //获取 书本顺序
-                    book.No = i + 1;
+                                //获取 书名 & 作者 & 书本id
+                                var id_name_author = elem.children[9].children[0];
+                                expiredBook.bookid = id_name_author.attribs.href.split('=')[1];
+                                expiredBook.name = id_name_author.children[0].data.split('／')[0];
+                                expiredBook.author = id_name_author.children[0].data.split('／')[1];
 
-                    //获取 书本ID
-                    book.bookid = elem.children[5].children[0].attribs.href.split('=')[1];
+                                //获取 图书藏室
+                                expiredBook.location = elem.children[5].children[0].data;
 
-                    var name_author = elem.children[5].children[0].children[0].data;
+                                //获取 最迟应还期
+                                var expiredDate = {};
+                                expiredDate.rawValue = elem.children[7].children[0].data;
+                                expiredDate.year = expiredDate.rawValue.split('/')[0];
+                                expiredDate.month = expiredDate.rawValue.split('/')[1];
+                                expiredDate.date = expiredDate.rawValue.split('/')[2];
+                                expiredBook.expiredDate = expiredDate;
 
-                    //获取 书本名
-                    book.name = name_author.split('／')[0];
+                                //获取 登录号
+                                expiredBook.accessNo = elem.children[3].children[0].data;
 
-                    //获取 作者
-                    book.author = name_author.split('／')[1];
+                                //获取 单位名称
+                                expiredBook.departmentName = elem.children[1].children[0].data;
 
-                    //获取 最迟应还期
-                    var expire = elem.children[3].children[0].data;
-                    book.expireDate = {};
-                    book.expireDate.rawValue = expire;
-                    book.expireDate.year = expire.split('-')[0];
-                    book.expireDate.month = expire.split('-')[1];
-                    book.expireDate.date = expire.split('-')[2];
+                                expiredBooksList.push(expiredBook);
+                            });
+                            expireBooks.expiredTotal = expiredTotal;
+                            if (expiredTotal) {
+                                expireBooks.expiredBooks = expiredBooksList;
+                            }
+                            break;
+                        case 1:
+                            // 超期未还图书
+                            var expiringBooksList = [];
+                            var expiringTotal = 0;
+                            $(elem).find('tbody tr').each(function (i, elem) {
+                                expiringTotal++;
+                                var expiringBook = {};
+                                //获取 未还书顺序
+                                expiringBook.No = i + 1;
 
-                    //获取 书本续借情况
-                    book.renewable = (elem.children[1].children[1]) ? true : false;
+                                //获取 书名 & 作者 & 书本id
+                                var id_name_author = elem.children[9].children[0];
+                                expiringBook.bookid = id_name_author.attribs.href.split('=')[1];
+                                expiringBook.name = id_name_author.children[0].data.split('／')[0];
+                                expiringBook.author = id_name_author.children[0].data.split('／')[1];
 
-                    //获取 书本图书类型
-                    book.type = elem.children[9].children[0].data;
+                                //获取 图书藏室
+                                expiringBook.location = elem.children[5].children[0].data;
 
-                    //获取 书本登录号
-                    book.accessNo = elem.children[11].children[0].data;
+                                //获取 最迟应还期
+                                var expiredDate = {};
+                                expiredDate.rawValue = elem.children[7].children[0].data;
+                                expiredDate.year = expiredDate.rawValue.split('/')[0];
+                                expiredDate.month = expiredDate.rawValue.split('/')[1];
+                                expiredDate.date = expiredDate.rawValue.split('/')[2];
+                                expiringBook.expiredDate = expiredDate;
 
-                    //获取 书本借期
-                    var borrowedTime = elem.children[13].children[0].data;
-                    book.borrowedDate = {};
-                    book.borrowedDate.rawValue = borrowedTime;
-                    book.borrowedDate.year = borrowedTime.split('-')[0];
-                    book.borrowedDate.month = borrowedTime.split('-')[1];
-                    book.borrowedDate.date = borrowedTime.split('-')[2];
+                                //获取 登录号
+                                expiringBook.accessNo = elem.children[3].children[0].data;
 
-                    booksList.push(book);
+                                //获取 单位名称
+                                expiringBook.departmentName = elem.children[1].children[0].data;
+
+                                expiringBooksList.push(expiringBook);
+                            });
+                            expireBooks.expiringTotal = expiringTotal;
+                            if (expiringTotal) {
+                                expireBooks.expiringBooks = expiringBooksList;
+                            }
+                            break;
+                    }
                 });
 
-                borrowedData.booksTotal = total;
-                borrowedData.booksList = booksList;
-
-                _res.send(borrowedData);
+                _res.send(expireBooks);
             } else {
                 _res.send({status: 'fail', message: 'CONNECTION_ERROR'});
             }

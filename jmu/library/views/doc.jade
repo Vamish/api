@@ -1,12 +1,14 @@
 extends layout
 
 block content
+    div(style='margin:0 auto;width:0px;height:0px;overflow:hidden;')
+        img#wechat_icon(src='/images/logo.jpg')
     header.site-header.jumbotron.library-header
         .container
             h1 _API for JMU Library
             p 为每个人提供更可读、高效的图书馆图书资源。返回的所有数据内容皆来自于#[a(href="http://smjslib.jmu.edu.cn",target="_blank") 集大图书馆官网]
             p 本网站目前由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]进行管理维护
-            p 当前版本：v 1.3.0
+            p 当前版本：v 2.0.0
 
     .container-fluid
         .col-md-8.col-md-offset-2
@@ -17,8 +19,9 @@ block content
                     a(href="#anchor_bookid",class='list-group-item',data-panel='by-bookid') #[i.fa.fa-bookmark] 指定图书id搜索
                     a(href="#anchor_top",class='list-group-item',data-panel='by-top') #[i.fa.fa-fire] 热门关键词搜索
                     a(href='#anchor_login',class='list-group-item',data-panel='login') #[i.fa.fa-sign-in] 用户登录
+                    a(href='#anchor_userinfo',class='list-group-item',data-panel='userinfo') #[i.fa.fa-user] 用户信息
                     a(href='#anchor_borrowed',class='list-group-item',data-panel='borrowed') #[i.fa.fa-book] 查询当前借阅
-                    a(href='#anchor_expired',class='list-group-item',data-panel='expired') #[i.fa.fa-arrow-circle-o-left] 查询催还图书(制作中)
+                    a(href='#anchor_expired',class='list-group-item',data-panel='expired') #[i.fa.fa-arrow-circle-o-left] 查询催还图书
                 .list-group
                     a.list-group-item(href="#anchor_android",data-panel='android') #[i.fa.fa-android] Android版下载
                     a.list-group-item(href="#anchor_ios",data-panel='ios') #[i.fa.fa-apple] iOS版下载
@@ -141,7 +144,7 @@ block content
                 h3 测试实例
                 .input-group
                     input.form-control.col-xs-4#username(type='text',placeholder='输入你的学号')
-                    input.form-control.col-xs-4#password(type='text',placeholder='输入你的密码')
+                    input.form-control.col-xs-4#password(type='password',placeholder='输入你的密码')
                     span.input-group-btn
                         btn.btn.btn-default(type='button',onclick='engineStart("login")') 搜索!
                 .highlight
@@ -149,6 +152,10 @@ block content
                         code#login_code
                 h3 调用地址
                 p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/login]
+                p 发送的参数为
+                .hightlight
+                    pre.demo
+                        code#params_login
                 br
                 h3 返回值说明
                 .hightlight
@@ -180,6 +187,12 @@ block content
                 .highlight
                     pre
                         code#borrowed_code
+                h3 调用地址
+                p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/borrowed]
+                p 发送的参数为
+                .hightlight
+                    pre.demo
+                        code.params_cookie
                 br
                 h3 返回值说明
                 .hightlight
@@ -188,7 +201,7 @@ block content
                 p 上面这段代码为查询成功的返回值。
                 p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
                 p #[span.code.key booksTotal]，整型，表示#[strong 当前共借阅的书本总数]。
-                p #[span.code.key booksList]，数组，表示#[strong 返回的书本列表]。
+                p #[span.code.key booksList]，数组，表示#[strong 返回的书本列表]。#[em 注意]在#[span.code.key booksTotal]为#[span.code.value 0]的情况下，该字段不显示。
                 p #[span.code.key No]，整型，表示#[strong 当前书本的序号]。
                 p #[span.code.key bookid]，字符串型，表示#[strong 当前书本的id]。
                 p #[span.code.key name]，字符串型，表示#[strong 当前书本的书名]。
@@ -208,6 +221,80 @@ block content
                     pre.demo
                         code#demo_borrowed_2
                 p 当#[strong 连接失败]时，返回上面的JSON。
+                br
+            #anchor_userinfo.col-md-9.func-intro(data-panel='userinfo')
+                h2 用户信息
+                    small 使用说明
+                hr
+                h3 测试实例
+                .input-group
+                    input.form-control.col-xs-4#userinfo(type='text',placeholder='输入获取的cookie,可在上一步获取')
+                    span.input-group-btn
+                        btn.btn.btn-default(type='button',onclick='engineStart("userinfo")') 搜索!
+                .highlight
+                    pre
+                        code#userinfo_code
+                h3 调用地址
+                p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/user/info]
+                p 发送的参数为
+                .hightlight
+                    pre.demo
+                        code.params_cookie
+                br
+                h3 返回值说明
+                .hightlight
+                    pre.demo
+                        code#demo_userinfo
+                p 上面这段代码为查询成功的返回值。
+                p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
+                p #[span.code.key infoes]，数组，表示#[strong 该用户总信息]。
+                p #[span.code.key userAccountId]，字符串型，表示#[strong 该用户账号]。
+                p #[span.code.key userName]，字符串型，表示#[strong 该用户姓名]。
+                p #[span.code.key userType]，字符串型，表示#[strong 该用户类型]。
+                p #[span.code.key userDepartment]，字符串型，表示#[strong 该用户单位]。
+                p #[span.code.key userTele]，字符串型，表示#[strong 该用户电话]。
+                p #[span.code.key userMobile]，字符串型，表示#[strong 该用户手机]。
+                p #[span.code.key userRemarks]，字符串型，表示#[strong 该用户备注]。
+                p #[span.code.key userEmail]，字符串型，表示#[strong 该用户Email 地址]。#[em 注意，可能无返回该字段]。
+                p #[span.code.key userAddress]，字符串型，表示#[strong 该用户住址]。
+                br
+            #anchor_expired.col-md-9.func-intro(data-panel='expired')
+                h2 查询催还图书
+                    small 使用说明
+                hr
+                h3 测试实例
+                .input-group
+                    input.form-control.col-xs-4#expired(type='text',placeholder='输入获取的cookie,可在上一步获取')
+                    span.input-group-btn
+                        btn.btn.btn-default(type='button',onclick='engineStart("expired")') 搜索!
+                .highlight
+                    pre
+                        code#expired_code
+                h3 调用地址
+                p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/expired]
+                p 发送的参数为
+                .hightlight
+                    pre.demo
+                        code.params_cookie
+                br
+                h3 返回值说明
+                .hightlight
+                    pre.demo
+                        code#demo_expired
+                p 上面这段代码为查询成功的返回值。
+                p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
+                p #[span.code.key expiredTotal]，整型，表示#[strong 当前超期图书的总数]。
+                p #[span.code.key expiredBooks]，数组，表示#[strong 当前超期图书列表]。#[em 注意]在#[span.code.key expiredTotal]为#[span.code.value 0]的情况下，该字段不显示。
+                p #[span.code.key No]，整型，表示#[strong 当前书本的序号]。
+                p #[span.code.key bookid]，字符串型，表示#[strong 当前书本的id]。
+                p #[span.code.key name]，字符串型，表示#[strong 当前书本的书名]。
+                p #[span.code.key author]，字符串型，表示#[strong 当前书本的作者]。
+                p #[span.code.key location]，字符串型，表示#[strong 当前书本的馆藏地]。
+                p #[span.code.key expireDate]，对象，表示#[strong 当前书本的超期时间]。其中包括#[span.code.key rawValue]未处理数据，#[span.code.key year]年 #[span.code.key month]月 #[span.code.key date]日。
+                p #[span.code.key accessNo]，字符串型，表示#[strong 当前书本的登录号]。
+                p #[span.code.key departmentName]，字符串型，表示#[strong 结束者的单位名称]。
+                p #[span.code.key expiringTotal]，整型，表示#[strong 当前将要超期的图书总数]。
+                p #[span.code.key expiringBooks]，数组，表示#[strong 当前将要超期的图书列表]。#[em 注意]在#[span.code.key expiringTotal]为#[span.code.value 0]的情况下，该字段不显示。
                 br
             #anchor_android.col-md-9.func-intro(data-panel='android')
                 h2 android 版下载
@@ -239,6 +326,9 @@ block content
             #anchor_present.col-md-9.func-intro(data-panel='present')
                 h2 网站说明
                 hr
+                p 【声明】本网站所有数据皆抓取自#[a(href='http://lib.jmu.edu.cn') 集美大学图书馆]。
+                p 新版本中加入的用户登录的功能，希望开发者能#[strong 正确地使用]，请勿违反相关规定。
+                hr
                 p 如果您使用了本网站的资源并制作了先关的软件/网站，可以邮件#[a(href="mailto:toarunodiviniti@163.com?Subject=作品提交&body='SoftwareName': '软件名称',<br>'Author': '//作者署名',<br>'Platform': '//适用平台 Android / iOS / Web',<br>'Description': '//作品简介',<br>'DownloadLink': '//作品链接',<br>'SoftwareIcon': '//作品logo 正方形'<br>") 联系我] 或者 #[a(href="http://weibo.com/u/2025660943") 私信我]，您的作品将会在这个网站展示。
                 p 请在邮件或私信中发送大概发送包括如下字段的数据：
                 .highlight
@@ -251,7 +341,14 @@ block content
             #anchor_version.col-md-9.func-intro(data-panel='version')
                 h2 版本更新说明
                 hr
-                p 当前版本：V 1.3.0
+                p 当前版本：V 2.0.0
+                p 更新内容：
+                    ul
+                        li 基本功能已全部实现，版本号提升至2.0.0.
+                        li 新增用户信息查询，新增查询催还图书。
+                        li 修改后台逻辑，在返回结果总数为0时，不返回相关的数组对象。
+                hr
+                p 历史版本：V 1.3.0
                 p 更新内容：
                     ul
                         li 新增登录、查询当前借阅功能。
@@ -262,6 +359,10 @@ block content
                 p 更新内容：
                     ul
                         li 统一『按关键词搜索』是返回书本总数的字段为#[span.code.key booksTotal]。
+                hr
+                p 历史版本：V 1.2.0
+                p 更新内容：
+                    ul
                         li 修复了『找不到相关书本id』时导致崩溃的BUG。
                         li 更新了『按id搜索』的返回结果JSON与相关错误JSON，添加搜索结果状态#[span.code.key status]字段。
                         li 更新了热门搜索词的返回结果。拆分了关键词与搜索频率。
@@ -292,7 +393,9 @@ block content
                 "div[data-panel=present]",
                 "div[data-panel=version]",
                 "div[data-panel=login]",
-                "div[data-panel=borrowed]"
+                "div[data-panel=borrowed]",
+                "div[data-panel=userinfo]",
+                "div[data-panel=expired]"
             ];
 
             var obj = {
@@ -305,8 +408,11 @@ block content
                 'present': 6,
                 'version': 7,
                 'login': 8,
-                'borrowed': 9
+                'borrowed': 9,
+                'userinfo': 10,
+                'expired': 11
             };
+
             $('.func-intro').removeClass('active');
             $(panelArray[obj[$(this).data('panel')]]).addClass('active');
         });
@@ -429,6 +535,37 @@ block content
                         }
                     });
                     break;
+                case 'userinfo':
+                    $.ajax({
+                        url: 'user/info',
+                        type: 'post',
+                        data: {
+                            cookie: $('#userinfo').val()
+                        },
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('#userinfo_code').html('加载中...');
+                        },
+                        success: function (data) {
+                            $('#userinfo_code').html(json_formater.json.prettyPrint(data));
+                        }
+                    });
+                    break;
+                case 'expired':
+                    $.ajax({
+                        url: 'expired',
+                        type: 'post',
+                        data: {
+                            cookie: $('#expired').val()
+                        },
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('#expired_code').html('加载中...');
+                        },
+                        success: function (data) {
+                            $('#expired_code').html(json_formater.json.prettyPrint(data));
+                        }
+                    })
             }
         }
 
@@ -536,6 +673,12 @@ block content
             };
             $('#demo_login_error_2').html(json_formater.json.prettyPrint(demo_login_error_2));
 
+            var params_login = {
+                user: 'usernameValue',
+                pwd: 'passwordValue'
+            };
+            $('#params_login').html(json_formater.json.prettyPrint(params_login));
+
             var upload_your_work = {
                 "SoftwareName": "//软件名称",
                 "Author": "//作者署名",
@@ -584,6 +727,52 @@ block content
                 "message": 'CONNECTION_ERROR'
             };
             $('#demo_borrowed_2').html(json_formater.json.prettyPrint(demo_borrowed_2));
+
+            var params_cookie = {
+                cookie: "cookieValue"
+            };
+            $('.params_cookie').html(json_formater.json.prettyPrint(params_cookie));
+
+            var demo_userinfo = {
+                "status": "success",
+                "infoes": {
+                    "userAccountId": "20122112****",
+                    "userName": "Vango",
+                    "userType": "学生",
+                    "userDepartment": "计算机工程学院",
+                    "userTele": "188********",
+                    "userMobile": "188********",
+                    "userRemarks": "集美大学计算机工程学院软件1212软件工程软件****",
+                    "userAddress": ""
+                }
+            };
+            $('#demo_userinfo').html(json_formater.json.prettyPrint(demo_userinfo));
+
+            var demo_expired = {
+                status: "success",
+                expiredTotal: 3,
+                expiredBooks: [
+                    {
+                        No: 1,
+                        bookid: "314647",
+                        name: "JSP从入门到精通",
+                        author: "(美) Todd Cook著；谷雨, 阎隽, 高春蓉等译",
+                        location: "嘉庚馆自科书库",
+                        expiredDate: {
+                            rawValue: "2015/04/27",
+                            year: "2015",
+                            month: "04",
+                            date: "27"
+                        },
+                        accessNo: "B1276161",
+                        departmentName: "计算机工程学院"
+                    },
+                    {"...": "..."}
+                ],
+                expiringTotal: 0
+            };
+            $('#demo_expired').html(json_formater.json.prettyPrint(demo_expired));
+
         })(jQuery);
 
     script(type='text/javascript').

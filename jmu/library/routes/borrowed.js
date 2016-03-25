@@ -32,7 +32,6 @@ router.post('/', function (req, res, next) {
         request(options, function (err, res, body) {
 
             if (!err) {
-                console.log(res.statusCode);
                 var $ = cherrio.load(body);
                 var tr = $('#borrowedcontent tbody tr');
 
@@ -88,7 +87,9 @@ router.post('/', function (req, res, next) {
                 });
 
                 borrowedData.booksTotal = total;
-                borrowedData.booksList = booksList;
+                if (total) {
+                    borrowedData.booksList = booksList;
+                }
 
                 _res.send(borrowedData);
             } else {
