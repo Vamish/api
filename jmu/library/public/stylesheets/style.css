@@ -74,7 +74,7 @@
     display: block;
 }
 
-#keyword, #page, #username, #password {
+#keyword, #page, #username, #password, #top, #top_keyword {
     width: 50%;
 }
 
@@ -93,7 +93,7 @@ pre.demo {
     max-height: none;
 }
 
-#anchor_version li {
+li {
     line-height: 25px;
 }
 

@@ -4,7 +4,6 @@ var encoder = require("encode-gb2312");
 
 var express = require('express');
 var router = express.Router();
-var pageRouter = express.Router({mergeParams: true});
 
 var options = {
     url: "",
@@ -14,102 +13,14 @@ var options = {
     }
 };
 
-router.use('/:keyword/page', pageRouter);
+router.get('/:keyword', function (req, res) {
 
-router.route('/:keyword').get(function (req, res) {
-    var keyword = completeGB2312(req.params.keyword);
-
-    var url = "http://smjslib.jmu.edu.cn/searchresult.aspx?anywords=" +
-        keyword +
-        "&dt=ALL" +
-        "&cl=ALL" +
-        "&dp=50" +
-        "&sf=M_PUB_YEAR" +
-        "&ob=DESC" +
-        "&sm=table" +
-        "&dept=ALL" +
-        "&page=" + 1;
-
-    var _res = res;
-
-    options.url = url;
-
-    console.log('搜索开始', '关键词', req.params.keyword, '页码', 1, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
-
-    request(options, function (error, res, body) {
-        if (!error && res.statusCode == 200) {
-            //console.log(body);
-            var $ = cherrio.load(body);
-            var hasBook = $('#ctl00_ContentPlaceHolder1_countlbl').text();
-
-            var library = {};
-
-            if (hasBook != '') {
-                console.log('总共有:' + hasBook + '本书');
-
-                library.status = 'Success';
-                library.booksTotal = Number(hasBook);
-
-                var booksList = [];
-
-                //获取 总页数
-                var elem_select = $('#ctl00_ContentPlaceHolder1_gotoddlfl1')['0'];
-                var length_children = elem_select.children.length;
-                library.pagesTotal = elem_select.children[length_children - 2].attribs.value;
-                library.pageCurrent = 1;
-
-                $('tbody tr').each(function (i, elem) {
-                    var book = {};
-
-                    //获取 书本顺序
-                    book.No = i + 1;
-
-                    //获取 书本ID
-                    book.ID = elem.children[1].children[0].attribs.value;
-
-                    //获取 书本名
-                    book.name = elem.children[3].children[0].children[0].children[0].data;
-
-                    //获取 作者/责任人
-                    var author = elem.children[5].children[0];
-                    if (author != undefined) {
-                        book.author = author.data;
-                    } else {
-                        book.author = ""
-                    }
-
-                    //获取 出版社
-                    book.publisher = elem.children[7].children[0].data;
-
-                    //获取 索书号
-                    book.callNumber = elem.children[11].children[0].data;
-
-                    //获取 馆藏数
-                    book.total = elem.children[13].children[0].data;
-
-                    //获取 可借数
-                    book.available = elem.children[15].children[0].data;
-
-                    booksList.push(book);
-                });
-
-                library['booksList'] = booksList;
-            } else {
-                library.status = 'false';
-                library.message = 'No_Book_Found';
-            }
-        }
-        console.log('搜索结束', '关键词', req.params.keyword, '页码', 1, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
-
-        _res.status(200)
-            .send(library);
-    });
+    res.redirect(req.params.keyword + '/page/' + 1);
 
 });
 
-pageRouter.route('/:page').get(function (req, res) {
+router.get('/:keyword/page/:page', function (req, res) {
     var page = req.params.page;
-
     var keyword = completeGB2312(req.params.keyword);
 
     var url = "http://smjslib.jmu.edu.cn/searchresult.aspx?anywords=" +
@@ -128,7 +39,7 @@ pageRouter.route('/:page').get(function (req, res) {
     options.url = url;
     var library = {};
 
-    console.log('搜索开始', '关键词', req.params.keyword, '页码', page, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
+    console.log('搜索开始', '关键词', req.params.keyword, '页码', page, '时间', new Date().Format("yyyy-MM-dd hh:mm:ss"));
 
     request(options, function (error, res, body) {
         if (!error && res.statusCode == 200) {
@@ -196,7 +107,7 @@ pageRouter.route('/:page').get(function (req, res) {
             }
         }
 
-        console.log('搜索结束', '关键词', req.params.keyword, '页码', 1, '时间', new Date().Format("yyyy-MM-dd HH:mm:ss"));
+        console.log('搜索结束', '关键词', req.params.keyword, '页码', 1, '时间', new Date().Format("yyyy-MM-dd hh:mm:ss"));
 
         _res.status(200)
             .send(library);
