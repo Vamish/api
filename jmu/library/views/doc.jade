@@ -12,407 +12,408 @@ block content
     .container-fluid
         .row
             .col-lg-10.col-lg-offset-1.col-md-12
-                .col-md-3.right-nav
-                    h2 目录
-                    .list-group
-                        a(href="#anchor_keyword",class='list-group-item active',data-panel='by-keyword') #[i.fa.fa-bank] 关键词搜索
-                        a(href="#anchor_bookid",class='list-group-item',data-panel='by-bookid') #[i.fa.fa-bookmark] 指定图书id搜索
-                        a(href="#anchor_top",class='list-group-item',data-panel='by-top') #[i.fa.fa-fire] 热门关键词搜索
-                        a(href='#anchor_login',class='list-group-item',data-panel='login') #[i.fa.fa-sign-in] 用户登录
-                        a(href='#anchor_userinfo',class='list-group-item',data-panel='userinfo') #[i.fa.fa-user] 用户信息
-                        a(href='#anchor_borrowed',class='list-group-item',data-panel='borrowed') #[i.fa.fa-book] 查询当前借阅
-                        a(href='#anchor_expired',class='list-group-item',data-panel='expired') #[i.fa.fa-arrow-circle-o-left] 查询催还图书
-                    .list-group
-                        a.list-group-item(href="#anchor_android",data-panel='android') #[i.fa.fa-android] Android版下载
-                        a.list-group-item(href="#anchor_ios",data-panel='ios') #[i.fa.fa-apple] iOS版下载
-                        a.list-group-item(href="#anchor_web",data-panel='web') #[i.fa.fa-chrome] 网页版试用
-                    .list-group
-                        a.list-group-item(href='#anchor_present',data-panel='present') #[i.fa.fa-bullhorn] 网站说明
-                        a.list-group-item(href='#anchor_version',data-panel='version') #[i.fa.fa-rocket] 版本更新说明
-                #anchor_keyword.col-md-9.func-intro.active(data-panel='by-keyword')
-                    h2  关键词搜索
-                        small 使用说明
-                    hr
-                    h3 测试实例
-                    .input-group
-                        input.form-control.col-xs-4#keyword(type='text',placeholder='输入搜索的关键词')
-                        input.form-control.col-xs-4#page(type='number',step='1',min='0',placeholder='页码，缺省值：1')
-                        span.input-group-btn
-                            btn.btn.btn-default(type='button',onclick='engineStart("keyword")') 搜索!
-                    .highlight
-                        pre
-                            code#keyword_code
-                    h3 调用地址
-                    p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/search/{keyword}/page/{page}]
-                    br
-                    p 其中#[span.code.value {keyword}]表示#[strong 搜索关键词，不可省略]，
-                    p #[span.code.value {page}]表示#[strong 指定搜索的页码]，可省略，缺省值为 1
-                    br
-                    h3 返回JSON 说明
-                    .hightlight
-                        pre.demo
-                            code#demo_json_explain
-                    p 上面这段代码为搜索『日本设计』返回的结果（截取）。
-                    p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，在有返回书本列表的情况下，该值都为#[span.code.value success]，否则为#[span.code.value fail]，
-                    p #[span.code.key booksTotal]，整型，表示#[strong 搜索到的书本总数]，
-                    p #[span.code.key pageTotal]，字符串型，表示#[strong 总共的页数]。#[em 注意，每次搜索最多返回 50 本书的列表]，
-                    p #[span.code.key pageCurrent]，字符串型，表示#[strong 当前所在的页码]，
-                    p #[span.code.key booksList]，数组，元素为搜索到的图书的JSON 对象，
-                    p #[span.code.key No]，Number型，表示#[strong 当前书本信息的序号]，
-                    p #[span.code.key bookid]，字符串型，表示#[strong 当前该书本的id号]，可用于查找该书具体信息，
-                    p #[span.code.key name],字符串型，表示#[strong 书名]，
-                    p #[span.code.key author],字符串型，表示#[strong 作者/负责人]，#[em 注意：该值可能为空，即book.author=""]
-                    p #[span.code.key publisher],字符串型，表示#[strong 出版社]，
-                    p #[span.code.key callNumber],字符串型，表示#[strong 索书号]，
-                    p #[span.code.key total],字符串型，表示#[strong 该书馆藏总数量]，
-                    p #[span.code.key available],字符串型，表示#[strong 该书当前可借数]，
+                .row
+                    .col-md-3.right-nav
+                        h2 目录
+                        .list-group
+                            a(href="#anchor_keyword",class='list-group-item active',data-panel='by-keyword') #[i.fa.fa-bank] 关键词搜索
+                            a(href="#anchor_bookid",class='list-group-item',data-panel='by-bookid') #[i.fa.fa-bookmark] 指定图书id搜索
+                            a(href="#anchor_top",class='list-group-item',data-panel='by-top') #[i.fa.fa-fire] 热门关键词搜索
+                            a(href='#anchor_login',class='list-group-item',data-panel='login') #[i.fa.fa-sign-in] 用户登录
+                            a(href='#anchor_userinfo',class='list-group-item',data-panel='userinfo') #[i.fa.fa-user] 用户信息
+                            a(href='#anchor_borrowed',class='list-group-item',data-panel='borrowed') #[i.fa.fa-book] 查询当前借阅
+                            a(href='#anchor_expired',class='list-group-item',data-panel='expired') #[i.fa.fa-arrow-circle-o-left] 查询催还图书
+                        .list-group
+                            a.list-group-item(href="#anchor_android",data-panel='android') #[i.fa.fa-android] Android版下载
+                            a.list-group-item(href="#anchor_ios",data-panel='ios') #[i.fa.fa-apple] iOS版下载
+                            a.list-group-item(href="#anchor_web",data-panel='web') #[i.fa.fa-chrome] 网页版试用
+                        .list-group
+                            a.list-group-item(href='#anchor_present',data-panel='present') #[i.fa.fa-bullhorn] 网站说明
+                            a.list-group-item(href='#anchor_version',data-panel='version') #[i.fa.fa-rocket] 版本更新说明
+                    #anchor_keyword.col-md-9.func-intro.active(data-panel='by-keyword')
+                        h2  关键词搜索
+                            small 使用说明
+                        hr
+                        h3 测试实例
+                        .input-group
+                            input.form-control.col-xs-4#keyword(type='text',placeholder='输入搜索的关键词')
+                            input.form-control.col-xs-4#page(type='number',step='1',min='0',placeholder='页码，缺省值：1')
+                            span.input-group-btn
+                                btn.btn.btn-default(type='button',onclick='engineStart("keyword")') 搜索!
+                        .highlight
+                            pre
+                                code#keyword_code
+                        h3 调用地址
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/search/{keyword}/page/{page}]
+                        br
+                        p 其中#[span.code.value {keyword}]表示#[strong 搜索关键词，不可省略]，
+                        p #[span.code.value {page}]表示#[strong 指定搜索的页码]，可省略，缺省值为 1
+                        br
+                        h3 返回JSON 说明
+                        .hightlight
+                            pre.demo
+                                code#demo_json_explain
+                        p 上面这段代码为搜索『日本设计』返回的结果（截取）。
+                        p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，在有返回书本列表的情况下，该值都为#[span.code.value success]，否则为#[span.code.value fail]，
+                        p #[span.code.key booksTotal]，整型，表示#[strong 搜索到的书本总数]，
+                        p #[span.code.key pageTotal]，字符串型，表示#[strong 总共的页数]。#[em 注意，每次搜索最多返回 50 本书的列表]，
+                        p #[span.code.key pageCurrent]，字符串型，表示#[strong 当前所在的页码]，
+                        p #[span.code.key booksList]，数组，元素为搜索到的图书的JSON 对象，
+                        p #[span.code.key No]，Number型，表示#[strong 当前书本信息的序号]，
+                        p #[span.code.key bookid]，字符串型，表示#[strong 当前该书本的id号]，可用于查找该书具体信息，
+                        p #[span.code.key name],字符串型，表示#[strong 书名]，
+                        p #[span.code.key author],字符串型，表示#[strong 作者/负责人]，#[em 注意：该值可能为空，即book.author=""]
+                        p #[span.code.key publisher],字符串型，表示#[strong 出版社]，
+                        p #[span.code.key callNumber],字符串型，表示#[strong 索书号]，
+                        p #[span.code.key total],字符串型，表示#[strong 该书馆藏总数量]，
+                        p #[span.code.key available],字符串型，表示#[strong 该书当前可借数]，
 
-                    br
-                    h4 相关错误
-                    .highlight
-                        pre.demo
-                            code#demo_no_book_found
-                    p 当#[strong 搜索结果为空]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value NO_BOOK_FOUND]，表示#[strong 没有找到]。
-                    br
-                    .highlight
-                        pre.demo
-                            code#demo_out_of_range
-                    p 当#[strong 搜索页数超过总页数]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为 #[span.code.value OUT_OF_RANGE_AND_RETURN_LAST_PAGE]，表示#[strong 超出搜索范围并返回最后一页的数据]。
-                #anchor_bookid.col-md-9.func-intro(data-panel='by-bookid')
-                    h2 指定图书id搜索
-                        small 使用说明
-                    hr
-                    h3 测试实例
-                    .input-group
-                        input.form-control#bookid(type='text',placeholder='如：3885656',value='3885656')
-                        span.input-group-btn
-                            btn.btn.btn-default(type='button',onclick='engineStart("bookid")') 搜索!
-                    .highlight
-                        pre
-                            code#bookid_code
-                    h3 调用地址
-                    p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/book/{bookid}]
-                    br
-                    p 其中#[span.code.value {bookid}]表示#[strong 搜索的书本id，不可省略]，
-                    br
-                    h3 返回JSON 说明
-                    .hightlight
-                        pre.demo
-                            code#demo_book_info
-                    p 上面这段代码为搜索『3885656』返回的结果（截取）。
-                    p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，成功时返回#[span.code.value success]，失败时返回#[span.code.value fail]，
-                    p #[span.code.key intro]，字符串型，表示#[strong 该书内容简介]，
-                    p #[span.code.key infoes]，数组，表示#[strong 馆藏每一本书的具体信息]，该值的length 即为该书的馆藏总数，
-                    p #[span.code.key location]，字符串型，表示#[strong 该书的馆藏地]，
-                    p #[span.code.key callNumber]，字符串型，表示#[strong 索书号]，
-                    p #[span.code.key bookStatus ]，字符串型，表示#[strong 该书当前借阅状态]，
-                    p #[span.code.key bookType],字符串型，表示#[strong 该书的借阅类型]，
-                    br
-                    h4 相关错误
-                    .hightlight
-                        pre.demo
-                            code#demo_book_info_error
-                    p 当#[strong 找不到相关搜索结果]时，返回上面的JSON，其中#[span.code.key message]的返回值为#[span.code.value NOT_DETAIL_FOUND]，表示#[strong 没有找到]。
-                #anchor_top.col-md-9.func-intro(data-panel='by-top')
-                    h2  热门关键词搜索
-                        small 使用说明
-                    hr
-                    h3 测试实例
-                    .input-group
-                        input.form-control#top(type='text',placeholder='范围: 1 ~ 100，缺省值: 100')
-                        select.form-control#top_keyword
-                            option(value='anywords')  任意词
-                            option(value='title')  题名
-                            option(value='titleany')  提名内关键词
-                            option(value='author')  著者
-                            option(value='authorany')  著者内关键词
-                            option(value='keyword')  主题词
-                            option(value='publisher')  出版社
-                            option(value='clc')  分类号
-                        span.input-group-btn
-                            btn.btn.btn-default(type='button',onclick='engineStart("top")') 搜索!
-                    .highlight
-                        pre
-                            code#top_code
-                    h3 调用地址
-                    p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}/type/{type}]
-                    br
-                    p 其中#[span.code.value {top}]表示#[strong 前top个热门搜索词]，条件性缺省，缺省值为#[span.code.value 100]。缺省时调用Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}]。#[em 在后方使用 /type 时不可缺省]。
-                    p #[span.code.value {type}]表示#[strong 搜索热门的类型]，可缺省，缺省值为#[span.code.value anywords]。缺省时调用Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}/type/{anywords}]。
-                    p 有如下几种值：
-                        ul
-                            li #[span.code.value anywords] 搜索热门任意词，
-                            li #[span.code.value title] 搜索热门题名，
-                            li #[span.code.value titleany] 搜索热门题名内关键词，
-                            li #[span.code.value author] 搜索热门著者，
-                            li #[span.code.value authorany] 搜索热门著者内关键词，
-                            li #[span.code.value keyword] 搜索热门主题词，
-                            li #[span.code.value publisher] 搜索热门出版社，
-                            li #[span.code.value clc] 搜索热门分类号。
-                    br
-                    h3 返回值说明
-                    .hightlight
-                        pre.demo
-                            code#demo_top
-                    p 上面这段代码为搜索『2』返回的数组。
-                    p 其中#[span.code.key name]，字符串型，表示#[strong 热门关键词]
-                    p #[span.code.key frequency]，字符串型，表示#[strong 该关键词被搜索次数]
-                    br
-                    h4 相关错误
-                    .hightlight
-                        pre.demo
-                            code#demo_top_error_1
-                    p 当#[strong 搜索热门的类型值错误]时，返回上面的JSON。
-                    br
-                    .hightlight
-                        pre.demo
-                            code#demo_top_error_2
-                    p 当#[strong 参数传入有误]时，返回上面的JSON。
-                #anchor_login.col-md-9.func-intro(data-panel='login')
-                    h2 用户登录
-                        small 使用说明
-                    hr
-                    h3 测试实例
-                    .input-group
-                        input.form-control.col-xs-4#username(type='text',placeholder='输入你的学号')
-                        input.form-control.col-xs-4#password(type='password',placeholder='输入你的密码')
-                        span.input-group-btn
-                            btn.btn.btn-default(type='button',onclick='engineStart("login")') 搜索!
-                    .highlight
-                        pre
-                            code#login_code
-                    h3 调用地址
-                    p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/login]
-                    p 发送的参数为
-                    .hightlight
-                        pre.demo
-                            code#params_login
-                    br
-                    h3 返回值说明
-                    .hightlight
-                        pre.demo
-                            code#demo_login
-                    p 上面这段代码为登录成功的返回值。
-                    p 其中#[span.code.key status]，字符串型，表示#[strong 登录状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
-                    p #[span.code.key cookie]，字符串型，表示#[strong 登录成功的返回cookie]。#[strong 该值需要保存，后续浏览借阅情况与催还图书的时候需要使用]
-                    br
-                    h4 相关错误
-                    .hightlight
-                        pre.demo
-                            code#demo_login_error_1
-                    p 当#[strong 用户名或密码输入有误]时，返回上面的JSON，其中#[span.code.key message]的返回值为#[span.code.value NAME_OR_PWD_ERROR]，表示#[strong 输入有误]。
-                    .hightlight
-                        pre.demo
-                            code#demo_login_error_2
-                    p 当#[strong 访问超时]时，返回上面的JSON。
-                    br
-                #anchor_borrowed.col-md-9.func-intro(data-panel='borrowed')
-                    h2 查询当前借阅
-                        small 使用说明
-                    hr
-                    h3 测试实例
-                    .input-group
-                        input.form-control.col-xs-4.cookie-input#cookie(type='text',placeholder='输入获取的cookie,可在上一步获取')
-                        span.input-group-btn
-                            btn.btn.btn-default(type='button',onclick='engineStart("borrowed")') 搜索!
-                    .highlight
-                        pre
-                            code#borrowed_code
-                    h3 调用地址
-                    p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/borrowed]
-                    p 发送的参数为
-                    .hightlight
-                        pre.demo
-                            code.params_cookie
-                    br
-                    h3 返回值说明
-                    .hightlight
-                        pre.demo
-                            code#demo_borrowed
-                    p 上面这段代码为查询成功的返回值。
-                    p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
-                    p #[span.code.key booksTotal]，整型，表示#[strong 当前共借阅的书本总数]。
-                    p #[span.code.key booksList]，数组，表示#[strong 返回的书本列表]。#[em 注意]在#[span.code.key booksTotal]为#[span.code.value 0]的情况下，该字段不显示。
-                    p #[span.code.key No]，整型，表示#[strong 当前书本的序号]。
-                    p #[span.code.key bookid]，字符串型，表示#[strong 当前书本的id]。
-                    p #[span.code.key name]，字符串型，表示#[strong 当前书本的书名]。
-                    p #[span.code.key author]，字符串型，表示#[strong 当前书本的作者]。
-                    p #[span.code.key expireDate]，对象，表示#[strong 当前书本的超期时间]。其中包括#[span.code.key rawValue]未处理数据，#[span.code.key year]年 #[span.code.key month]月 #[span.code.key date]日。
-                    p #[span.code.key renewable]，布尔型，表示#[strong 当前书本是否可续期]。#[span.code.value false]为不可借阅。#[em 续期功能可能会在后期加入]
-                    p #[span.code.key type]，字符串型，表示#[strong 当前书本的类型]。
-                    p #[span.code.key accessNo]，字符串型，表示#[strong 当前书本的登录号]。
-                    p #[span.code.key borrowedDate]，对象，表示#[strong 当前书本的借阅时间]。其中包括#[span.code.key rawValue]未处理数据，#[span.code.key year]年 #[span.code.key month]月 #[span.code.key date]日。
-                    br
-                    h4 相关错误
-                    .hightlight
-                        pre.demo
-                            code#demo_borrowed_1
-                    p 当#[strong 没有cookie传入]时，返回上面的JSON。
-                    .hightlight
-                        pre.demo
-                            code#demo_borrowed_2
-                    p 当#[strong 连接失败]时，返回上面的JSON。
-                    br
-                #anchor_userinfo.col-md-9.func-intro(data-panel='userinfo')
-                    h2 用户信息
-                        small 使用说明
-                    hr
-                    h3 测试实例
-                    .input-group
-                        input.form-control.col-xs-4.cookie-input#userinfo(type='text',placeholder='输入获取的cookie,可在上一步获取')
-                        span.input-group-btn
-                            btn.btn.btn-default(type='button',onclick='engineStart("userinfo")') 搜索!
-                    .highlight
-                        pre
-                            code#userinfo_code
-                    h3 调用地址
-                    p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/user/info]
-                    p 发送的参数为
-                    .hightlight
-                        pre.demo
-                            code.params_cookie
-                    br
-                    h3 返回值说明
-                    .hightlight
-                        pre.demo
-                            code#demo_userinfo
-                    p 上面这段代码为查询成功的返回值。
-                    p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
-                    p #[span.code.key infoes]，数组，表示#[strong 该用户总信息]。
-                    p #[span.code.key userAccountId]，字符串型，表示#[strong 该用户账号]。
-                    p #[span.code.key userName]，字符串型，表示#[strong 该用户姓名]。
-                    p #[span.code.key userType]，字符串型，表示#[strong 该用户类型]。
-                    p #[span.code.key userDepartment]，字符串型，表示#[strong 该用户单位]。
-                    p #[span.code.key userTele]，字符串型，表示#[strong 该用户电话]。
-                    p #[span.code.key userMobile]，字符串型，表示#[strong 该用户手机]。
-                    p #[span.code.key userRemarks]，字符串型，表示#[strong 该用户备注]。
-                    p #[span.code.key userEmail]，字符串型，表示#[strong 该用户Email 地址]。#[em 注意，可能无返回该字段]。
-                    p #[span.code.key userAddress]，字符串型，表示#[strong 该用户住址]。
-                    br
-                #anchor_expired.col-md-9.func-intro(data-panel='expired')
-                    h2 查询催还图书
-                        small 使用说明
-                    hr
-                    h3 测试实例
-                    .input-group
-                        input.form-control.col-xs-4.cookie-input#expired(type='text',placeholder='输入获取的cookie,可在上一步获取')
-                        span.input-group-btn
-                            btn.btn.btn-default(type='button',onclick='engineStart("expired")') 搜索!
-                    .highlight
-                        pre
-                            code#expired_code
-                    h3 调用地址
-                    p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/expired]
-                    p 发送的参数为
-                    .hightlight
-                        pre.demo
-                            code.params_cookie
-                    br
-                    h3 返回值说明
-                    .hightlight
-                        pre.demo
-                            code#demo_expired
-                    p 上面这段代码为查询成功的返回值。
-                    p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
-                    p #[span.code.key expiredTotal]，整型，表示#[strong 当前超期图书的总数]。
-                    p #[span.code.key expiredBooks]，数组，表示#[strong 当前超期图书列表]。#[em 注意]在#[span.code.key expiredTotal]为#[span.code.value 0]的情况下，该字段不显示。
-                    p #[span.code.key No]，整型，表示#[strong 当前书本的序号]。
-                    p #[span.code.key bookid]，字符串型，表示#[strong 当前书本的id]。
-                    p #[span.code.key name]，字符串型，表示#[strong 当前书本的书名]。
-                    p #[span.code.key author]，字符串型，表示#[strong 当前书本的作者]。
-                    p #[span.code.key location]，字符串型，表示#[strong 当前书本的馆藏地]。
-                    p #[span.code.key expireDate]，对象，表示#[strong 当前书本的超期时间]。其中包括#[span.code.key rawValue]未处理数据，#[span.code.key year]年 #[span.code.key month]月 #[span.code.key date]日。
-                    p #[span.code.key accessNo]，字符串型，表示#[strong 当前书本的登录号]。
-                    p #[span.code.key departmentName]，字符串型，表示#[strong 结束者的单位名称]。
-                    p #[span.code.key expiringTotal]，整型，表示#[strong 当前将要超期的图书总数]。
-                    p #[span.code.key expiringBooks]，数组，表示#[strong 当前将要超期的图书列表]。#[em 注意]在#[span.code.key expiringTotal]为#[span.code.value 0]的情况下，该字段不显示。
-                    br
-                #anchor_android.col-md-9.func-intro(data-panel='android')
-                    h2 android 版下载
-                    hr
-                    .media
-                        .media-left.media-middle
-                            a(href="http://toaru.diviniti.cn/Libris/")
-                                img.media-object(src="/images/toaru.png")
-                        .media-body
-                            h4.media-heading ToarunoLibris
-                            p.media-intro ToarunoLibris 是由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]开发的Android 版集大图书馆APP(点击icon下载)
-                    .media
-                        p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
-                #anchor_ios.col-md-9.func-intro(data-panel='ios')
-                    h2 iOS版下载
-                    hr
-                    .media
-                        h4.media-heading 暂无展示
-                    .media
-                        p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+                        br
+                        h4 相关错误
+                        .highlight
+                            pre.demo
+                                code#demo_no_book_found
+                        p 当#[strong 搜索结果为空]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为#[span.code.value NO_BOOK_FOUND]，表示#[strong 没有找到]。
+                        br
+                        .highlight
+                            pre.demo
+                                code#demo_out_of_range
+                        p 当#[strong 搜索页数超过总页数]时，返回的JSON 数据如上所示。其中#[span.code.key message]的返回值为 #[span.code.value OUT_OF_RANGE_AND_RETURN_LAST_PAGE]，表示#[strong 超出搜索范围并返回最后一页的数据]。
+                    #anchor_bookid.col-md-9.func-intro(data-panel='by-bookid')
+                        h2 指定图书id搜索
+                            small 使用说明
+                        hr
+                        h3 测试实例
+                        .input-group
+                            input.form-control#bookid(type='text',placeholder='如：3885656',value='3885656')
+                            span.input-group-btn
+                                btn.btn.btn-default(type='button',onclick='engineStart("bookid")') 搜索!
+                        .highlight
+                            pre
+                                code#bookid_code
+                        h3 调用地址
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/book/{bookid}]
+                        br
+                        p 其中#[span.code.value {bookid}]表示#[strong 搜索的书本id，不可省略]，
+                        br
+                        h3 返回JSON 说明
+                        .hightlight
+                            pre.demo
+                                code#demo_book_info
+                        p 上面这段代码为搜索『3885656』返回的结果（截取）。
+                        p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，成功时返回#[span.code.value success]，失败时返回#[span.code.value fail]，
+                        p #[span.code.key intro]，字符串型，表示#[strong 该书内容简介]，
+                        p #[span.code.key infoes]，数组，表示#[strong 馆藏每一本书的具体信息]，该值的length 即为该书的馆藏总数，
+                        p #[span.code.key location]，字符串型，表示#[strong 该书的馆藏地]，
+                        p #[span.code.key callNumber]，字符串型，表示#[strong 索书号]，
+                        p #[span.code.key bookStatus ]，字符串型，表示#[strong 该书当前借阅状态]，
+                        p #[span.code.key bookType],字符串型，表示#[strong 该书的借阅类型]，
+                        br
+                        h4 相关错误
+                        .hightlight
+                            pre.demo
+                                code#demo_book_info_error
+                        p 当#[strong 找不到相关搜索结果]时，返回上面的JSON，其中#[span.code.key message]的返回值为#[span.code.value NOT_DETAIL_FOUND]，表示#[strong 没有找到]。
+                    #anchor_top.col-md-9.func-intro(data-panel='by-top')
+                        h2  热门关键词搜索
+                            small 使用说明
+                        hr
+                        h3 测试实例
+                        .input-group
+                            input.form-control#top(type='text',placeholder='范围: 1 ~ 100，缺省值: 100')
+                            select.form-control#top_keyword
+                                option(value='anywords')  任意词
+                                option(value='title')  题名
+                                option(value='titleany')  提名内关键词
+                                option(value='author')  著者
+                                option(value='authorany')  著者内关键词
+                                option(value='keyword')  主题词
+                                option(value='publisher')  出版社
+                                option(value='clc')  分类号
+                            span.input-group-btn
+                                btn.btn.btn-default(type='button',onclick='engineStart("top")') 搜索!
+                        .highlight
+                            pre
+                                code#top_code
+                        h3 调用地址
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}/type/{type}]
+                        br
+                        p 其中#[span.code.value {top}]表示#[strong 前top个热门搜索词]，条件性缺省，缺省值为#[span.code.value 100]。缺省时调用Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}]。#[em 在后方使用 /type 时不可缺省]。
+                        p #[span.code.value {type}]表示#[strong 搜索热门的类型]，可缺省，缺省值为#[span.code.value anywords]。缺省时调用Url:#[span.code.value [http] api.diviniti.cn/jmu/library/top/{top}/type/{anywords}]。
+                        p 有如下几种值：
+                            ul
+                                li #[span.code.value anywords] 搜索热门任意词，
+                                li #[span.code.value title] 搜索热门题名，
+                                li #[span.code.value titleany] 搜索热门题名内关键词，
+                                li #[span.code.value author] 搜索热门著者，
+                                li #[span.code.value authorany] 搜索热门著者内关键词，
+                                li #[span.code.value keyword] 搜索热门主题词，
+                                li #[span.code.value publisher] 搜索热门出版社，
+                                li #[span.code.value clc] 搜索热门分类号。
+                        br
+                        h3 返回值说明
+                        .hightlight
+                            pre.demo
+                                code#demo_top
+                        p 上面这段代码为搜索『2』返回的数组。
+                        p 其中#[span.code.key name]，字符串型，表示#[strong 热门关键词]
+                        p #[span.code.key frequency]，字符串型，表示#[strong 该关键词被搜索次数]
+                        br
+                        h4 相关错误
+                        .hightlight
+                            pre.demo
+                                code#demo_top_error_1
+                        p 当#[strong 搜索热门的类型值错误]时，返回上面的JSON。
+                        br
+                        .hightlight
+                            pre.demo
+                                code#demo_top_error_2
+                        p 当#[strong 参数传入有误]时，返回上面的JSON。
+                    #anchor_login.col-md-9.func-intro(data-panel='login')
+                        h2 用户登录
+                            small 使用说明
+                        hr
+                        h3 测试实例
+                        .input-group
+                            input.form-control.col-xs-4#username(type='text',placeholder='输入你的学号')
+                            input.form-control.col-xs-4#password(type='password',placeholder='输入你的密码')
+                            span.input-group-btn
+                                btn.btn.btn-default(type='button',onclick='engineStart("login")') 搜索!
+                        .highlight
+                            pre
+                                code#login_code
+                        h3 调用地址
+                        p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/login]
+                        p 发送的参数为
+                        .hightlight
+                            pre.demo
+                                code#params_login
+                        br
+                        h3 返回值说明
+                        .hightlight
+                            pre.demo
+                                code#demo_login
+                        p 上面这段代码为登录成功的返回值。
+                        p 其中#[span.code.key status]，字符串型，表示#[strong 登录状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
+                        p #[span.code.key cookie]，字符串型，表示#[strong 登录成功的返回cookie]。#[strong 该值需要保存，后续浏览借阅情况与催还图书的时候需要使用]
+                        br
+                        h4 相关错误
+                        .hightlight
+                            pre.demo
+                                code#demo_login_error_1
+                        p 当#[strong 用户名或密码输入有误]时，返回上面的JSON，其中#[span.code.key message]的返回值为#[span.code.value NAME_OR_PWD_ERROR]，表示#[strong 输入有误]。
+                        .hightlight
+                            pre.demo
+                                code#demo_login_error_2
+                        p 当#[strong 访问超时]时，返回上面的JSON。
+                        br
+                    #anchor_borrowed.col-md-9.func-intro(data-panel='borrowed')
+                        h2 查询当前借阅
+                            small 使用说明
+                        hr
+                        h3 测试实例
+                        .input-group
+                            input.form-control.col-xs-4.cookie-input#cookie(type='text',placeholder='输入获取的cookie,可在上一步获取')
+                            span.input-group-btn
+                                btn.btn.btn-default(type='button',onclick='engineStart("borrowed")') 搜索!
+                        .highlight
+                            pre
+                                code#borrowed_code
+                        h3 调用地址
+                        p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/borrowed]
+                        p 发送的参数为
+                        .hightlight
+                            pre.demo
+                                code.params_cookie
+                        br
+                        h3 返回值说明
+                        .hightlight
+                            pre.demo
+                                code#demo_borrowed
+                        p 上面这段代码为查询成功的返回值。
+                        p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
+                        p #[span.code.key booksTotal]，整型，表示#[strong 当前共借阅的书本总数]。
+                        p #[span.code.key booksList]，数组，表示#[strong 返回的书本列表]。#[em 注意]在#[span.code.key booksTotal]为#[span.code.value 0]的情况下，该字段不显示。
+                        p #[span.code.key No]，整型，表示#[strong 当前书本的序号]。
+                        p #[span.code.key bookid]，字符串型，表示#[strong 当前书本的id]。
+                        p #[span.code.key name]，字符串型，表示#[strong 当前书本的书名]。
+                        p #[span.code.key author]，字符串型，表示#[strong 当前书本的作者]。
+                        p #[span.code.key expireDate]，对象，表示#[strong 当前书本的超期时间]。其中包括#[span.code.key rawValue]未处理数据，#[span.code.key year]年 #[span.code.key month]月 #[span.code.key date]日。
+                        p #[span.code.key renewable]，布尔型，表示#[strong 当前书本是否可续期]。#[span.code.value false]为不可借阅。#[em 续期功能可能会在后期加入]
+                        p #[span.code.key type]，字符串型，表示#[strong 当前书本的类型]。
+                        p #[span.code.key accessNo]，字符串型，表示#[strong 当前书本的登录号]。
+                        p #[span.code.key borrowedDate]，对象，表示#[strong 当前书本的借阅时间]。其中包括#[span.code.key rawValue]未处理数据，#[span.code.key year]年 #[span.code.key month]月 #[span.code.key date]日。
+                        br
+                        h4 相关错误
+                        .hightlight
+                            pre.demo
+                                code#demo_borrowed_1
+                        p 当#[strong 没有cookie传入]时，返回上面的JSON。
+                        .hightlight
+                            pre.demo
+                                code#demo_borrowed_2
+                        p 当#[strong 连接失败]时，返回上面的JSON。
+                        br
+                    #anchor_userinfo.col-md-9.func-intro(data-panel='userinfo')
+                        h2 用户信息
+                            small 使用说明
+                        hr
+                        h3 测试实例
+                        .input-group
+                            input.form-control.col-xs-4.cookie-input#userinfo(type='text',placeholder='输入获取的cookie,可在上一步获取')
+                            span.input-group-btn
+                                btn.btn.btn-default(type='button',onclick='engineStart("userinfo")') 搜索!
+                        .highlight
+                            pre
+                                code#userinfo_code
+                        h3 调用地址
+                        p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/user/info]
+                        p 发送的参数为
+                        .hightlight
+                            pre.demo
+                                code.params_cookie
+                        br
+                        h3 返回值说明
+                        .hightlight
+                            pre.demo
+                                code#demo_userinfo
+                        p 上面这段代码为查询成功的返回值。
+                        p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
+                        p #[span.code.key infoes]，数组，表示#[strong 该用户总信息]。
+                        p #[span.code.key userAccountId]，字符串型，表示#[strong 该用户账号]。
+                        p #[span.code.key userName]，字符串型，表示#[strong 该用户姓名]。
+                        p #[span.code.key userType]，字符串型，表示#[strong 该用户类型]。
+                        p #[span.code.key userDepartment]，字符串型，表示#[strong 该用户单位]。
+                        p #[span.code.key userTele]，字符串型，表示#[strong 该用户电话]。
+                        p #[span.code.key userMobile]，字符串型，表示#[strong 该用户手机]。
+                        p #[span.code.key userRemarks]，字符串型，表示#[strong 该用户备注]。
+                        p #[span.code.key userEmail]，字符串型，表示#[strong 该用户Email 地址]。#[em 注意，可能无返回该字段]。
+                        p #[span.code.key userAddress]，字符串型，表示#[strong 该用户住址]。
+                        br
+                    #anchor_expired.col-md-9.func-intro(data-panel='expired')
+                        h2 查询催还图书
+                            small 使用说明
+                        hr
+                        h3 测试实例
+                        .input-group
+                            input.form-control.col-xs-4.cookie-input#expired(type='text',placeholder='输入获取的cookie,可在上一步获取')
+                            span.input-group-btn
+                                btn.btn.btn-default(type='button',onclick='engineStart("expired")') 搜索!
+                        .highlight
+                            pre
+                                code#expired_code
+                        h3 调用地址
+                        p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/expired]
+                        p 发送的参数为
+                        .hightlight
+                            pre.demo
+                                code.params_cookie
+                        br
+                        h3 返回值说明
+                        .hightlight
+                            pre.demo
+                                code#demo_expired
+                        p 上面这段代码为查询成功的返回值。
+                        p 其中#[span.code.key status]，字符串型，表示#[strong 查询状态], 成功为#[span.code.value success]，失败为#[span.code.value fail]
+                        p #[span.code.key expiredTotal]，整型，表示#[strong 当前超期图书的总数]。
+                        p #[span.code.key expiredBooks]，数组，表示#[strong 当前超期图书列表]。#[em 注意]在#[span.code.key expiredTotal]为#[span.code.value 0]的情况下，该字段不显示。
+                        p #[span.code.key No]，整型，表示#[strong 当前书本的序号]。
+                        p #[span.code.key bookid]，字符串型，表示#[strong 当前书本的id]。
+                        p #[span.code.key name]，字符串型，表示#[strong 当前书本的书名]。
+                        p #[span.code.key author]，字符串型，表示#[strong 当前书本的作者]。
+                        p #[span.code.key location]，字符串型，表示#[strong 当前书本的馆藏地]。
+                        p #[span.code.key expireDate]，对象，表示#[strong 当前书本的超期时间]。其中包括#[span.code.key rawValue]未处理数据，#[span.code.key year]年 #[span.code.key month]月 #[span.code.key date]日。
+                        p #[span.code.key accessNo]，字符串型，表示#[strong 当前书本的登录号]。
+                        p #[span.code.key departmentName]，字符串型，表示#[strong 结束者的单位名称]。
+                        p #[span.code.key expiringTotal]，整型，表示#[strong 当前将要超期的图书总数]。
+                        p #[span.code.key expiringBooks]，数组，表示#[strong 当前将要超期的图书列表]。#[em 注意]在#[span.code.key expiringTotal]为#[span.code.value 0]的情况下，该字段不显示。
+                        br
+                    #anchor_android.col-md-9.func-intro(data-panel='android')
+                        h2 android 版下载
+                        hr
+                        .media
+                            .media-left.media-middle
+                                a(href="http://toaru.diviniti.cn/Libris/")
+                                    img.media-object(src="/images/toaru.png")
+                            .media-body
+                                h4.media-heading ToarunoLibris
+                                p.media-intro ToarunoLibris 是由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]开发的Android 版集大图书馆APP(点击icon下载)
+                        .media
+                            p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+                    #anchor_ios.col-md-9.func-intro(data-panel='ios')
+                        h2 iOS版下载
+                        hr
+                        .media
+                            h4.media-heading 暂无展示
+                        .media
+                            p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
 
-                #anchor_web.col-md-9.func-intro(data-panel='web')
-                    h2  网页版试用
-                    hr
-                    .media
-                        h4.media-heading 暂无展示
-                    .media
-                        p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
-                #anchor_present.col-md-9.func-intro(data-panel='present')
-                    h2 网站说明
-                    hr
-                    p 【声明】本网站所有数据皆抓取自#[a(href='http://lib.jmu.edu.cn') 集美大学图书馆]。
-                    p 新版本中加入的用户登录的功能，希望开发者能#[strong 正确地使用]，请勿违反相关规定。
-                    hr
-                    p 如果您使用了本网站的资源并制作了相关的软件/网站，可以邮件#[a(href="mailto:toarunodiviniti@163.com?Subject=作品提交&body='SoftwareName': '软件名称',<br>'Author': '//作者署名',<br>'Platform': '//适用平台 Android / iOS / Web',<br>'Description': '//作品简介',<br>'DownloadLink': '//作品链接',<br>'SoftwareIcon': '//作品logo 正方形'<br>") 联系我] 或者 #[a(href="http://weibo.com/u/2025660943") 私信我]，您的作品将会在这个网站展示。
-                    p 请在邮件或私信中发送大概发送包括如下字段的数据：
-                    .highlight
-                        pre.demo
-                            code#upload_your_work
-                    p 如果您对于此API的内容有更好的意见也请联系我，如还需提供那些新的字段/对当前字段还需进行二次拆分等。
-                    br
-                    p 本网站为开源网站，由Node.js Express框架搭建，
-                    p 相关源代码可以通过Github找到。本站Repository： #[a(href="https://github.com/Vamish/api",target="_blank") #[i.fa.fa-github]Github]
-                #anchor_version.col-md-9.func-intro(data-panel='version')
-                    h2 版本更新说明
-                    hr
-                    p 当前版本：V 2.1.0
-                    p 更新内容：
-                        ul
-                            li 新增『热门搜索』的种类至8种。
-                            li 优化后台路由路径设置。
-                    hr
-                    p 历史版本：V 2.0.0
-                    p 更新内容：
-                        ul
-                            li 基本功能已全部实现，版本号提升至2.0.0.
-                            li 新增『用户信息查询』，新增『催还图书查询』。
-                            li 修改后台逻辑，在返回结果总数为0时，不返回相关的数组对象。
-                    hr
-                    p 历史版本：V 1.3.0
-                    p 更新内容：
-                        ul
-                            li 新增『用户登录』、『查询当前借阅』功能。
-                            li 修改#[span.code.key booksTotal]字段类型为#[strong 整型]。
-                            li 修改#[span.code.key pageTotal]字段为#[span.code.key pagesTotal]。
-                    hr
-                    p 历史版本：V 1.2.1
-                    p 更新内容：
-                        ul
-                            li 统一『按关键词搜索』时返回书本总数的字段为#[span.code.key booksTotal]。
-                    hr
-                    p 历史版本：V 1.2.0
-                    p 更新内容：
-                        ul
-                            li 修复了『找不到相关书本id』时导致崩溃的BUG。
-                            li 更新了『按id搜索』的返回结果JSON与相关错误JSON，添加搜索结果状态#[span.code.key status]字段。
-                            li 更新了热门搜索词的返回结果。拆分了关键词与搜索频率。
-                    hr
-                    p 历史版本：V 1.1.0
-                    p 更新内容：
-                        ul
-                            li 添加了指定图书id搜索的书本简介#[span.code.key intro]字段。
-                    hr
-                    p 历史版本：V 1.0.0
-                    p 更新内容：
-                        ul
-                            li 初版提交，实现关键词查询、图书id查询和热门搜索查询。
+                    #anchor_web.col-md-9.func-intro(data-panel='web')
+                        h2  网页版试用
+                        hr
+                        .media
+                            h4.media-heading 暂无展示
+                        .media
+                            p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+                    #anchor_present.col-md-9.func-intro(data-panel='present')
+                        h2 网站说明
+                        hr
+                        p 【声明】本网站所有数据皆抓取自#[a(href='http://lib.jmu.edu.cn') 集美大学图书馆]。
+                        p 新版本中加入的用户登录的功能，希望开发者能#[strong 正确地使用]，请勿违反相关规定。
+                        hr
+                        p 如果您使用了本网站的资源并制作了相关的软件/网站，可以邮件#[a(href="mailto:toarunodiviniti@163.com?Subject=作品提交&body='SoftwareName': '软件名称',<br>'Author': '//作者署名',<br>'Platform': '//适用平台 Android / iOS / Web',<br>'Description': '//作品简介',<br>'DownloadLink': '//作品链接',<br>'SoftwareIcon': '//作品logo 正方形'<br>") 联系我] 或者 #[a(href="http://weibo.com/u/2025660943") 私信我]，您的作品将会在这个网站展示。
+                        p 请在邮件或私信中发送大概发送包括如下字段的数据：
+                        .highlight
+                            pre.demo
+                                code#upload_your_work
+                        p 如果您对于此API的内容有更好的意见也请联系我，如还需提供那些新的字段/对当前字段还需进行二次拆分等。
+                        br
+                        p 本网站为开源网站，由Node.js Express框架搭建，
+                        p 相关源代码可以通过Github找到。本站Repository： #[a(href="https://github.com/Vamish/api",target="_blank") #[i.fa.fa-github]Github]
+                    #anchor_version.col-md-9.func-intro(data-panel='version')
+                        h2 版本更新说明
+                        hr
+                        p 当前版本：#[= version]
+                        p 更新内容：
+                            ul
+                                li 新增『热门搜索』的种类至8种。
+                                li 优化后台路由路径设置。
+                        hr
+                        p 历史版本：V 2.0.0
+                        p 更新内容：
+                            ul
+                                li 基本功能已全部实现，版本号提升至2.0.0.
+                                li 新增『用户信息查询』，新增『催还图书查询』。
+                                li 修改后台逻辑，在返回结果总数为0时，不返回相关的数组对象。
+                        hr
+                        p 历史版本：V 1.3.0
+                        p 更新内容：
+                            ul
+                                li 新增『用户登录』、『查询当前借阅』功能。
+                                li 修改#[span.code.key booksTotal]字段类型为#[strong 整型]。
+                                li 修改#[span.code.key pageTotal]字段为#[span.code.key pagesTotal]。
+                        hr
+                        p 历史版本：V 1.2.1
+                        p 更新内容：
+                            ul
+                                li 统一『按关键词搜索』时返回书本总数的字段为#[span.code.key booksTotal]。
+                        hr
+                        p 历史版本：V 1.2.0
+                        p 更新内容：
+                            ul
+                                li 修复了『找不到相关书本id』时导致崩溃的BUG。
+                                li 更新了『按id搜索』的返回结果JSON与相关错误JSON，添加搜索结果状态#[span.code.key status]字段。
+                                li 更新了热门搜索词的返回结果。拆分了关键词与搜索频率。
+                        hr
+                        p 历史版本：V 1.1.0
+                        p 更新内容：
+                            ul
+                                li 添加了指定图书id搜索的书本简介#[span.code.key intro]字段。
+                        hr
+                        p 历史版本：V 1.0.0
+                        p 更新内容：
+                            ul
+                                li 初版提交，实现关键词查询、图书id查询和热门搜索查询。
 
     script(type='text/javascript').
         $('a.list-group-item').click(function (e) {
