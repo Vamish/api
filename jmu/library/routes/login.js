@@ -7,7 +7,7 @@ router.post('/', function (req, res, next) {
     var _res = res;
 
     var user = req.body;
-    console.log('用户登录', user);
+    console.log('用户登录\t', user);
 
     var loginUrl = "http://libinfo.jmu.edu.cn/cuser/";
     var loginOptions = {

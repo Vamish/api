@@ -42,6 +42,8 @@ router.get('/:range/type/:type', function (req, res, next) {
     var range = req.params.range;
     var type = req.params.type;
 
+    console.log('查询热门\t', range, '查询类型\t', type);
+
     var _res = res;
 
     var exclusiveKeyword = /anywords$|title$|titleany$|author$|authorany$|keyword$|publisher$|clc$/;

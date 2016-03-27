@@ -8,6 +8,8 @@ router.get('/:bookid', function (req, res, next) {
     var bookid = req.params.bookid;
     var url = 'http://smjslib.jmu.edu.cn/bookinfo.aspx?ctrlno=' + bookid;
 
+    console.log('搜索书本ID\t', bookid);
+
     var options = {
         url: url,
         headers: {
@@ -53,7 +55,6 @@ router.get('/:bookid', function (req, res, next) {
                         && introTag.children[i].name == 'br'
                         && introTag.children[i].next.type == 'tag'
                         && introTag.children[i].next.name == 'br') {
-                        console.log(introTag.children[i].prev.data);
                         bookInfo.intro = introTag.children[i].prev.data.trim();
                     }
                 }

@@ -7,6 +7,8 @@ router.post('/', function (req, res, next) {
 
     var cookies = req.body.cookie;
 
+    console.log('用户信息\t', cookies);
+
     if (cookies == '') {
         res.send({status: 'fail', message: 'NO_COOKIE_ERROR'});
     } else {

@@ -7,6 +7,8 @@ router.post('/', function (req, res, next) {
 
     var cookies = req.body.cookie;
 
+    console.log('查看超期图书\t', cookies);
+
     if (cookies == '') {
         res.send({status: 'fail', message: 'NO_COOKIE_ERROR'});
     } else {

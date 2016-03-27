@@ -39,7 +39,7 @@ router.get('/:keyword/page/:page', function (req, res) {
     options.url = url;
     var library = {};
 
-    console.log('搜索开始', '关键词', req.params.keyword, '页码', page, '时间', new Date().Format("yyyy-MM-dd hh:mm:ss"));
+    console.log('查询图书\t', req.params.keyword, '查询页码\t', page);
 
     request(options, function (error, res, body) {
         if (!error && res.statusCode == 200) {
@@ -48,7 +48,6 @@ router.get('/:keyword/page/:page', function (req, res) {
             var hasBook = $('#ctl00_ContentPlaceHolder1_countlbl').text();
 
             if (hasBook != '') {
-                console.log('总共有:' + hasBook + '本书');
 
                 library.status = 'success';
                 library.booksTotal = Number(hasBook);
@@ -107,8 +106,6 @@ router.get('/:keyword/page/:page', function (req, res) {
             }
         }
 
-        console.log('搜索结束', '关键词', req.params.keyword, '页码', 1, '时间', new Date().Format("yyyy-MM-dd hh:mm:ss"));
-
         _res.status(200)
             .send(library);
     });
@@ -126,21 +123,5 @@ function completeGB2312(str) {
     }
     return complete;
 }
-
-Date.prototype.Format = function (fmt) { //author: meizz
-    var o = {
-        "M+": this.getMonth() + 1, //月份
-        "d+": this.getDate(), //日
-        "h+": this.getHours(), //小时
-        "m+": this.getMinutes(), //分
-        "s+": this.getSeconds(), //秒
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-        "S": this.getMilliseconds() //毫秒
-    };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
-};
 
 module.exports = router;
