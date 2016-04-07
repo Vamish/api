@@ -36,10 +36,9 @@ block content
                             pre
                                 code#line_code
                         h3 调用地址
-                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/amoy/bus/current/lineID/direction]
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/amoy/bus/line/{lineNo}]
                         br
                         p 其中#[span.code.value {lineNo}]表示#[strong 公交线路，不可省略]，
-                        p #[span.code.value {direction}]表示#[strong 线路方向，不可省略]，
                         br
                         h3 返回JSON 说明
                         .hightlight
@@ -75,9 +74,10 @@ block content
                             pre
                                 code#current_code
                         h3 调用地址
-                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/amoy/bus/line/{lineNo}]
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/amoy/bus/current/lineID/direction]
                         br
                         p 其中#[span.code.value {lineNo}]表示#[strong 公交线路，不可省略]，
+                        p #[span.code.value {direction}]表示#[strong 线路方向，不可省略]，
                         br
                         h3 返回JSON 说明
                         .hightlight
