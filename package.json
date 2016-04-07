@@ -1,19 +1,22 @@
 {
-  "name": "library",
-  "version": "0.0.2",
-  "description": "api of JiMei Unversity's Library",
-  "main": "./bin/www",
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API Collections of DIVINITI",
+  "main": "./bin/www.js",
+  "bin": {
+    "api": "www.js"
+  },
   "dependencies": {
-    "body-parser": "^1.13.3",
+    "body-parser": "^1.15.0",
+    "cheerio": "^0.20.0",
+    "cookie-parser": "^1.4.1",
     "debug": "^2.2.0",
-    "cookie-parser": "^1.3.5",
+    "encode-gb2312": "^0.0.2",
     "express": "^4.13.4",
     "jade": "^1.11.0",
-    "request": "^2.69.0",
-    "morgan": "^1.6.1",
-    "serve-favicon": "^2.3.0",
-    "cheerio": "^0.20.0",
-    "encode-gb2312": "^0.0.2"
+    "morgan": "^1.7.0",
+    "request": "^2.70.0",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -24,8 +27,9 @@
     "url": "git+https://github.com/Vamish/api.git"
   },
   "keywords": [
-    "api",
-    "diviniti"
+    "DIVINITI",
+    "Vango",
+    "牧台"
   ],
   "author": "Vango",
   "license": "ISC",

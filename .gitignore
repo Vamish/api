@@ -49,3 +49,4 @@ crashlytics-build.properties
 
 /node_modules/
 /jmu/library/node_modules/
+/amoy/bus/node_modules/

@@ -1,0 +1,325 @@
+extends layout
+block content
+    div(style='margin:0 auto;width:0px;height:0px;overflow:hidden;')
+        img#wechat_icon(src='/images/amoy/bus/logo.jpg')
+    header.site-header.jumbotron.amoy-bus-header
+        .container
+            h1 _API for Amoy Bus
+            p 本网站目前由#[a(href="http://weibo.com/u/2025660943",target="_blank") Vango]进行管理维护
+            p 当前版本：#[=version ]
+    .container-fluid
+        .row
+            .col-lg-10.col-lg-offset-1.col-md-12
+                .row
+                    .col-md-3.right-nav
+                        h2 目录
+                        .list-group
+                            a(href="#anchor_line",class='list-group-item active',data-panel='by-line') #[i.fa.fa-bus] 按线路搜索
+                            a(href="#anchor_line",class='list-group-item',data-panel='by-current') #[i.fa.fa-street-view] 实时线路搜索
+                        .list-group
+                            a.list-group-item(href="#anchor_android",data-panel='android') #[i.fa.fa-android] Android版下载
+                            a.list-group-item(href="#anchor_ios",data-panel='ios') #[i.fa.fa-apple] iOS版下载
+                            a.list-group-item(href="#anchor_web",data-panel='web') #[i.fa.fa-chrome] 网页版试用
+                        .list-group
+                            a.list-group-item(href='#anchor_present',data-panel='present') #[i.fa.fa-bullhorn] 网站说明
+                            a.list-group-item(href='#anchor_version',data-panel='version') #[i.fa.fa-rocket] 版本更新说明
+                    #anchor_line.col-md-9.func-intro.active(data-panel='by-line')
+                        h2  按线路搜索
+                            small 使用说明
+                        hr
+                        h3 测试实例
+                        .input-group
+                            input.form-control.col-xs-4#line(type='text',placeholder='输入搜索的公交线路')
+                            span.input-group-btn
+                                btn.btn.btn-default(type='button',onclick='engineStart("line")') 搜索!
+                        .highlight
+                            pre
+                                code#line_code
+                        h3 调用地址
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/amoy/bus/current/lineID/direction]
+                        br
+                        p 其中#[span.code.value {lineNo}]表示#[strong 公交线路，不可省略]，
+                        p #[span.code.value {direction}]表示#[strong 线路方向，不可省略]，
+                        br
+                        h3 返回JSON 说明
+                        .hightlight
+                            pre.demo
+                                code#demo_line
+                        p 上面这段代码为搜索『949』返回的结果。
+                        p 其中#[span.code.key status]，Boolean型，表示#[strong 搜索状态]，在有返回搜索列表的情况下，该值都为#[span.code.value true]，否则为#[span.code.value false]，
+                        p #[span.code.key total]，整型，表示#[strong 搜索线路的总量]，
+                        p #[span.code.key results]，数组，元素为#[strong 搜索到的公交的JSON 对象]，
+                        p #[span.code.key lineID]，字符串型，表示#[strong 该线路的公交ID]，
+                        p #[span.code.key direction]，字符串型，表示#[strong 当前公交的方向]，
+                        p #[span.code.key detail]，对象，表示#[strong 当前公交的详情]，
+                        p #[span.code.key name]，字符串型，表示#[strong 当前公交的线路名]，
+                        p #[span.code.key startStation]，字符串型，表示#[strong 当前公交的始发站]，
+                        p #[span.code.key endStation],字符串型，表示#[strong 当前公交的终点站]，
+                        br
+                        h4 相关错误
+                        .highlight
+                            pre.demo
+                                code#demo_no_line_found
+                        p 当#[strong 搜索结果为空]时，返回的JSON 数据如上所示。其中#[span.code.key msg]的返回值为#[span.code.value NOT_MATCH]，表示#[strong 此线路已暂停营运或无此线路]。
+                    #anchor_current.col-md-9.func-intro(data-panel='by-current')
+                        h2  实时线路搜索
+                            small 使用说明
+                        hr
+                        h3 测试实例
+                        .input-group
+                            input.form-control.col-xs-12#busID(type='text',placeholder='输入搜索的公交ID，可在上一步获取')
+                            input.form-control.col-xs-12#direc(type='number',max='2',min='1',step='1',placeholder='输入驾驶方向 1/2')
+                            span.input-group-btn
+                                btn.btn.btn-default(type='button',onclick='engineStart("current")') 搜索!
+                        .highlight
+                            pre
+                                code#current_code
+                        h3 调用地址
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/amoy/bus/line/{lineNo}]
+                        br
+                        p 其中#[span.code.value {lineNo}]表示#[strong 公交线路，不可省略]，
+                        br
+                        h3 返回JSON 说明
+                        .hightlight
+                            pre.demo
+                                code#demo_current_bus
+                        p 上面这段代码为搜索『949』返回的结果。
+                        p 其中#[span.code.key status]，Boolean型，表示#[strong 搜索状态]，在有返回搜索列表的情况下，该值都为#[span.code.value true]，否则为#[span.code.value false]，
+                        p #[span.code.key lineDescription]，对象，表示#[strong 当前线路的介绍]，
+                        p #[span.code.key lineNo]，字符串型，元素为#[strong 当前线路名称]，
+                        p #[span.code.key departureStation]，字符串型，表示#[strong 当前线路始发站]，
+                        p #[span.code.key terminalStation]，字符串型，表示#[strong 当前线路终点站]，
+                        p #[span.code.key schedule]，对象，表示#[strong 当前线路的时间计划]，
+                        p #[span.code.key dailyStartTime]，字符串型，表示#[strong 当前公交的首班车发车时间]，
+                        p #[span.code.key dailyEndTime]，字符串型，表示#[strong 当前公交的末班车发车时间]，
+                        p #[span.code.key nextDepartTime],字符串型，表示#[strong 当前公交的下一班车计划发车时间]，
+                        p #[span.code.key totalStations],整型，表示#[strong 当前线路经过的总站数]，
+                        p #[span.code.key stations],数组，表示#[strong 元素为每个站点的详细信息对象]，
+                        p #[span.code.key no],整型，表示#[strong 当前站点的序号]，
+                        p #[span.code.key no],整型，表示#[strong 当前站点的序号]，
+                        p #[span.code.key name],整型，表示#[strong 当前站点的名称]，
+                        p #[span.code.key status],整型，表示#[strong 当前站点的状态]，有无车开往/到达
+                        br
+                        h4 相关错误
+                        .highlight
+                            pre.demo
+                                code#demo_current_error
+                        p 当#[strong 搜索结果为空]时，返回的JSON 数据如上所示。其中#[span.code.key msg]的返回值为#[span.code.value PARAMS_ERROR]，表示#[strong 参数传入有误]。
+                    #anchor_android.col-md-9.func-intro(data-panel='android')
+                        h2 android 版下载
+                        hr
+                        .media
+                            h4.media-heading 暂无展示
+                        .media
+                            p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+                    #anchor_ios.col-md-9.func-intro(data-panel='ios')
+                        h2 iOS版下载
+                        hr
+                        .media
+                            h4.media-heading 暂无展示
+                        .media
+                            p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+                    #anchor_web.col-md-9.func-intro(data-panel='web')
+                        h2  网页版试用
+                        hr
+                        .media
+                            h4.media-heading 暂无展示
+                        .media
+                            p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
+                    #anchor_present.col-md-9.func-intro(data-panel='present')
+                        h2 网站说明
+                        hr
+                        p 【声明】本网站所有数据皆抓取自#[a(href='http://mybus.xiamentd.com/') 厦门无线城市掌上公交]。
+                        hr
+                        p 如果您使用了本网站的资源并制作了相关的软件/网站，可以邮件#[a(href="mailto:toarunodiviniti@163.com?Subject=作品提交&body='SoftwareName': '软件名称',<br>'Author': '//作者署名',<br>'Platform': '//适用平台 Android / iOS / Web',<br>'Description': '//作品简介',<br>'DownloadLink': '//作品链接',<br>'SoftwareIcon': '//作品logo 正方形'<br>") 联系我] 或者 #[a(href="http://weibo.com/u/2025660943") 私信我]，您的作品将会在这个网站展示。
+                        p 请在邮件或私信中发送大概发送包括如下字段的数据：
+                        .highlight
+                            pre.demo
+                                code#upload_your_work
+                        p 如果您对于此API的内容有更好的意见也请联系我，如还需提供那些新的字段/对当前字段还需进行二次拆分等。
+                        br
+                        p 本网站为开源网站，由Node.js Express框架搭建，
+                        p 相关源代码可以通过Github找到。本站Repository： #[a(href="https://github.com/Vamish/api",target="_blank") #[i.fa.fa-github]Github]
+                    #anchor_version.col-md-9.func-intro(data-panel='version')
+                        h2 版本更新说明
+                        hr
+                        p 当前版本：#[= version]
+                        p 更新内容：
+                            ul
+                                li 初版提交，实现公交线路查询、实时公交查询。
+    script(type='text/javascript').
+        $('a.list-group-item').click(function (e) {
+            //e.preventDefault();
+            $('a.list-group-item').removeClass('active');
+            $(this).addClass('active');
+            var panelArray = [
+                "div[data-panel=by-line]",
+                "div[data-panel=android]",
+                "div[data-panel=ios]",
+                "div[data-panel=web]",
+                "div[data-panel=present]",
+                "div[data-panel=version]",
+                "div[data-panel=by-current]"
+            ];
+            var obj = {
+                'by-line': 0,
+                'android': 1,
+                'ios': 2,
+                'web': 3,
+                'present': 4,
+                'version': 5,
+                'by-current': 6
+            };
+            $('.func-intro').removeClass('active');
+            $(panelArray[obj[$(this).data('panel')]]).addClass('active');
+        });
+        function engineStart(type) {
+            if (!json_formater)
+                var json_formater = {};
+            json_formater.json = {
+                replacer: function (match, pIndent, pKey, pVal, pEnd) {
+                    var key = '<span class=json-key>';
+                    var val = '<span class=json-value>';
+                    var str = '<span class=json-string>';
+                    var r = pIndent || '';
+                    if (pKey)
+                        r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+                    if (pVal)
+                        r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+                    return r + (pEnd || '');
+                },
+                prettyPrint: function (obj) {
+                    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+                    return JSON.stringify(obj, null, 3)
+                            .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                            .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                            .replace(jsonLine, json_formater.json.replacer);
+                }
+            };
+            switch (type) {
+                case 'line':
+                    var lineNo = $('#line').val();
+                    $.ajax({
+                        url: 'line/' + lineNo,
+                        type: 'get',
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('#line_code').html('加载中.....');
+                        }, success: function (data) {
+                            $('#line_code').html(json_formater.json.prettyPrint(data));
+                            if (data.status) {
+                                $('#busID').val(data.results[0].lineID);
+                                $('#direc').val(data.results[0].direction);
+                            }
+                        }
+                    });
+                    break;
+                case 'current':
+                    var busID = $('#busID').val();
+                    var direction = $('#direc').val();
+                    $.ajax({
+                        url: 'current/' + busID + '/' + direction,
+                        type: 'get',
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('#current_code').html('加载中.....');
+                        }, success: function (data) {
+                            $('#current_code').html(json_formater.json.prettyPrint(data));
+                        }
+                    });
+            }
+        }
+        (function ($) {
+            //改变Chrome Tab 的色值
+            var colors = ["#5E8B30", "#70A23E", "#5F8D30", "#5F8E2F"];
+            var m = $('meta[name=theme-color]');
+            setInterval(function () {
+                $(m).attr('content', colors[Math.ceil(Math.random() * 4) - 1]);
+            }, 5000);
+            if (!json_formater)
+                var json_formater = {};
+            json_formater.json = {
+                replacer: function (match, pIndent, pKey, pVal, pEnd) {
+                    var key = '<span class=json-key>';
+                    var val = '<span class=json-value>';
+                    var str = '<span class=json-string>';
+                    var r = pIndent || '';
+                    if (pKey)
+                        r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+                    if (pVal)
+                        r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+                    return r + (pEnd || '');
+                },
+                prettyPrint: function (obj) {
+                    var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+                    return JSON.stringify(obj, null, 3)
+                            .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                            .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                            .replace(jsonLine, json_formater.json.replacer);
+                }
+            };
+            var demo_line = {
+                status: true,
+                total: 2,
+                results: [
+                    {
+                        lineID: "562",
+                        direction: "1",
+                        detail: {
+                            name: "949路",
+                            startStation: "厦门北站",
+                            endStation: "前埔公交场站"
+                        }
+                    },
+                    {
+                        lineID: "562",
+                        direction: "2",
+                        detail: {
+                            name: "949路",
+                            startStation: "前埔公交场站",
+                            endStation: "厦门北站"
+                        }
+                    }
+                ]
+            };
+            $('#demo_line').html(json_formater.json.prettyPrint(demo_line));
+            var demo_no_line_found = {status: false, msg: 'NOT_MATCH'};
+            $('#demo_no_line_found').html(json_formater.json.prettyPrint(demo_no_line_found));
+            var demo_current_bus = {
+                status: true,
+                lineDescription: {
+                    lineNo: "949路",
+                    departureStation: "厦门北站",
+                    terminalStation: "前埔公交场站"
+                },
+                schedule: {
+                    dailyStartTime: "06:00",
+                    dailyEndTime: "20:20",
+                    nextDepartTime: "16:28"
+                },
+                totalStations: 35,
+                stations: [
+                    {
+                        no: 1,
+                        name: "厦门北站",
+                        status: " "
+                    }]
+            };
+            $('#demo_current_bus').html(json_formater.json.prettyPrint(demo_current_bus));
+            var demo_current_error = {status: false, msg: 'PARAMS_ERROR'};
+            $('#demo_current_error').html(json_formater.json.prettyPrint(demo_current_error));
+            var upload_your_work = {
+                "SoftwareName": "//软件名称",
+                "Author": "//作者署名",
+                "Platform": "//适用平台 Android / iOS / Web",
+                "Description": "//作品简介",
+                "DownloadLink": "//作品链接",
+                "SoftwareIcon": "//作品logo 正方形"
+            };
+            $('#upload_your_work').html(json_formater.json.prettyPrint(upload_your_work));
+
+        })
+        (jQuery);
+    script(type='text/javascript').
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1258052592'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258052592%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
