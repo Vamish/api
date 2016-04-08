@@ -1,24 +1,30 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
+//var favicon = require('serve-favicon');
+//var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//INDEX
+var api = {};
+api.index = require('./routes/index');
+
 //JMU LIBRARY
-var libraryDoc = require('./routes/jmu/library/doc');
-var library = require('./routes/jmu/library/library');
-var book = require('./routes/jmu/library/book');
-var top = require('./routes/jmu/library/top');
-var login = require('./routes/jmu/library/login');
-var borrowed = require('./routes/jmu/library/borrowed');
-var expired = require('./routes/jmu/library/expired');
-var userinfo = require('./routes/jmu/library/user/info');
+var library = {};
+library.doc = require('./routes/jmu/library/doc');
+library.library = require('./routes/jmu/library/library');
+library.book = require('./routes/jmu/library/book');
+library.top = require('./routes/jmu/library/top');
+library.login = require('./routes/jmu/library/login');
+library.borrowed = require('./routes/jmu/library/borrowed');
+library.expired = require('./routes/jmu/library/expired');
+library.userinfo = require('./routes/jmu/library/user/info');
 
 //AMOY BUS
-var BusDoc = require('./routes/amoy/bus/doc');
-var BusLine = require('./routes/amoy/bus/line');
-var BusCurrent = require('./routes/amoy/bus/current');
+var bus = {};
+bus.doc = require('./routes/amoy/bus/doc');
+bus.line = require('./routes/amoy/bus/line');
+bus.current = require('./routes/amoy/bus/current');
 
 var app = express();
 
@@ -31,19 +37,20 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/jmu/library/doc', libraryDoc);
-app.use('/jmu/library/search', library);
-app.use('/jmu/library/book', book);
-app.use('/jmu/library/top', top);
-app.use('/jmu/library/login', login);
-app.use('/jmu/library/borrowed', borrowed);
-app.use('/jmu/library/expired', expired);
-app.use('/jmu/library/user/info', userinfo);
+app.use('/', api.index);
 
+app.use('/jmu/library/doc', library.doc);
+app.use('/jmu/library/search', library.library);
+app.use('/jmu/library/book', library.book);
+app.use('/jmu/library/top', library.top);
+app.use('/jmu/library/login', library.login);
+app.use('/jmu/library/borrowed', library.borrowed);
+app.use('/jmu/library/expired', library.expired);
+app.use('/jmu/library/user/info', library.userinfo);
 
-app.use('/amoy/bus/doc', BusDoc);
-app.use('/amoy/bus/line', BusLine);
-app.use('/amoy/bus/current', BusCurrent);
+app.use('/amoy/bus/doc', bus.doc);
+app.use('/amoy/bus/line', bus.line);
+app.use('/amoy/bus/current', bus.current);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
