@@ -48,7 +48,7 @@ router.get('/', function (req, res) {
     client.stat(bucket, key, function (err, ret) {
         if (!err) {
             //有文件就调
-            console.log('该图片已缓存：', ret.hash, ret.fsize, ret.putTime, ret.mimeType);
+            console.log('Cache Found：', ret.hash, ret.fsize, ret.putTime, ret.mimeType);
 
             //构建私有空间的链接
             var requestUrl = 'http://7xt0g4.com1.z0.glb.clouddn.com/' + key;
@@ -59,40 +59,41 @@ router.get('/', function (req, res) {
 
             res.render('himawari/index', {url: downloadUrl});
         } else {
-            console.log('图片未缓存', err);
+            console.log('Cache No Found', err);
             //没缓存就上传
 
             //1.先保存到本地
-            http.get(url, function (res) {
+            http.get(url, function (_res) {
                 var imgData = "";
 
-                res.setEncoding("binary"); //一定要设置response的编码为binary否则会下载下来的图片打不开
-
-
-                res.on("data", function (chunk) {
+                _res.setEncoding("binary"); //一定要设置response的编码为binary否则会下载下来的图片打不开
+                _res.on("data", function (chunk) {
                     imgData += chunk;
                 });
 
-                res.on("end", function () {
+                _res.on("end", function () {
                     fs.writeFile("../public/images/himawari/persistent/earth.png", imgData, "binary", function (err) {
                         if (err) {
-                            console.log("down fail", err);
+                            console.log("Image Download Failed", err);
+                        } else {
+                            console.log("Image Download Success");
+
+                            //2.生成上传 Token
+                            token = uptoken(bucket, key);
+
+                            //3.要上传文件的本地路径
+                            filePath = "../public/images/himawari/persistent/earth.png";
+
+                            //4.调用uploadFile上传
+                            uploadFile(token, key, filePath);
+
+                            res.render('himawari/index', {url: 'images/himawari/persistent/earth.png'});
                         }
-                        console.log("down success");
                     });
                 });
             });
 
-            //2.生成上传 Token
-            token = uptoken(bucket, key);
 
-            //3.要上传文件的本地路径
-            filePath = "../public/images/himawari/persistent/earth.png";
-
-            //4.调用uploadFile上传
-            uploadFile(token, key, filePath);
-
-            res.render('himawari/index', {url: 'images/himawari/persistent/earth.png'});
         }
     });
 
