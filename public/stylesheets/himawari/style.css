@@ -43,6 +43,7 @@ span .glow {
 span img {
     width: 80%;
     max-width: 550px;
+    pointer-events: none;
 }
 
 @keyframes glow {
