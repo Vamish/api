@@ -80,6 +80,7 @@ router.get('/', function (req, res) {
 
                             //2.生成上传 Token
                             token = uptoken(bucket, key);
+                            console.log(token);
 
                             //3.要上传文件的本地路径
                             filePath = "../public/images/himawari/persistent/earth.png";
