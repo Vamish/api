@@ -26,10 +26,10 @@ span {
     vertical-align: middle;
 }
 
-span:before {
+span .glow {
     content: '';
-    width: 543px;
-    height: 543px;
+    width: 80%;
+    max-width: 550px;
     position: absolute;
     border-radius: 50%;
     left: 0;
@@ -38,6 +38,11 @@ span:before {
     animation-name: glow;
     animation-duration: 4s;
     animation-iteration-count: infinite;
+}
+
+span img {
+    width: 80%;
+    max-width: 550px;
 }
 
 @keyframes glow {

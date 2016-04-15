@@ -1,4 +1,11 @@
 extends layout
 block content
     span
+        div.glow
         img(src=url)
+
+    script.
+        $(document).ready(function () {
+            var width = $('.glow').width() - 6;
+            $('.glow').width(width).height(width);
+        });
