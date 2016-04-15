@@ -26,6 +26,10 @@ bus.doc = require('./routes/amoy/bus/doc');
 bus.line = require('./routes/amoy/bus/line');
 bus.current = require('./routes/amoy/bus/current');
 
+//HIMAWARI 8
+var himawari = {};
+himawari.index = require('./routes/himawari/index');
+
 var app = express();
 
 // view engine setup
@@ -51,6 +55,8 @@ app.use('/jmu/library/user/info', library.userinfo);
 app.use('/amoy/bus/doc', bus.doc);
 app.use('/amoy/bus/line', bus.line);
 app.use('/amoy/bus/current', bus.current);
+
+app.use('/himawari', himawari.index);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
