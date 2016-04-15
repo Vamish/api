@@ -76,7 +76,7 @@ router.get('/', function (req, res) {
                 res.on("end", function () {
                     fs.writeFile("../public/images/himawari/persistent/earth.png", imgData, "binary", function (err) {
                         if (err) {
-                            console.log("down fail");
+                            console.log("down fail", err);
                         }
                         console.log("down success");
                     });
