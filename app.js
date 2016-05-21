@@ -56,7 +56,7 @@ app.use('/amoy/bus/doc', bus.doc);
 app.use('/amoy/bus/line', bus.line);
 app.use('/amoy/bus/current', bus.current);
 
-app.use('/himawari', himawari.index);
+// app.use('/himawari', himawari.index);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
