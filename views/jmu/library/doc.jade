@@ -184,7 +184,7 @@ block content
                             pre
                                 code#login_code
                         h3 调用地址
-                        p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/login]
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/login]
                         p 发送的参数为
                         .hightlight
                             pre.demo
@@ -221,7 +221,7 @@ block content
                             pre
                                 code#borrowed_code
                         h3 调用地址
-                        p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/borrowed]
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/borrowed]
                         p 发送的参数为
                         .hightlight
                             pre.demo
@@ -268,7 +268,7 @@ block content
                             pre
                                 code#userinfo_code
                         h3 调用地址
-                        p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/user/info]
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/user/info]
                         p 发送的参数为
                         .hightlight
                             pre.demo
@@ -304,7 +304,7 @@ block content
                             pre
                                 code#expired_code
                         h3 调用地址
-                        p Method:#[span.code.key POST]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/expired]
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/expired]
                         p 发送的参数为
                         .hightlight
                             pre.demo
@@ -554,7 +554,7 @@ block content
                     };
                     $.ajax({
                         url: 'login',
-                        type: 'post',
+                        type: 'get',
                         data: user,
                         dataType: 'json',
                         beforeSend: function () {
@@ -569,7 +569,7 @@ block content
                 case 'borrowed':
                     $.ajax({
                         url: 'borrowed',
-                        type: 'post',
+                        type: 'get',
                         data: {
                             cookie: $('#cookie').val()
                         },
@@ -585,7 +585,7 @@ block content
                 case 'userinfo':
                     $.ajax({
                         url: 'user/info',
-                        type: 'post',
+                        type: 'get',
                         data: {
                             cookie: $('#userinfo').val()
                         },
@@ -601,7 +601,7 @@ block content
                 case 'expired':
                     $.ajax({
                         url: 'expired',
-                        type: 'post',
+                        type: 'get',
                         data: {
                             cookie: $('#expired').val()
                         },

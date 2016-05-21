@@ -3,9 +3,9 @@ var cherrio = require('cheerio');
 var express = require('express');
 var router = express.Router();
 
-router.post('/', function (req, res, next) {
+router.get('/', function (req, res, next) {
 
-    var cookies = req.body.cookie;
+    var cookies = req.query.cookie;
 
     console.log('查询当前借阅\t', cookies);
 

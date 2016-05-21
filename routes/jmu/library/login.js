@@ -2,11 +2,11 @@ var request = require('request');
 var express = require('express');
 var router = express.Router();
 
-router.post('/', function (req, res, next) {
+router.get('/', function (req, res, next) {
 
     var _res = res;
 
-    var user = req.body;
+    var user = req.query;
     console.log('用户登录\t', user);
 
     var loginUrl = "http://libinfo.jmu.edu.cn/cuser/";
