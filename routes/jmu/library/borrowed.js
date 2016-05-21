@@ -93,9 +93,9 @@ router.post('/', function (req, res, next) {
                     borrowedData.booksList = booksList;
                 }
 
-                _res.send(borrowedData);
+                _res.jsonp(borrowedData);
             } else {
-                _res.send({status: 'fail', message: 'CONNECTION_ERROR'});
+                _res.jsonp({status: 'fail', message: 'CONNECTION_ERROR'});
             }
         })
     }

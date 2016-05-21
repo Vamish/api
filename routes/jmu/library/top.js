@@ -19,7 +19,7 @@ router.get('/:range', function (req, res) {
 
     } else {
 
-        res.send({status: 'fail', message: 'PARAMS_ERROR'});
+        res.jsonp({status: 'fail', message: 'PARAMS_ERROR'});
 
     }
 
@@ -49,7 +49,7 @@ router.get('/:range/type/:type', function (req, res, next) {
     var exclusiveKeyword = /anywords$|title$|titleany$|author$|authorany$|keyword$|publisher$|clc$/;
 
     if (!type.match(exclusiveKeyword)) {
-        _res.send({status: 'fail', message: 'KEYWORDS_ERROR'});
+        _res.jsonp({status: 'fail', message: 'KEYWORDS_ERROR'});
     } else {
 
         var url = 'http://smjslib.jmu.edu.cn/top100.aspx?sparaname=' + type;
@@ -78,9 +78,9 @@ router.get('/:range/type/:type', function (req, res, next) {
                 });
 
                 if (range) {
-                    _res.send(topSearch.slice(0, range));
+                    _res.jsonp(topSearch.slice(0, range));
                 } else {
-                    _res.send(topSearch);
+                    _res.jsonp(topSearch);
                 }
             }
         });

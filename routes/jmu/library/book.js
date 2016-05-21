@@ -66,7 +66,7 @@ router.get('/:bookid', function (req, res, next) {
             }
 
             //console.log(bookInfo);
-            _res.send(bookInfo);
+            _res.jsonp(bookInfo);
         }
     });
 });

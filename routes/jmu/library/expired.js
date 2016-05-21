@@ -10,7 +10,7 @@ router.post('/', function (req, res, next) {
     console.log('查看超期图书\t', cookies);
 
     if (cookies == '') {
-        res.send({status: 'fail', message: 'NO_COOKIE_ERROR'});
+        res.jsonp({status: 'fail', message: 'NO_COOKIE_ERROR'});
     } else {
 
         var _res = res;
@@ -124,9 +124,9 @@ router.post('/', function (req, res, next) {
                     }
                 });
 
-                _res.send(expireBooks);
+                _res.jsonp(expireBooks);
             } else {
-                _res.send({status: 'fail', message: 'CONNECTION_ERROR'});
+                _res.jsonp({status: 'fail', message: 'CONNECTION_ERROR'});
             }
         })
     }

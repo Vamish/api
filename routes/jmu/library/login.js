@@ -35,21 +35,21 @@ router.post('/', function (req, res, next) {
 
                 result.status = 'success';
                 result.cookie = loginCookie;
-                _res.send(result);
+                _res.jsonp(result);
             } catch (err) {
                 switch (err.name) {
                     case 'TypeError':
                         //用户名 / 密码错误
                         result.status = 'fail';
                         result.message = 'NAME_OR_PWD_ERROR';
-                        _res.send(result);
+                        _res.jsonp(result);
                         break;
                 }
             }
         } else {
             result.status = 'fail';
             result.message = 'TIME_OUT_ERROR';
-            _res.send(result);
+            _res.jsonp(result);
         }
     });
 

@@ -107,7 +107,7 @@ router.get('/:keyword/page/:page', function (req, res) {
         }
 
         _res.status(200)
-            .send(library);
+            .jsonp(library);
     });
 
 });
