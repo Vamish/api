@@ -6,6 +6,7 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/:bookid', function (req, res, next) {
     var bookid = req.params.bookid;
+    console.log(bookid);
     var url = 'http://smjslib.jmu.edu.cn/bookinfo.aspx?ctrlno=' + bookid;
 
     console.log('搜索书本ID\t', bookid);
@@ -46,7 +47,6 @@ router.get('/:bookid', function (req, res, next) {
                 infoes.push(info);
             });
 
-            //console.log($('#ctl00_ContentPlaceHolder1_bookcardinfolbl')[0].children);
             var introTag = $('#ctl00_ContentPlaceHolder1_bookcardinfolbl')[0];
             if (introTag != undefined) {
                 bookInfo.status = "success";
@@ -58,6 +58,15 @@ router.get('/:bookid', function (req, res, next) {
                         bookInfo.intro = introTag.children[i].prev.data.trim();
                     }
                 }
+
+                //获取 ISBN
+                var txt = '';
+                introTag.children.map(function (child, index) {
+                    if (child.data) {
+                        txt += child.data;
+                    }
+                });
+                bookInfo.ISBN = txt.split('ISBN').reverse()[0].split('：')[0].split('-').join('');
 
                 bookInfo.infoes = infoes;
             } else {

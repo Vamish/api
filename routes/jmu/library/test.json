@@ -1,0 +1,220 @@
+{
+  data: '　　有书目 (第136-137页)',
+  type: 'text',
+  next: {
+    type: 'tag',
+    name: 'br',
+    attribs: {},
+    children: [],
+    next: {
+      data: '　　本书以图文并茂的形式梳理自史前社会的手工业时代设计到后工业社会之后的设计脉络,介绍各个时代艺术设计运动、特点、流派等。',
+      type: 'text',
+      next: [Object],
+      prev: [Circular],
+      parent: [Object]
+    },
+    prev: [Circular],
+    parent: {
+      type: 'tag',
+      name: 'span',
+      attribs: [Object],
+      children: [Object],
+      next: [Object],
+      prev: [Object],
+      parent: [Object]
+    }
+  },
+  prev: {
+    type: 'tag',
+    name: 'br',
+    attribs: {},
+    children: [],
+    next: [Circular],
+    prev: {
+      type: 'tag',
+      name: 'br',
+      attribs: {},
+      children: [],
+      next: [Circular],
+      prev: [Object],
+      parent: [Object]
+    },
+    parent: {
+      type: 'tag',
+      name: 'span',
+      attribs: [Object],
+      children: [Object],
+      next: [Object],
+      prev: [Object],
+      parent: [Object]
+    }
+  },
+  parent: {
+    type: 'tag',
+    name: 'span',
+    attribs: {id: 'ctl00_ContentPlaceHolder1_bookcardinfolbl'},
+    children: [
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Circular],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object],
+      [Object]
+    ],
+    next: {
+      data: '\r\n            ',
+      type: 'text',
+      next: null,
+      prev: [Circular],
+      parent: [Object]
+    },
+    prev: {
+      data: '\r\n                ',
+      type: 'text',
+      next: [Circular],
+      prev: null,
+      parent: [Object]
+    },
+    parent: {
+      type: 'tag',
+      name: 'div',
+      attribs: [Object],
+      children: [Object],
+      next: [Object],
+      prev: [Object],
+      parent: [Object]
+    }
+  }
+}
+{data: '　　ISBN978-7-5624-9075-3：CNY49.00',
+type: 'text',
+next:
+{type: 'tag',
+name: 'br',
+attribs:
+{}
+,
+children: [],
+next:
+{
+data: '　　Ⅰ．①设计简史　　Ⅱ．①',
+type: 'text',
+next: [Object],
+prev: [Circular],
+parent: [Object] },
+prev: [Circular],
+parent:
+{
+type: 'tag',
+name: 'span',
+attribs: [Object],
+children: [Object],
+next: [Object],
+prev: [Object],
+parent: [Object] }},
+prev:
+{type: 'tag',
+name: 'br',
+attribs:{},
+children: [],
+next: [Circular],
+prev:
+{
+type: 'tag',
+name: 'br',
+attribs:{},
+children: [],
+next: [Circular],
+prev: [Object],
+parent: [Object] },
+parent:
+{type: 'tag',
+name: 'span',
+attribs: [Object],
+children: [Object],
+next: [Object],
+prev: [Object],
+parent: [Object] }},
+parent:
+{type: 'tag',
+name: 'span',
+attribs:{id: 'ctl00_ContentPlaceHolder1_bookcardinfolbl' },
+children:
+[
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Circular],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object],
+[Object]
+],
+next:
+{
+data: '\r\n            ',
+type: 'text',
+next: null,
+prev: [Circular],
+parent: [Object] },
+prev:
+{data: '\r\n                ',
+type: 'text',
+next: [Circular],
+prev: null,
+parent: [Object] },
+parent:
+{type: 'tag',
+name: 'div',
+attribs: [Object],
+children: [Object],
+next: [Object],
+prev: [Object],
+parent: [Object]
+}}}

@@ -104,6 +104,7 @@ block content
                         p 上面这段代码为搜索『3885656』返回的结果（截取）。
                         p 其中#[span.code.key status]，字符串型，表示#[strong 搜索状态]，成功时返回#[span.code.value success]，失败时返回#[span.code.value fail]，
                         p #[span.code.key intro]，字符串型，表示#[strong 该书内容简介]，
+                        p #[span.code.key ISBN]，字符串型，表示#[strong 该书ISBN 码]，
                         p #[span.code.key infoes]，数组，表示#[strong 馆藏每一本书的具体信息]，该值的length 即为该书的馆藏总数，
                         p #[span.code.key location]，字符串型，表示#[strong 该书的馆藏地]，
                         p #[span.code.key callNumber]，字符串型，表示#[strong 索书号]，
@@ -375,6 +376,11 @@ block content
                         h2 版本更新说明
                         hr
                         p 当前版本：#[= version]
+                        p 更新内容：
+                            ul
+                                li 新增『指定id搜索』中#[span.code.key ISBN]字段，返回书籍ISBN 码【可用于查找书本封面】
+                        hr
+                        p 历史版本：V 2.1.0
                         p 更新内容：
                             ul
                                 li 新增『热门搜索』的种类至8种。
