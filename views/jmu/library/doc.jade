@@ -491,7 +491,7 @@ block content
                 case 'keyword':
                     var rawValue = $('#keyword').val();
                     var keyword = (rawValue.trim() != "") ? rawValue : prompt("请输入搜索的关键词", "Javascript");
-                        $('#keyword').val(keyword);
+                    $('#keyword').val(keyword);
                     var page = parseInt($('#page').val(), 10);
 
                     var url = 'search/' + keyword;
@@ -691,6 +691,7 @@ block content
             var demo_book_info = {
                 "status": "success",
                 "intro": "本书全面介绍JavaScript 的基本知识、高级技巧和实例......",
+                "ISBN": "9787302395560",
                 "infoes": [{
                     "location": "嘉庚馆自科书库",
                     "callNumber": "TP312JA/LG7",
