@@ -67,12 +67,7 @@ router.get('/:isbn', function (req, res, next) {
                     }
                 });
 
-                var handleChineseBrackets = txt.split('ISBN').reverse()[0].split('：')[0].split('-').join('');
-                if (handleChineseBrackets.indexOf('（') == -1) {
-                    bookInfo.ISBN = handleChineseBrackets;
-                } else {
-                    bookInfo.ISBN = handleChineseBrackets.split('（')[0];
-                }
+                bookInfo.ISBN = txt.split('ISBN').reverse()[0].split('：')[0].split('-').join('');
 
                 bookInfo.infoes = infoes;
             } else {

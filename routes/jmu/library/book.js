@@ -66,7 +66,13 @@ router.get('/:bookid', function (req, res, next) {
                         txt += child.data;
                     }
                 });
-                bookInfo.ISBN = txt.split('ISBN').reverse()[0].split('：')[0].split('-').join('');
+
+                var handleChineseBrackets = txt.split('ISBN').reverse()[0].split('：')[0].split('-').join('');
+                if (handleChineseBrackets.indexOf('（') == -1) {
+                    bookInfo.ISBN = handleChineseBrackets;
+                } else {
+                    bookInfo.ISBN = handleChineseBrackets.split('（')[0];
+                }
 
                 bookInfo.infoes = infoes;
             } else {

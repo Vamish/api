@@ -27,8 +27,8 @@ bus.line = require('./routes/amoy/bus/line');
 bus.current = require('./routes/amoy/bus/current');
 
 //HIMAWARI 8
-var himawari = {};
-himawari.index = require('./routes/himawari/index');
+// var himawari = {};
+// himawari.index = require('./routes/himawari/index');
 
 var app = express();
 
