@@ -39,7 +39,7 @@ router.get('/:keyword/page/:page', function (req, res) {
     options.url = url;
     var library = {};
 
-    console.log('查询图书\t', req.params.keyword, '查询页码\t', page);
+    console.log('SEARCH BOOK:NAME\t', req.params.keyword, 'SEARCH PAGE\t', page);
 
     request(options, function (error, res, body) {
         if (!error && res.statusCode == 200) {

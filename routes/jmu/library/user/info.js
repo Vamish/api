@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
 
     var cookies = req.query.cookie;
 
-    console.log('用户信息\t', cookies);
+    console.log('USER INFO:\t', cookies);
 
     if (cookies == '') {
         res.send({status: 'fail', message: 'NO_COOKIE_ERROR'});

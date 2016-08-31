@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
 
     var cookies = req.query.cookie;
 
-    console.log('查看超期图书\t', cookies);
+    console.log('CHECK EXPIRED\t', cookies);
 
     if (cookies == '') {
         res.jsonp({status: 'fail', message: 'NO_COOKIE_ERROR'});

@@ -6,10 +6,9 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/:bookid', function (req, res, next) {
     var bookid = req.params.bookid;
-    console.log(bookid);
     var url = 'http://smjslib.jmu.edu.cn/bookinfo.aspx?ctrlno=' + bookid;
 
-    console.log('搜索书本ID\t', bookid);
+    console.log('SEARCH BOOK:ID\t', bookid);
 
     var options = {
         url: url,
@@ -80,7 +79,6 @@ router.get('/:bookid', function (req, res, next) {
                 bookInfo.message = "NO_DETAIL_FOUND";
             }
 
-            //console.log(bookInfo);
             _res.jsonp(bookInfo);
         }
     });

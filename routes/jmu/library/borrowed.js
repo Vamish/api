@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
 
     var cookies = req.query.cookie;
 
-    console.log('查询当前借阅\t', cookies);
+    console.log('CHECK CURRENT\t', cookies);
 
     if (cookies == '') {
         res.send({status: 'fail', message: 'NO_COOKIE_ERROR'});

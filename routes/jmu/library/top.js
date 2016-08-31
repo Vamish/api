@@ -42,13 +42,13 @@ router.get('/:range/type/:type', function (req, res, next) {
     var range = req.params.range;
     var type = req.params.type;
 
-    console.log('查询热门\t', range, '查询类型\t', type);
+    console.log('SEARCH TOP:NUM\t', range, '\tSEARCH TYPE\t', type);
 
     var _res = res;
 
     var exclusiveKeyword = /anywords$|title$|titleany$|author$|authorany$|keyword$|publisher$|clc$/;
 
-    if (!type.match(exclusiveKeyword)) {
+    if (!type.match(exclusiveKeyword) || !Number(req.params.range)) {
         _res.jsonp({status: 'fail', message: 'KEYWORDS_ERROR'});
     } else {
 
@@ -69,7 +69,7 @@ router.get('/:range/type/:type', function (req, res, next) {
                 var topSearch = [];
                 $('#top100Inner td').each(function (i, elem) {
                     if (elem.name === 'td') {
-                        var raw = elem.children[1].children[0].data.trim();
+                        var raw = $(elem).text().trim();
                         var top = {};
                         top.name = raw.split('(')[0];
                         top.frequency = raw.split('(')[1].split(')')[0];
