@@ -51,9 +51,19 @@ router.get('/:bookid', function (req, res, next) {
                 bookInfo.status = "success";
 
                 //获取 书名
-                var unhandledName = introTag.children[0].data;
-                if (unhandledName && unhandledName.indexOf("／") > -1) {
-                    bookInfo.name = unhandledName.split("／")[0].trim();
+                var raw_book_author_value = introTag.children[0].data;
+                if (raw_book_author_value && raw_book_author_value.indexOf("／") > -1) {
+                    bookInfo.name = raw_book_author_value.split("／")[0].trim();
+
+                    var raw_author_value = raw_book_author_value.split("／")[1];
+                    if(raw_author_value && raw_author_value.indexOf("．")>-1){
+                        bookInfo.author = raw_author_value.split("．")[0].trim();
+                    }else{
+                        bookInfo.author = "";
+                    }
+                }else{
+                    bookInfo.name = "";
+                    bookInfo.author = "";
                 }
 
                 for (var i = 0, len = introTag.children.length; i < len; i++) {
