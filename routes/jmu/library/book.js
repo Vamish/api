@@ -49,6 +49,13 @@ router.get('/:bookid', function (req, res, next) {
             var introTag = $('#ctl00_ContentPlaceHolder1_bookcardinfolbl')[0];
             if (introTag != undefined) {
                 bookInfo.status = "success";
+
+                //获取 书名
+                var unhandledName = introTag.children[0].data;
+                if (unhandledName && unhandledName.indexOf("／") > -1) {
+                    bookInfo.name = unhandledName.split("／")[0].trim();
+                }
+
                 for (var i = 0, len = introTag.children.length; i < len; i++) {
                     if (introTag.children[i].type == 'tag'
                         && introTag.children[i].name == 'br'
