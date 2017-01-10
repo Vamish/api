@@ -45,10 +45,11 @@ block content
                             pre
                                 code#keyword_code
                         h3 调用地址
-                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/search/{keyword}/page/{page}]
+                        p Method:#[span.code.key GET]   Url:#[span.code.value [http] api.diviniti.cn/jmu/library/search/{keyword}/page/{page}/count/{count}]
                         br
                         p 其中#[span.code.value {keyword}]表示#[strong 搜索关键词，不可省略]，
-                        p #[span.code.value {page}]表示#[strong 指定搜索的页码]，可省略，缺省值为 1
+                        p #[span.code.value {page}]表示#[strong 指定搜索的页码]，可省略，缺省值为 1，
+                        p #[span.code.value {count}]表示#[strong 指定单次搜索返回条数]，可省略，缺省值为 20，最小值为 1，最大值为 50（小于1返回20条，大于50返回50条）。
                         br
                         h3 返回JSON 说明
                         .hightlight
@@ -380,6 +381,7 @@ block content
                         p 当前版本：#[= version]
                         p 更新内容：
                             ul
+                                li 新增『关键词搜索』调用地址中#[span.code.value {count}]字段，可动态设置返回条数。
                                 li 新增『指定id搜索』中#[span.code.key name]字段，返回书籍名。
                                 li 新增『指定id搜索』中#[span.code.key author]字段，返回作者。
                                 li 修复版本错误。

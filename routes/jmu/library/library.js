@@ -20,20 +20,30 @@ router.get('/:keyword', function (req, res) {
 });
 
 router.get('/:keyword/page/:page', function (req, res) {
-    var page = req.params.page;
-    var keyword = completeGB2312(req.params.keyword);
+
+    res.redirect(req.params.page + '/count/' + 20);
+
+});
+
+router.get('/:keyword/page/:page/count/:count', function (req, res) {
+    var page = req.params.page,
+        count = req.params.count,
+        keyword = completeGB2312(req.params.keyword);
+
+    count = (count > 0 ? (count > 50 ? 50 : count) : 20);
 
     var url = "http://smjslib.jmu.edu.cn/searchresult.aspx?anywords=" +
         keyword +
         "&dt=ALL" +
         "&cl=ALL" +
-        "&dp=50" +
+        "&dp=" + count +
         "&sf=M_PUB_YEAR" +
         "&ob=DESC" +
         "&sm=table" +
         "&dept=ALL" +
         "&page=" + page;
 
+    console.log(url);
 
     var _res = res;
     options.url = url;
