@@ -43,8 +43,6 @@ router.get('/:keyword/page/:page/count/:count', function (req, res) {
         "&dept=ALL" +
         "&page=" + page;
 
-    console.log(url);
-
     var _res = res;
     options.url = url;
     var library = {};
