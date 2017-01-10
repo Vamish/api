@@ -38,7 +38,11 @@ router.get('/:bookid', function (req, res, next) {
                 info.callNumber = elem.children[3].children[0].data;
 
                 //获取 借阅状态
-                info.bookStatus = elem.children[11].children[0].data.trim();
+                if(elem.children[11].children[0].next){
+                    info.bookStatus = elem.children[11].children[0].next.children[0].data.trim();
+                }else{
+                    info.bookStatus = elem.children[11].children[0].data.trim();
+                }
 
                 //获取 借阅类型
                 info.bookType = elem.children[13].children[0].data.trim();
