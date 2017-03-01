@@ -25,6 +25,7 @@ block content
                             a(href='#anchor_borrowed',class='list-group-item',data-panel='borrowed') #[i.fa.fa-book] 查询当前借阅
                             a(href='#anchor_expired',class='list-group-item',data-panel='expired') #[i.fa.fa-arrow-circle-o-left] 查询催还图书
                         .list-group
+                            a.list-group-item(href="#anchor_wxapp",data-panel='wxapp') #[i.fa.fa-wechat] 微信小程序
                             a.list-group-item(href="#anchor_android",data-panel='android') #[i.fa.fa-android] Android版下载
                             a.list-group-item(href="#anchor_ios",data-panel='ios') #[i.fa.fa-apple] iOS版下载
                             a.list-group-item(href="#anchor_web",data-panel='web') #[i.fa.fa-chrome] 网页版试用
@@ -333,6 +334,18 @@ block content
                         p #[span.code.key expiringTotal]，整型，表示#[strong 当前将要超期的图书总数]。
                         p #[span.code.key expiringBooks]，数组，表示#[strong 当前将要超期的图书列表]。#[em 注意]在#[span.code.key expiringTotal]为#[span.code.value 0]的情况下，该字段不显示。
                         br
+                    #anchor_wxapp.col-md-9.func-intro(data-panel='wxapp')
+                        h2 微信小程序
+                        hr
+                        .media
+                            .media-left.media-middle
+                                a(href='http://bookbox.toadw.cn',target="_blank")
+                                    img.media-object(src='/images/jmu/library/wxapp/1_logo.png')
+                            .media-body
+                                h4.media-heading 图书盒子Pro
+                                p.media-intro 图书盒子Pro 是由#[strong 吴根龙]同学提供的微信小程序版应用。#[br]查看 #[a(href='javascript:void(0)',onclick='showWxAppQrCode(1)') #[i.fa.fa-qrcode]二维码]；查看 #[a(href='http://bookbox.toadw.cn',target="_blank")#[i.fa.fa-chrome]应用官网]；关注 #[a(href='https://github.com/ToadWoo/bookbox-wxapp') #[i.fa.fa-github]Github]。
+                        .media
+                            p #[a.list-group-item(href="#anchor_present",data-panel="present") 提交您的作品]
                     #anchor_android.col-md-9.func-intro(data-panel='android')
                         h2 android 版下载
                         hr
@@ -440,6 +453,9 @@ block content
                             ul
                                 li 初版提交，实现关键词查询、图书id查询和热门搜索查询。
 
+    .wxapp-mask
+    .wxapp-modal
+        img#wxapp-qrcode
     script(type='text/javascript').
         $('a.list-group-item').click(function (e) {
             //e.preventDefault();
@@ -458,7 +474,8 @@ block content
                 "div[data-panel=login]",
                 "div[data-panel=borrowed]",
                 "div[data-panel=userinfo]",
-                "div[data-panel=expired]"
+                "div[data-panel=expired]",
+                "div[data-panel=wxapp]"
             ];
 
             var obj = {
@@ -473,7 +490,8 @@ block content
                 'login': 8,
                 'borrowed': 9,
                 'userinfo': 10,
-                'expired': 11
+                'expired': 11,
+                'wxapp': 12
             };
 
             $('.func-intro').removeClass('active');
@@ -499,9 +517,9 @@ block content
                 prettyPrint: function (obj) {
                     var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
                     return JSON.stringify(obj, null, 3)
-                            .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
-                            .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                            .replace(jsonLine, json_formater.json.replacer);
+                        .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                        .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                        .replace(jsonLine, json_formater.json.replacer);
                 }
             };
 
@@ -640,6 +658,24 @@ block content
             }
         }
 
+        function showWxAppQrCode(num) {
+            var imgSrc = "/images/jmu/library/wxapp/" + num + '_entry.jpg';
+            $("#wxapp-qrcode").attr('src', imgSrc);
+            $('.wxapp-mask').show();
+            $('.wxapp-modal').show();
+        }
+
+        $(".wxapp-mask").click(function (e) {
+            e.preventDefault();
+            $(this).hide();
+            $('.wxapp-modal').hide();
+        });
+
+        $(".wxapp-mask").click(function (e) {
+            e.preventDefault();
+            $('.wxapp-mask').trigger('click');
+        });
+
         (function ($) {
 
             //改变Chrome Tab 的色值
@@ -668,9 +704,9 @@ block content
                 prettyPrint: function (obj) {
                     var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
                     return JSON.stringify(obj, null, 3)
-                            .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
-                            .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                            .replace(jsonLine, json_formater.json.replacer);
+                        .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                        .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                        .replace(jsonLine, json_formater.json.replacer);
                 }
             };
 
