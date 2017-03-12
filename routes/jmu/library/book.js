@@ -38,9 +38,9 @@ router.get('/:bookid', function (req, res, next) {
                 info.callNumber = elem.children[3].children[0].data;
 
                 //获取 借阅状态
-                if(elem.children[11].children[0].next){
+                if (elem.children[11].children[0].next) {
                     info.bookStatus = elem.children[11].children[0].next.children[0].data.trim();
-                }else{
+                } else {
                     info.bookStatus = elem.children[11].children[0].data.trim();
                 }
 
@@ -60,34 +60,48 @@ router.get('/:bookid', function (req, res, next) {
                     bookInfo.name = raw_book_author_value.split("／")[0].trim();
 
                     var raw_author_value = raw_book_author_value.split("／")[1];
-                    if(raw_author_value && raw_author_value.indexOf("．")>-1){
+                    if (raw_author_value && raw_author_value.indexOf("．") > -1) {
                         bookInfo.author = raw_author_value.split("．")[0].trim();
-                    }else{
+                    } else {
                         bookInfo.author = "";
                     }
-                }else{
+                } else {
                     bookInfo.name = "";
                     bookInfo.author = "";
                 }
 
+                //获取 ISBN
+                var ISBNtxt = '';
+
                 for (var i = 0, len = introTag.children.length; i < len; i++) {
                     if (introTag.children[i].type == 'tag'
-                        && introTag.children[i].name == 'br'
-                        && introTag.children[i].next.type == 'tag'
-                        && introTag.children[i].next.name == 'br') {
-                        bookInfo.intro = introTag.children[i].prev.data.trim();
+                        && introTag.children[i].name == 'br') {
+
+                        if (introTag.children[i].next) {
+                            if (introTag.children[i].next.type == 'tag'
+                                && introTag.children[i].next.name == 'br') {
+                                bookInfo.intro = introTag.children[i].prev.data.trim();
+                            }
+
+                            introTag.children.map(function (child) {
+                                if (child.data) {
+                                    ISBNtxt += child.data;
+                                }
+                            });
+                        } else {
+                            bookInfo.intro = introTag.children[i].prev.prev.data.trim();
+
+                            introTag.parent.children.map(function (child) {
+                                if (child.data) {
+                                    ISBNtxt += child.data;
+                                }
+                            });
+                        }
+
                     }
                 }
 
-                //获取 ISBN
-                var txt = '';
-                introTag.children.map(function (child, index) {
-                    if (child.data) {
-                        txt += child.data;
-                    }
-                });
-
-                var handleChineseBrackets = txt.split('ISBN').reverse()[0].split('：')[0].split('-').join('');
+                var handleChineseBrackets = ISBNtxt.split('ISBN').reverse()[0].split('：')[0].split('-').join('');
                 if (handleChineseBrackets.indexOf('（') == -1) {
                     bookInfo.ISBN = handleChineseBrackets;
                 } else {
